@@ -1,41 +1,35 @@
 # Kurot Skia
 
-`@kurot/skia` **0.1.0** — build-time resource and KUI skin entry generation for Kurot applications.
+`@kurot/skia` **0.1.0** — native Skia rendering adapters and resource/KUI entry generation for Kurot applications.
 
-[简体中文](docs/README.zh-CN.md) · [Changelog](CHANGELOG.md)
+[简体中文](docs/README.zh-CN.md) · [Native runtime guide](docs/native-runtime.md) · [Library development](docs/development.md) · [Adaptation plan](docs/PLAN.md) · [Changelog](CHANGELOG.md)
 
 Turn an existing `resource.json`, local assets and KUI XML skins into a static TypeScript entry that your bundler can resolve. The generator maintains the asset map, skin imports, factory registration and theme mapping for you, and updates them as you edit the project.
 
-Version 0.1.0 provides a Node CLI and a build-script API. Native rendering, input and runtime resource/theme adapters currently live in the sibling `Kurot-Skia-Demo` project. This package is private and has not been published to npm; use a local development dependency.
+Version 0.1.0 provides a React Native runtime, a Metro resolver helper, a Node CLI and a build-script API. The sibling `Kurot-Skia-Demo` uses the library renderer and keeps its scenes and project initialization. Applications can consume the npm release; use a local dependency when developing the library itself.
 
-## Install
+For native rendering, follow the [native runtime guide](docs/native-runtime.md): install the package as a runtime dependency, configure `createKurotResolver()` from `@kurot/skia/metro`, and import `KurotView` from `@kurot/skia`. The instructions below describe resource/KUI generation; generator-only projects can use a development dependency.
+
+## Install the generator
 
 The generator requires Node.js >=20 and pnpm. Your application has its own platform requirements; the Demo's Expo SDK 57 requires Node.js >=22.13 ([Expo SDK reference](https://docs.expo.dev/versions/v57.0.0/)).
 
-Build the library checkout first:
-
-```sh
-# In Kurot-Skia
-pnpm install
-pnpm build
-```
-
-Then install it in an existing Kurot project located next to the library:
+Install the released generator in an existing Kurot project:
 
 ```sh
 # In your application
-pnpm add --save-dev '@kurot/skia@file:../Kurot-Skia'
+pnpm add --save-dev '@kurot/skia@0.1.0'
 ```
 
 For an Expo application, use [Expo's installer](https://docs.expo.dev/more/expo-cli/#install-dependencies) for that step:
 
 ```sh
-pnpm exec expo install '@kurot/skia@file:../Kurot-Skia' --dev --pnpm
+pnpm exec expo install '@kurot/skia@0.1.0' --dev --pnpm
 ```
 
-The existing Demo already declares this dependency. From `Kurot-Skia-Demo`, run `pnpm install` after building the library, then `pnpm start --dev-client` or `pnpm android`.
+For native rendering, omit `--dev` so the library is a runtime dependency, then follow the [native runtime guide](docs/native-runtime.md). Applications using the npm package need no library checkout; use the installed resource-watch commands below.
 
-Run `pnpm build` in the library after editing its source. Run `pnpm install` in the application after adding compiled files or changing package metadata. Application scripts consume the installed package's command, without referring to a neighboring `dist` directory.
+The existing Demo currently uses `file:../Kurot-Skia`. For joint library/Demo development, build the library and install dependencies in both projects once, then run `pnpm dev --android` in `Kurot-Skia-Demo`. It builds the library, synchronizes the installed local package, starts resource watch and Expo, and keeps library changes synchronized. An existing native development build is required; run `pnpm android` first if needed. See [library development](docs/development.md) for setup, cleanup and failure recovery.
 
 ## Generate your project entry
 
@@ -150,9 +144,9 @@ Connect these values to your host adapters:
 3. Call `registerSkinFactories()` and retain its returned restoration callback. It registers full skin class names on `globalThis` by default, or on a supplied `Record<string, unknown>`. `skinFactories` also supports a host that uses its own factory lookup.
 4. Provide `theme` through the host's theme adapter and use `themeConfigURL` as its logical configuration URL. A static module loader can register the factories when `theme.skinsJs` is requested. Restore registrations when the host session is disposed.
 
-The Demo implements these connections in `src/resources/bundled.ts` and `src/ui/native-ui.ts`, with native loaders in `src/skia/`. Creating a new native application also requires those runtime adapters and a renderer. Generated modules alone do not install them or start the engine.
+The Demo implements these connections in `src/resources/bundled.ts` and `src/ui/native-ui.ts`, using runtime adapters from `@kurot/skia`. Creating a new native application requires the Metro configuration and canvas setup in the native guide. Generated modules alone do not start the engine.
 
-Skin modules import `@kurot/core` and `@kurot/ui`; the host supplies those packages. The Demo's tested baseline is Core 2.5.3 and UI 3.5.0. The generator itself has no Core/UI runtime dependencies or peers.
+Skin modules import `@kurot/core` and `@kurot/ui`; the host supplies those packages. The Demo's tested baseline is Core 2.5.3 and UI 3.5.0. Core/UI are optional host peers for the package runtime; the Node generator does not load them.
 
 ### Theme mapping
 
@@ -180,7 +174,7 @@ flowchart LR
     E --> M["Metro / ESM bundler"]
     M --> H["Host resource + theme adapters"]
     H --> K["Kurot UI + display tree"]
-    K --> S["Skia renderer · Demo"]
+    K --> S["Skia renderer · @kurot/skia"]
 ```
 
 The generator validates resource declarations, collects their local dependencies, and compiles all KUI using the pinned Kurot CLI compiler. Project styles resolve Label presets and color references during compilation. Authored manifests, names, groups, object subkeys, XML, nine-slice grids and sheet resolution are preserved.
@@ -209,10 +203,10 @@ Manifest, skin, style and output paths are relative to `--project` and must stay
 
 ## Build-script API
 
-Import the Node-only API from `@kurot/skia/project` in build scripts. Runtime applications import the generated files instead.
+Import the Node-only API from `@kurot/skia/generator` in build scripts. Runtime applications import the generated files instead.
 
 ```ts
-import { generateProject } from '@kurot/skia/project';
+import { generateProject } from '@kurot/skia/generator';
 
 const result = await generateProject({
     projectRoot: '/path/to/game',
@@ -228,7 +222,7 @@ console.info(result.outputDir, result.assets, result.skins);
 For a long-running build script:
 
 ```ts
-import { watchProject } from '@kurot/skia/project';
+import { watchProject } from '@kurot/skia/generator';
 
 const stopped = new Promise<void>(resolve => {
     process.once('SIGINT', resolve);
@@ -251,9 +245,9 @@ The generator recognizes `image`, `sheet`, `json`, `text`, `font` and `sound`. H
 
 Remote URLs are retained for runtime loading. They are not downloaded or watched, and dependencies inside remote sheet/font descriptors are not discovered. Unknown resource types and unknown KUI component namespaces require explicit build-time support.
 
-Resource generation does not provide platform rendering support for every resource type. The Demo currently has no bitmap-font/audio runtime integration or bundled font registration; `style.json` is used for compilation. Its UI runtime validation focuses on Label and Button. Compiling additional skins does not establish native support for all their controls.
+Resource generation does not provide platform rendering support for every resource type. The native runtime currently has no bitmap-font/audio rendering integration or bundled font registration; `style.json` is used for compilation. Its UI runtime validation focuses on Label and Button. Compiling additional skins does not establish native support for all their controls.
 
-Compiler behavior comes from pinned `@kurot/cli` 3.6.0 and `@kurot/ui-document` 0.13.1. The compiler's internal import is isolated in `src/kurot/compiler.ts`; validate it when updating CLI.
+Compiler behavior comes from pinned `@kurot/cli` 3.6.0 and `@kurot/ui-document` 0.13.1. The compiler's internal import is isolated in `src/generator/compiler.ts`; validate it when updating CLI.
 
 ## Develop the library
 
@@ -262,4 +256,6 @@ pnpm build
 pnpm test
 ```
 
-Tests cover resource discovery, KUI compilation, static registration/restoration, deterministic output, stale-file cleanup, failures and watch/command lifecycles. The implementation lives directly in `src/kurot/`.
+Runtime adapters live in `src/kurot/`, the generator in `src/generator/`, Metro integration in `src/metro.cts`, and local development tools in `src/development/`. Tests cover generation, resource watch, Metro mapping, successful-build synchronization, module additions/removals, error recovery and cleanup. The former `/project` API is now `/generator`; update build-script imports and regenerate output created by the earlier local generator.
+
+Before publishing, run `pnpm test` and inspect the result of `pnpm pack`, then run `pnpm publish --access public`. The `prepack` hook cleans and rebuilds `dist`; `prepublishOnly` runs tests. The package ships the native runtime, Metro helper, generator, declarations and public documentation. A version number or local commit does not establish publication; verify registry availability before switching the Demo to the npm dependency.

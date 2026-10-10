@@ -1,11 +1,23 @@
 import { watch } from 'chokidar';
-import { existsSync } from 'node:fs';
+import { existsSync, realpathSync } from 'node:fs';
 import type { Stats } from 'node:fs';
 import { stat } from 'node:fs/promises';
 import * as path from 'node:path';
 import { resolveProjectPaths } from './config.js';
 import { generateWithInputs } from './generate.js';
 import type { ProjectOptions, ProjectResult } from './types.js';
+
+// Watch scans and events may use different aliases, such as /var and /private/var.
+function fingerprintPath(file: string): string {
+    try {
+        return path.join(realpathSync(path.dirname(file)), path.basename(file));
+    } catch (error) {
+        if (['ENOENT', 'ENOTDIR'].includes((error as NodeJS.ErrnoException).code ?? '')) {
+            return path.resolve(file);
+        }
+        throw error;
+    }
+}
 
 export interface WatchProjectOptions {
 	readonly debounceMs?: number;
@@ -83,7 +95,7 @@ export async function watchProject(
 
 	function onChange(event: string, file: string, stats?: Stats): void {
 		if (event === 'addDir' || event === 'unlinkDir') { return; }
-		const absolute = path.resolve(file);
+		const absolute = fingerprintPath(file);
 		if (event === 'unlink') {
 			fingerprints.delete(absolute);
 		} else if (stats) {
@@ -167,7 +179,7 @@ export async function watchProject(
 				const file = path.join(directory, entry);
 				try {
 					const stats = await stat(file);
-					if (stats.isFile()) { fingerprints.set(file, `${stats.ino}:${stats.size}:${stats.mtimeMs}`); }
+					if (stats.isFile()) { fingerprints.set(fingerprintPath(file), `${stats.ino}:${stats.size}:${stats.mtimeMs}`); }
 				} catch (error) {
 					if ((error as NodeJS.ErrnoException).code !== 'ENOENT') { throw error; }
 				}

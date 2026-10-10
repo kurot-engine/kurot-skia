@@ -7,6 +7,7 @@ import type { ProjectOptions, ProjectResult } from './types.js';
 
 export function logGenerated(result: ProjectResult): void {
 	console.info(`Generated ${result.assets.length} local assets, ${result.skins.length} skins → ${result.outputDir}`);
+	process.send?.({ type: 'kurot-generated' });
 	if (result.remoteURLs.length) {
 		console.info(`${result.remoteURLs.length} remote URLs remain runtime-loaded.`);
 	}

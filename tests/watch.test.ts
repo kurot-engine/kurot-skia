@@ -3,8 +3,8 @@ import { readFile, rename, rm } from 'node:fs/promises';
 import * as path from 'node:path';
 import { test } from 'node:test';
 import { setTimeout as delay } from 'node:timers/promises';
-import { watchProject } from '../src/kurot/index.js';
-import type { ProjectResult } from '../src/kurot/index.js';
+import { watchProject } from '../src/generator/index.js';
+import type { ProjectResult } from '../src/generator/index.js';
 import { skinXML, styleJSON, waitFor, watchFixture } from './watch-fixture.js';
 
 test('watches images, atlas descriptors, manifest and nested skin additions, moves and removals', async () => {

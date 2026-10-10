@@ -5,7 +5,7 @@ import * as path from 'node:path';
 import { test } from 'node:test';
 import { runInNewContext } from 'node:vm';
 import * as ts from 'typescript';
-import { generateProject } from '../src/kurot/index.js';
+import { generateProject } from '../src/generator/index.js';
 
 const skin = (name: string): string => `<Skin xmlns="https://kurot.dev/ui/1" class="${name}" states="up,down">
   <Image id="background" source="atlas.frame" source.down="atlas.frame"/>

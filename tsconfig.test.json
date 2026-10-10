@@ -1,5 +1,17 @@
 {
 	"extends": "./tsconfig.json",
-	"compilerOptions": { "rootDir": ".", "outDir": ".test-build", "declaration": false },
-	"include": ["src/**/*.ts", "tests/**/*.ts"],
+	"compilerOptions": {
+		"rootDir": ".",
+		"outDir": ".test-build",
+		"declaration": false,
+		"noEmitOnError": true
+	},
+	"include": [
+		"src/**/*.ts",
+		"src/**/*.cts",
+		"tests/**/*.ts"
+	],
+	"exclude": [
+		"src/kurot"
+	]
 }

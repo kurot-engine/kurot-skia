@@ -1,0 +1,23 @@
+{
+	"extends": "./tsconfig.json",
+	"compilerOptions": {
+		"module": "ESNext",
+		"moduleResolution": "Bundler",
+		"jsx": "react-jsx",
+		"types": [
+			"react",
+			"react-native",
+			"node"
+		],
+		"paths": {
+			"@kurot/core/dist/*": [
+				"./node_modules/@kurot/core/dist/*"
+			]
+		}
+	},
+	"include": [
+		"src/kurot/**/*.ts",
+		"src/kurot/**/*.tsx"
+	],
+	"exclude": []
+}

@@ -1,9 +1,19 @@
 {
 	"name": "@kurot/skia",
 	"version": "0.1.0",
-	"private": true,
-	"description": "Build-time resource and KUI skin entry generation for Kurot applications",
+	"description": "Skia native rendering adapters and build-time resource/KUI generation for Kurot",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/kurot-engine/kurot-skia.git"
+	},
+	"homepage": "https://github.com/kurot-engine/kurot-skia#readme",
+	"bugs": {
+		"url": "https://github.com/kurot-engine/kurot-skia/issues"
+	},
 	"type": "module",
+	"publishConfig": {
+		"access": "public"
+	},
 	"files": [
 		"dist",
 		"README.md",
@@ -11,31 +21,78 @@
 		"docs"
 	],
 	"exports": {
-		"./project": {
+		".": {
 			"types": "./dist/kurot/index.d.ts",
-			"import": "./dist/kurot/index.js"
+			"react-native": "./dist/kurot/index.js",
+			"import": "./dist/kurot/index.js",
+			"default": "./dist/kurot/index.js"
+		},
+		"./metro": {
+			"types": "./dist/metro.d.cts",
+			"require": "./dist/metro.cjs",
+			"default": "./dist/metro.cjs"
+		},
+		"./generator": {
+			"types": "./dist/generator/index.d.ts",
+			"import": "./dist/generator/index.js"
 		}
 	},
 	"bin": {
-		"kurot-project": "./dist/kurot/cli.js"
+		"kurot-project": "./dist/generator/cli.js"
 	},
 	"scripts": {
-		"build": "tsc -p tsconfig.json",
+		"clean": "node --input-type=module -e \"import { rmSync } from 'node:fs'; rmSync('dist', { recursive: true, force: true });\"",
+		"build": "tsc -p tsconfig.json && tsc -p tsconfig.native.json",
 		"test": "tsc -p tsconfig.test.json && node --test .test-build/tests/*.test.js",
-		"generate:demo": "node dist/kurot/cli.js --project ../Kurot-Skia-Demo"
+		"prepack": "pnpm clean && pnpm build",
+		"prepublishOnly": "pnpm test",
+		"generate:demo": "node dist/generator/cli.js --project ../Kurot-Skia-Demo",
+		"dev": "tsc -p tsconfig.development.json && node dist/development/cli.js"
 	},
 	"dependencies": {
 		"@kurot/bitmap-font": "0.1.0",
 		"@kurot/cli": "3.6.0",
 		"@kurot/ui-document": "0.13.1",
 		"chokidar": "4.0.3",
-		"typescript": "6.0.3"
+		"typescript": "6.0.3",
+		"@formatjs/intl-segmenter": "12.2.15",
+		"metro-resolver": "0.84.5"
 	},
 	"devDependencies": {
-		"@types/node": "^22.20.5"
+		"@types/node": "^22.20.5",
+		"@kurot/core": "2.5.3",
+		"@kurot/ui": "3.5.0",
+		"react": "19.2.3",
+		"react-native": "0.86.3",
+		"react-native-skia": "3.3.0",
+		"@types/react": "~19.2.2"
 	},
 	"engines": {
 		"node": ">=20"
 	},
-	"packageManager": "pnpm@10.33.0"
+	"packageManager": "pnpm@10.33.0",
+	"peerDependencies": {
+		"@kurot/core": "2.5.3",
+		"@kurot/ui": "3.5.0",
+		"react": ">=19.0.0",
+		"react-native": ">=0.78.0",
+		"react-native-skia": "3.3.0"
+	},
+	"peerDependenciesMeta": {
+		"@kurot/core": {
+			"optional": true
+		},
+		"@kurot/ui": {
+			"optional": true
+		},
+		"react": {
+			"optional": true
+		},
+		"react-native": {
+			"optional": true
+		},
+		"react-native-skia": {
+			"optional": true
+		}
+	}
 }

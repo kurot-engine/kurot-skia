@@ -1,41 +1,35 @@
 # Kurot Skia
 
-`@kurot/skia` **0.1.0** — 为 Kurot 应用生成资源与 KUI 皮肤入口的构建时工具。
+`@kurot/skia` **0.1.0** — Kurot 的原生 Skia 渲染适配与资源/KUI 入口生成工具。
 
-[English](../README.md) · [变更记录](../CHANGELOG.md)
+[English](../README.md) · [原生运行时指南](native-runtime.md) · [库开发指南](development.md) · [适配与测试计划](PLAN.md) · [变更记录](../CHANGELOG.md)
 
 将已有的 `resource.json`、本地资源和 KUI XML 皮肤转换成打包器可识别的静态 TypeScript 入口。生成器自动维护资源表、皮肤导入、工厂注册和主题映射，并在编辑项目时同步更新。
 
-0.1.0 提供 Node CLI 和构建脚本 API。原生渲染、输入以及运行时资源/主题适配目前仍在相邻的 `Kurot-Skia-Demo` 项目中。本包保持私有，尚未发布到 npm，使用本地开发依赖接入。
+0.1.0 提供 React Native 运行时、Metro resolver、Node CLI 和构建脚本 API。相邻的 `Kurot-Skia-Demo` 已通过库使用渲染适配，并保留场景与项目初始化。应用可以使用 npm 发布包，开发库本身时使用本地依赖。
 
-## 安装
+接入原生渲染请先看[原生运行时指南](native-runtime.md)：把库放入运行时依赖，配置 `@kurot/skia/metro` 的 `createKurotResolver()`，再从 `@kurot/skia` 导入 `KurotView`。下文主要介绍资源/KUI 生成；只使用生成器的项目可以放入开发依赖。
+
+## 安装生成器
 
 生成器需要 Node.js >=20 和 pnpm。应用本身还有独立的平台要求；Demo 使用的 Expo SDK 57 需要 Node.js >=22.13（[Expo SDK 文档](https://docs.expo.dev/versions/v57.0.0/)）。
 
-先构建库项目：
-
-```sh
-# 在 Kurot-Skia 中
-pnpm install
-pnpm build
-```
-
-然后在与库相邻的现有 Kurot 应用中安装：
+在现有 Kurot 应用中安装已发布的生成器：
 
 ```sh
 # 在应用项目中
-pnpm add --save-dev '@kurot/skia@file:../Kurot-Skia'
+pnpm add --save-dev '@kurot/skia@0.1.0'
 ```
 
 Expo 应用在这一步使用 [Expo 安装命令](https://docs.expo.dev/more/expo-cli/#install-dependencies)：
 
 ```sh
-pnpm exec expo install '@kurot/skia@file:../Kurot-Skia' --dev --pnpm
+pnpm exec expo install '@kurot/skia@0.1.0' --dev --pnpm
 ```
 
-现有 Demo 已声明这个依赖。构建库后，在 `Kurot-Skia-Demo` 中执行 `pnpm install`，再执行 `pnpm start --dev-client` 或 `pnpm android`。
+接入原生渲染时去掉 `--dev`，将库作为运行时依赖，再按[原生运行时指南](native-runtime.md)配置。使用 npm 包的应用不需要库源码，直接使用下文的安装包资源监听命令。
 
-修改库源码后，在库中执行 `pnpm build`；新增编译文件或修改包元数据后，在应用中执行 `pnpm install`。应用脚本使用安装包提供的命令，无需引用相邻目录的 `dist`。
+现有 Demo 当前使用 `file:../Kurot-Skia`。联合开发库与 Demo 时，先构建库并在两个项目安装依赖，之后在 `Kurot-Skia-Demo` 中执行 `pnpm dev --android` 即可。它会构建库、同步安装的本地包、启动资源 watch 和 Expo，并持续同步库源码变化。需要已有原生 development build；尚未安装时先执行 `pnpm android`。初次安装、退出清理和失败恢复详见[库开发指南](development.md)。
 
 ## 生成项目入口
 
@@ -150,9 +144,9 @@ import {
 3. 调用 `registerSkinFactories()` 并保留返回的恢复回调。默认在 `globalThis` 上按完整类名注册，也可以传入自己的 `Record<string, unknown>`。使用独立工厂查找机制的宿主也可直接消费 `skinFactories`。
 4. 通过宿主主题适配器提供 `theme`，以 `themeConfigURL` 作为逻辑配置 URL。静态模块加载器可以在请求 `theme.skinsJs` 时注册工厂。宿主会话销毁时恢复原注册。
 
-Demo 的 `src/resources/bundled.ts` 和 `src/ui/native-ui.ts` 实现了这些连接，原生加载器位于 `src/skia/`。新建原生应用还需要运行时适配器和渲染器；生成模块本身不会安装它们或启动引擎。
+Demo 的 `src/resources/bundled.ts` 和 `src/ui/native-ui.ts` 实现了这些连接，它们使用 `@kurot/skia` 提供的运行时适配。新建原生应用需要按原生指南配置 Metro 和画布；生成模块本身不会启动引擎。
 
-生成的皮肤模块导入 `@kurot/core` 和 `@kurot/ui`，由宿主提供这两个包。Demo 已验证的基线是 Core 2.5.3 和 UI 3.5.0。生成器本身没有 Core/UI 运行时依赖或 peer。
+生成的皮肤模块导入 `@kurot/core` 和 `@kurot/ui`，由宿主提供这两个包。Demo 已验证的基线是 Core 2.5.3 和 UI 3.5.0。包的原生运行时将 Core/UI 声明为可选宿主 peer；Node 生成器不会加载它们。
 
 ### 主题映射
 
@@ -180,7 +174,7 @@ flowchart LR
     E --> M["Metro / ESM 打包器"]
     M --> H["宿主资源与主题适配器"]
     H --> K["Kurot UI 与显示树"]
-    K --> S["Skia 渲染器 · Demo"]
+    K --> S["Skia 渲染器 · @kurot/skia"]
 ```
 
 生成器校验资源声明、收集本地依赖，再使用固定版本的 Kurot CLI 编译全部 KUI。项目样式在编译时解析 Label 预设和颜色引用。原始清单、资源名、分组、object subkeys、XML、九宫格和图集 resolution 都被保留。
@@ -209,10 +203,10 @@ JSON 和文本内嵌到 TypeScript。图片与音频产生静态引用：`--asse
 
 ## 构建脚本 API
 
-在 Node 构建脚本中从 `@kurot/skia/project` 导入 API；应用运行时代码导入生成文件。
+在 Node 构建脚本中从 `@kurot/skia/generator` 导入 API；应用运行时代码导入生成文件。
 
 ```ts
-import { generateProject } from '@kurot/skia/project';
+import { generateProject } from '@kurot/skia/generator';
 
 const result = await generateProject({
     projectRoot: '/path/to/game',
@@ -228,7 +222,7 @@ console.info(result.outputDir, result.assets, result.skins);
 持续运行的构建脚本可以这样写：
 
 ```ts
-import { watchProject } from '@kurot/skia/project';
+import { watchProject } from '@kurot/skia/generator';
 
 const stopped = new Promise<void>(resolve => {
     process.once('SIGINT', resolve);
@@ -251,9 +245,9 @@ await watcher.close();
 
 远程 URL 保留给运行时加载，不会下载或监听，也不会发现远程图集/字体描述文件中的依赖。未知资源类型和未知 KUI 组件命名空间需要明确增加构建时支持。
 
-资源生成不会自动提供全部资源类型的平台渲染能力。Demo 目前没有位图字体/音频运行时集成或打包字体注册，`style.json` 仅用于编译。其 UI 运行时验证主要覆盖 Label 和 Button；编译出其他皮肤不代表已完成所有控件的原生适配。
+资源生成不会自动提供全部资源类型的平台渲染能力。原生运行时目前没有位图字体/音频渲染集成或打包字体注册，`style.json` 仅用于编译。其 UI 运行时验证主要覆盖 Label 和 Button；编译出其他皮肤不代表已完成所有控件的原生适配。
 
-编译语义来自固定版本的 `@kurot/cli` 3.6.0 和 `@kurot/ui-document` 0.13.1。内部编译器导入隔离在 `src/kurot/compiler.ts`，升级 CLI 时需要重新验证。
+编译语义来自固定版本的 `@kurot/cli` 3.6.0 和 `@kurot/ui-document` 0.13.1。内部编译器导入隔离在 `src/generator/compiler.ts`，升级 CLI 时需要重新验证。
 
 ## 开发库项目
 
@@ -262,4 +256,6 @@ pnpm build
 pnpm test
 ```
 
-测试覆盖资源发现、KUI 编译、静态工厂注册与恢复、确定性输出、旧文件清理、失败处理，以及 watcher/开发命令生命周期。实现直接位于 `src/kurot/`。
+运行时适配位于 `src/kurot/`，生成器位于 `src/generator/`，Metro 集成位于 `src/metro.cts`，本地开发工具位于 `src/development/`。测试覆盖生成、资源 watch、Metro 映射、成功构建后的同步、模块新增/删除、错误恢复和退出清理。原 `/project` API 已改为 `/generator`；更新构建脚本导入，并重新生成此前本地生成器产生的输出。
+
+发布前执行 `pnpm test` 和 `pnpm pack` 检查产物，然后执行 `pnpm publish --access public`。`prepack` 会清理并重新构建 `dist`，`prepublishOnly` 会运行测试；发布包包含运行时、Metro helper、生成器、类型声明和公开文档。版本号与本地提交不代表已经发布，Demo 切换 npm 依赖前应确认该版本可从 registry 下载。

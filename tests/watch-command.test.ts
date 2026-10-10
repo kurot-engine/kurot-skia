@@ -6,7 +6,7 @@ import { test } from 'node:test';
 import { fileURLToPath } from 'node:url';
 import { waitFor, watchFixture } from './watch-fixture.js';
 
-const cli = fileURLToPath(new URL('../src/kurot/cli.js', import.meta.url));
+const cli = fileURLToPath(new URL('../src/generator/cli.js', import.meta.url));
 
 function launch(root: string, command: string[] = []): {
     output: () => string; done: Promise<number>; stop: (signal?: NodeJS.Signals) => void;

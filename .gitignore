@@ -3,4 +3,5 @@ dist/
 .test-build/
 .DS_Store
 *.tsbuildinfo
+.kurot-build-*/
 .wu/
