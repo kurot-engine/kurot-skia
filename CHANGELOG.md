@@ -21,6 +21,7 @@ Initial native rendering adapter and build-time resource/KUI toolkit, prepared f
 - Organize runtime adapters in `src/kurot/`, generator tools in `src/generator/`, Metro integration in `src/metro.cts`, and local development tooling in `src/development/`. Keep compiler access behind the pinned KUI integration.
 - Add a single Demo `pnpm dev` command for library compilation, installed file-package synchronization, resource watch and Expo; preserve successful output on errors and clean up managed processes.
 - Enable public scoped-package publication, record repository metadata, clean and rebuild before packing, and run tests before publishing. Document npm installation separately from local source development.
+- Make the process-cleanup test record its PID directly instead of parsing colored console output, validate that PID, and accept only the expected missing-process error during cleanup polling.
 
 ### Compatibility
 
@@ -35,6 +36,7 @@ Initial native rendering adapter and build-time resource/KUI toolkit, prepared f
 ### Release preparation verification — 2026-10-11
 
 - Clean library build and all 24 Node tests pass; `git diff --check` passes.
+- The npm prepublish hook passes all 24 tests with `FORCE_COLOR=1`; the descendant-cleanup regression passes 20 consecutive runs in that environment.
 - Packed entry targets and declarations are present, with obsolete generator paths excluded. An independently installed tarball runs resource/KUI generation without Core or native peers.
 - The original Demo passes type checking and lint. A separate Demo installation using only the tarball passes generation, type checking, lint and Android Hermes export, including both image assets.
 - These packaging checks do not establish iOS support or Release-device performance; pending native validation remains in `docs/PLAN.md`.
