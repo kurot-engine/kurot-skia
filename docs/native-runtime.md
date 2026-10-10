@@ -14,11 +14,11 @@ Keep the Node entries out of application runtime imports. The runtime entry does
 
 ## Install in an application
 
-Install the npm release as a runtime dependency in the Expo application:
+After 0.1.1 is published, install it as a runtime dependency in the Expo application:
 
 ```sh
 # In the application
-pnpm exec expo install '@kurot/skia@0.1.0' --pnpm
+pnpm exec expo install '@kurot/skia@0.1.1' --pnpm
 ```
 
 The tested host is Core 2.5.3, UI 3.5.0, React Native Skia 3.3.0, React 19.2.3 and React Native 0.86.3 with Expo 57. Core and Skia are currently bound to those exact package versions because this adapter uses their internal/rendering contracts. UI 3.5.0 is required when installing UI. Core, UI, React, React Native and Skia are host peers; their optional metadata lets generator-only consumers omit native packages. A native application supplies Core, React, React Native and Skia, plus UI if it uses KUI controls.
@@ -34,7 +34,7 @@ pnpm exec expo install '@kurot/ui@3.5.0' --pnpm
 
 This package adds JavaScript adapters to the application's existing Skia native module. A new application needs a development build containing that module; the generator alone does not install native code. Android uses Skia's Vulkan backend and requires API 26 or newer; iOS uses Metal. Web and desktop runtime integration are not validated here.
 
-Applications using the npm package can run `pnpm start --dev-client --android` after configuring the resource-watch scripts in the [README](../README.md). No neighboring library checkout is needed. For joint source development, build the library and install `@kurot/skia@file:../Kurot-Skia` instead; the current Demo's `pnpm dev --android` compiles and synchronizes local changes. See [library development](development.md).
+Applications using the npm package can run `pnpm start --dev-client --android` after configuring the resource-watch scripts in the [README](../README.md). No neighboring library checkout is needed. The current Demo uses npm 0.1.0. For joint source development, explicitly install a local `file:` dependency in the target application and run the library's supervisor; use a separate Demo installation when preserving the registry consumer. See [library development](development.md).
 
 ## Configure Metro
 
@@ -125,6 +125,18 @@ For UI, retain project-owned setup that installs an `IAssetAdapter` backed by th
 
 ## Validation and limits
 
-Node tests validate the generator and Metro mapping/composition. Demo tests under `tests/native/` exercise real Skia JSI, resources, dynamic text, Label/Button and KUI factories. Run them with `pnpm test:native --android` in a development build. Successful compilation or bundling alone does not establish native rendering correctness.
+Node tests validate the generator and Metro mapping/composition. Demo tests under `tests/native/` exercise real Skia JSI, resources, dynamic text, Label/Button and KUI factories. Run them with `pnpm test:native --android --clear` or `pnpm test:native --ios --clear` in a development build. Successful compilation or bundling alone does not establish native rendering correctness.
+
+`gpu-nine-slice.test.ts` allocates `Skia.Surface.MakeOffscreen()`, asserts that the snapshot is GPU-backed and reads RGBA pixels after submission. It has 48 cases covering fractional translation/scale, rotation, centered flip, nearest/linear filtering, source/object alpha, 1×/2× atlas frames, trim, collapsed centers, the small-size scale fallback and original KUI up/down/disabled textures. Uniform-frame cases compare interior pixels with a single scaled image; colored-region cases check fixed corners and source mapping. Raster-only or integer-coordinate tests cannot replace this coverage.
+
+The 0.1.1 nine-slice fix samples all nine regions through one SkSL image shader and draws one rectangle. Physical source coordinates, logical borders, trim and the small-size fallback retain Core's geometry. Sampling clamps to each region's texel centers, preserving strict atlas sampling and `Bitmap.smoothing`; outer edge AA, image alpha and inherited opacity remain active. Interior joins have no separate geometry or source-over blending. The effect is compiled lazily once per renderer; per-draw shaders and the renderer's effect/paint are released. No extra surface or cropped texture is allocated. `FrameStats.draws` therefore counts one operation per nine-slice bitmap.
+
+On 2026-10-11 the new regression failed against npm 0.1.0 (a solid join read alpha 197 instead of 255), then all 48 GPU cases and the existing native suites passed against the local fix on iPhone SE (3rd generation), iOS 18.2, and iPhone 17 Pro, iOS 26.5. Published 0.1.0 still contains the seam defect. To validate source fixes in an application already declaring the local `file:` dependency, run from the library:
+
+```sh
+KUROT_NATIVE_TESTS=1 pnpm dev --project ../MyGame -- expo start --dev-client --ios --clear
+```
+
+Stop that server before starting the ordinary scene, omit `KUROT_NATIVE_TESTS` and clear Metro when switching entries. The normal npm Demo installation is not synchronized by this command. Android GPU regression and Release-device performance remain pending.
 
 This migration preserves the existing supported subset. Rotated/repeated/clipped Bitmaps, bitmap fonts, native text input, display-object masks, filters, offscreen caches, extended blend modes, gradient/dashed Graphics and every UI/game extension still need separate adaptation or validation. Unsupported rendering paths fail explicitly. Consult the plan before treating this runtime as a complete engine backend.

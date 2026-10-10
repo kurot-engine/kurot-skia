@@ -1,12 +1,14 @@
 # Kurot Skia
 
-`@kurot/skia` **0.1.0** — Kurot 的原生 Skia 渲染适配与资源/KUI 入口生成工具。
+`@kurot/skia` **0.1.1** — Kurot 的原生 Skia 渲染适配与资源/KUI 入口生成工具。
 
 [English](../README.md) · [原生运行时指南](native-runtime.md) · [库开发指南](development.md) · [适配与测试计划](PLAN.md) · [变更记录](../CHANGELOG.md)
 
 将已有的 `resource.json`、本地资源和 KUI XML 皮肤转换成打包器可识别的静态 TypeScript 入口。生成器自动维护资源表、皮肤导入、工厂注册和主题映射，并在编辑项目时同步更新。
 
-0.1.0 提供 React Native 运行时、Metro resolver、Node CLI 和构建脚本 API。相邻的 `Kurot-Skia-Demo` 已通过库使用渲染适配，并保留场景与项目初始化。应用可以使用 npm 发布包，开发库本身时使用本地依赖。
+本包提供 React Native 运行时、Metro resolver、Node CLI 和构建脚本 API。相邻的 `Kurot-Skia-Demo` 已通过库使用渲染适配，并保留场景与项目初始化。应用可以使用 npm 发布包，开发库本身时使用本地依赖。
+
+0.1.1 修复 GPU 上九宫格在分数缩放和旋转时的接缝，以单个矩形完成九区采样，保留边框、图集密度/trim、过滤和透明度。修复在 iOS 18.2 与 26.5 模拟器通过 48 项 GPU 用例；公共 API、resource/KUI 格式和宿主要求不变。Android GPU 回归和 Release 真机性能仍待验证。本次源码准备 0.1.1，发布后再使用下文的 npm 安装命令。
 
 接入原生渲染请先看[原生运行时指南](native-runtime.md)：把库放入运行时依赖，配置 `@kurot/skia/metro` 的 `createKurotResolver()`，再从 `@kurot/skia` 导入 `KurotView`。下文主要介绍资源/KUI 生成；只使用生成器的项目可以放入开发依赖。
 
@@ -14,22 +16,24 @@
 
 生成器需要 Node.js >=20 和 pnpm。应用本身还有独立的平台要求；Demo 使用的 Expo SDK 57 需要 Node.js >=22.13（[Expo SDK 文档](https://docs.expo.dev/versions/v57.0.0/)）。
 
-在现有 Kurot 应用中安装已发布的生成器：
+0.1.1 发布后，在现有 Kurot 应用中安装生成器：
 
 ```sh
 # 在应用项目中
-pnpm add --save-dev '@kurot/skia@0.1.0'
+pnpm add --save-dev '@kurot/skia@0.1.1'
 ```
 
 Expo 应用在这一步使用 [Expo 安装命令](https://docs.expo.dev/more/expo-cli/#install-dependencies)：
 
 ```sh
-pnpm exec expo install '@kurot/skia@0.1.0' --dev --pnpm
+pnpm exec expo install '@kurot/skia@0.1.1' --dev --pnpm
 ```
 
 接入原生渲染时去掉 `--dev`，将库作为运行时依赖，再按[原生运行时指南](native-runtime.md)配置。使用 npm 包的应用不需要库源码，直接使用下文的安装包资源监听命令。
 
-现有 Demo 当前使用 `file:../Kurot-Skia`。联合开发库与 Demo 时，先构建库并在两个项目安装依赖，之后在 `Kurot-Skia-Demo` 中执行 `pnpm dev --android` 即可。它会构建库、同步安装的本地包、启动资源 watch 和 Expo，并持续同步库源码变化。需要已有原生 development build；尚未安装时先执行 `pnpm android`。初次安装、退出清理和失败恢复详见[库开发指南](development.md)。
+现有 Demo 使用 npm `@kurot/skia@0.1.0`；它的 `pnpm dev --ios` 或 `pnpm dev --android` 监听项目资源并启动 Expo。验证尚未发布的库改动时，使用明确声明本地 `file:` 依赖的应用安装，再运行库的开发工具。需要已有原生 development build。初次安装、同步与退出清理详见[库开发指南](development.md)。
+
+发布后要接收渲染修复，用 `pnpm exec expo install '@kurot/skia@0.1.1' --pnpm` 更新应用安装和 lockfile，再加 `--clear` 重启 Metro。这个补丁只改变 JavaScript 适配代码，已有包含 Skia 3.3.0 的 development build 可以复用。Core 2.5.3、UI 3.5.0、Skia 3.3.0 要求不变，无需迁移 XML、生成入口或皮肤。只用生成器的项目可独立选择更新，没有原生迁移要求。
 
 ## 生成项目入口
 
@@ -257,5 +261,7 @@ pnpm test
 ```
 
 运行时适配位于 `src/kurot/`，生成器位于 `src/generator/`，Metro 集成位于 `src/metro.cts`，本地开发工具位于 `src/development/`。测试覆盖生成、资源 watch、Metro 映射、成功构建后的同步、模块新增/删除、错误恢复和退出清理。原 `/project` API 已改为 `/generator`；更新构建脚本导入，并重新生成此前本地生成器产生的输出。
+
+原生渲染还需要运行 Demo 的设备测试。GPU 九宫格回归读取真实 GPU surface，检查分数变换、透明度、图集密度/trim 和原始 KUI 帧；详见[原生验证](native-runtime.md#validation-and-limits)。Node 测试不会执行这组用例。
 
 发布前执行 `pnpm test` 和 `pnpm pack` 检查产物，然后执行 `pnpm publish --access public`。`prepack` 会清理并重新构建 `dist`，`prepublishOnly` 会运行测试；发布包包含运行时、Metro helper、生成器、类型声明和公开文档。版本号与本地提交不代表已经发布，Demo 切换 npm 依赖前应确认该版本可从 registry 下载。

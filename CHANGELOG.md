@@ -1,5 +1,28 @@
 # Changelog
 
+## 0.1.1 — 2026-10-11
+
+GPU nine-slice rendering correction, prepared for npm publication. Publication remains a separate step; the Demo still installs npm 0.1.0.
+
+### Fixed
+
+- Eliminate horizontal/vertical joins on Graphite GPU surfaces at fractional scales and rotated transforms by sampling all nine regions in one image shader and blending one rectangle.
+- Preserve physical source coordinates, logical borders, density, trim, strict region sampling, nearest/linear filtering, source/object opacity and outer-edge AA. Collapsed centers and Core's small-size scale fallback remain supported; the fix does not overlap patches or allocate offscreen textures.
+- Compile the effect lazily per renderer and release per-draw shaders, paint and the runtime effect through their owners. `FrameStats.draws` now counts one operation for a nine-slice bitmap rather than up to nine region operations; it remains an adapter-operation count, not a hardware draw-call metric.
+
+### Documentation and verification
+
+- Update the English and Chinese README installation examples to 0.1.1, explain adoption from 0.1.0 and retain the distinction between source preparation and npm publication.
+- Document GPU validation and correct the npm Demo workflow versus explicitly selected local file-package development.
+- Release preparation passes `pnpm build`, all 24 Node tests with `FORCE_COLOR=1`, and `git diff --check`. `pnpm pack` performs a clean rebuild; the 0.1.1 tarball includes the corrected renderer, all export targets/declarations and both usage guides.
+- Validate the fix with the Demo's 48 native GPU regression cases for fractional transforms, rotation/flip, transparency, atlas density/trim, fixed borders and original KUI button states. The regression fails on npm 0.1.0; the fix and existing native suites pass on iPhone SE (3rd generation), iOS 18.2, and iPhone 17 Pro, iOS 26.5. Normal button joins and touch interaction are also verified. Android GPU validation and Release-device performance remain pending.
+
+### Compatibility and adoption
+
+- Public package entries/APIs and resource/KUI formats are unchanged. Core 2.5.3, UI 3.5.0 when used, Skia 3.3.0 and other dependency/peer requirements are unchanged; no Kurot SDK source changes or dependent SDK releases are required.
+- Native applications adopt the fix by updating their Skia installation/lockfile to 0.1.1 after publication and restarting Metro with `--clear`. An exact 0.1.0 declaration must be updated explicitly; compatible 0.1.x ranges can adopt through their lockfile.
+- Existing development builds containing Skia 3.3.0 can be reused. No authored-resource, skin or generated-entry migration is required. Generator-only users may adopt the patch separately; Core/UI development locks, engine templates/examples and other applications remain unchanged.
+
 ## 0.1.0 — 2026-10-11
 
 Initial native rendering adapter and build-time resource/KUI toolkit, prepared for a public npm release. Registry publication is verified separately from this release entry.

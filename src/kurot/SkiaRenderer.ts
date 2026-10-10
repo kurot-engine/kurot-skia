@@ -7,7 +7,7 @@ import { compileGraphics, disposeGraphics, skColor } from './graphics.js';
 import type { GraphicsDraw } from './graphics.js';
 import { getSkiaImage } from './textures.js';
 import { NativeTextRenderer } from './NativeTextRenderer.js';
-import { drawNineSlice } from './nine-slice.js';
+import { NativeNineSliceRenderer } from './nine-slice.js';
 
 /**
  * One native player owns Core's global Graphics hit-test hook, like its web Player.
@@ -15,6 +15,7 @@ import { drawNineSlice } from './nine-slice.js';
 export class SkiaRenderer {
     private readonly graphics = new Map<Graphics, GraphicsDraw[]>();
     private readonly bitmapPaint = Skia.Paint();
+    private readonly nineSlice = new NativeNineSliceRenderer();
     private readonly text = new NativeTextRenderer();
     private usedGraphics = new Set<Graphics>();
 
@@ -44,6 +45,7 @@ export class SkiaRenderer {
         }
         this.graphics.clear();
         this.bitmapPaint.dispose();
+        this.nineSlice.dispose();
         this.text.dispose();
     }
 
@@ -139,14 +141,10 @@ export class SkiaRenderer {
         if (bitmap.textureWidth <= 0 || bitmap.textureHeight <= 0 || bitmap.width <= 0 || bitmap.height <= 0) {
             return 0;
         }
-        this.bitmapPaint.setAlphaf(alpha);
         if (bitmap.scale9Grid) {
-            return drawNineSlice(bitmap, bitmap.scale9Grid, (sx, sy, sw, sh, dx, dy, dw, dh) => {
-                canvas.drawImageRectOptions(image, { x: sx, y: sy, width: sw, height: sh },
-                    { x: dx, y: dy, width: dw, height: dh },
-                    bitmap.smoothing ? FilterMode.Linear : FilterMode.Nearest, MipmapMode.None, this.bitmapPaint);
-            });
+            return this.nineSlice.draw(bitmap, bitmap.scale9Grid, image, canvas, alpha);
         }
+        this.bitmapPaint.setAlphaf(alpha);
         const scaleX = bitmap.width / bitmap.textureWidth;
         const scaleY = bitmap.height / bitmap.textureHeight;
         canvas.drawImageRectOptions(image, {

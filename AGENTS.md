@@ -1,14 +1,16 @@
 # Kurot-Skia
 
-Version 0.1.0 is a publishable native Skia adapter and Node resource/KUI toolkit.
+Version 0.1.1 is prepared for publication with the GPU nine-slice seam fix.
+The native Skia adapter and Node resource/KUI toolkit retain the 0.1.0 entries,
+host versions and authored formats. Publication is still a separate user action.
 The Expo application in `../Kurot-Skia-Demo` consumes the installed package;
 scenes, generated inputs and project-owned UI initialization stay in the Demo.
 Native adapters live under `src/kurot`. The root export is RN-only,
 `./metro` is a Node configuration helper, and `./generator` is Node build-time only.
 Read `docs/native-runtime.md` and `docs/PLAN.md` before extending native support.
 
-The Demo consumes this package as a `file:` runtime dependency and calls
-its `kurot-project` binary. Keep compiled output in the package's `files` list.
+The Demo consumes npm `@kurot/skia@0.1.0` and calls its installed
+`kurot-project` binary. Keep compiled output in the package's `files` list.
 The npm release is public. `prepack` cleans and rebuilds shipped output, and
 `prepublishOnly` runs tests. Verify registry availability before changing the
 Demo to a registry version; publication is separate from release preparation.
@@ -43,8 +45,11 @@ Watch mode must serialize regeneration, preserve output on failed saves and
 exclude its own output/staging directories. Demo dev commands use the package's
 `--watch -- <command>` runner; keep its signal and child-exit cleanup intact.
 
-Joint library/Demo development uses Demo's `pnpm dev`, which invokes this
-checkout's dev script. Compile both projects into staging before synchronizing
+Joint library/application development requires an explicitly declared `file:`
+dependency and this checkout's `pnpm dev --project <application> -- <command>`.
+Use an isolated Demo installation to validate unpublished fixes without changing
+the registry consumer. Never synchronize into its npm installation.
+Compile both projects into staging before synchronizing
 the installed file package. Keep pnpm's dependency links and host peers intact;
 do not switch the Demo to a source link. Synchronize only changed compiled bytes,
 including additions/removals, and never write through pnpm hardlinks. Restart

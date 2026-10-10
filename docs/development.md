@@ -1,8 +1,8 @@
 # Library and Demo development
 
-The library and Expo Demo remain separate projects and repositories. This guide describes source development for `@kurot/skia` 0.1.0 using an installed local file package.
+The library and Expo Demo remain separate projects and repositories. This guide describes source development for `@kurot/skia` 0.1.1 using an installed local file package.
 
-Applications consuming the npm release use the installed `kurot-project` command and package entries without this supervisor. After publication, install `@kurot/skia@0.1.0` and use the resource-watch scripts from the [README](../README.md). The current Demo's `pnpm dev` is specifically for joint source development and requires its local `file:` dependency.
+Applications consuming the npm release use the installed `kurot-project` command and package entries without this supervisor. The current Demo uses npm `@kurot/skia@0.1.0`; its `pnpm dev` watches project resources and starts Expo. This guide requires an explicit local `file:` dependency. Use a separate Demo installation to validate unpublished fixes while keeping the original registry installation intact.
 
 ## Start once
 
@@ -13,21 +13,21 @@ Install each project's dependencies once. Build the library before the Demo's in
 pnpm install
 pnpm build
 
-# Kurot-Skia-Demo
-pnpm install --ignore-scripts
+# Target application, or a separate Demo installation
+pnpm exec expo install '@kurot/skia@file:/absolute/path/to/Kurot-Skia' --pnpm
 ```
 
-Create the native development build with `pnpm android` or `pnpm ios` if the device does not already have it. Then, from the Demo, use:
+Create the native development build with `pnpm android` or `pnpm ios` if the device does not already have it. Then, from the library, use:
 
 ```sh
-pnpm dev --android
+pnpm dev --project ../MyGame -- expo start --dev-client --android
 # or:
-pnpm dev --ios
+pnpm dev --project ../MyGame -- expo start --dev-client --ios
 ```
 
-`pnpm dev` alone starts the dev-client server without opening a device. Arguments are forwarded to Expo, for example `pnpm dev --offline --port 8088 --android`.
+Omit the platform argument to start without opening a device. Arguments after `--` belong to the launched command, for example `expo start --dev-client --offline --port 8088 --android`.
 
-The Demo delegates to the library's development script, without importing a neighboring compiled module. It continues consuming `@kurot/skia` through `file:../Kurot-Skia` and installed package entries. React, React Native, Skia and Core still resolve through the application's installed peers.
+The supervisor launches the installed generator in the selected application, without importing a neighboring compiled module. The application consumes installed package entries through its declared `file:` dependency. React, React Native, Skia and Core still resolve through the application's installed peers.
 
 The Demo sets `verifyDepsBeforeRun: false` in its existing pnpm configuration because the supervisor explicitly refreshes the local package. This prevents pnpm from running an additional installation before launching the script. Initial dependency installation is still required. See [pnpm's setting](https://pnpm.io/settings/build#verifydepsbeforerun).
 
@@ -52,7 +52,7 @@ The resource watcher tracks the manifest, local images, atlas descriptors, KUI a
 
 Generation and Metro refresh do not replace existing Core resource caches or skin instances in place. Reload the app if it retains old resources. The resource generator currently replaces its output directory after successful compilation; avoiding unchanged generated-file writes is separate work.
 
-`pnpm start`, `pnpm android`, `pnpm ios` and `pnpm test:native` retain the installed-package resource-watch workflow. Use `pnpm dev` when editing the library and Demo together. Direct `pnpm exec expo ...` bypasses these watchers.
+The Demo's `pnpm dev`, `pnpm start`, `pnpm android`, `pnpm ios` and `pnpm test:native` retain the installed-package resource-watch workflow. Use the library's supervisor when editing library source; native GPU test commands are in the [runtime guide](native-runtime.md#validation-and-limits). Direct `pnpm exec expo ...` bypasses these watchers.
 
 ## Other local applications
 

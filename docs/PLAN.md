@@ -1,6 +1,6 @@
 # Kurot Skia：适配与测试计划
 
-更新日期：2026-10-11。版本：0.1.0 本地开发。
+更新日期：2026-10-11。准备发布版本：0.1.1，包含九宫格修复；已发布版本仍为 0.1.0。
 
 本文件记录当前能力、需要验证的假设和后续适配候选，不代表已经承诺支持全部功能。实际完成情况以测试结果和代码为准。
 
@@ -10,17 +10,17 @@
 - 已将它们依赖的触摸、资源、字体测量、分词及主题平台接口一起迁入库。
 - 由库提供 Metro 配置入口，统一选择原生 Core 模块及平台接口，避免应用复制内部路径规则。
 - 保留 Node 的 `@kurot/skia/generator` 生成器入口；原生应用的运行时入口不引入 Node、KUI 编译器或 watcher。
-- Demo 保留场景、生成资源、主题初始化和原生集成测试，已改为通过安装的本地包使用库。
+- Demo 保留场景、生成资源、主题初始化和原生集成测试，使用 npm 0.1.0；源码修复在独立的本地包安装中验证。
 - 暂时绑定已经验证的 Core 2.5.3、UI 3.5.0 和 React Native Skia 3.3.0。Core 的内部模块边界还不是正式的跨平台 SDK 合约，升级必须重新验证。
 
-验收结果（2026-10-11）：库构建通过，17 项 Node 测试通过，Demo 类型检查和 lint 通过；Android API 36 的 Small_Phone 模拟器完成 adapter、resource、TextField 和 UI/KUI 原生集成测试，普通 Demo 画布和按钮交互正常。Metro sourcemap 确认运行时只包含安装包的原生适配，不包含生成器、编译器或 watcher；tarball 包含原生代码、Metro helper 和文档。iOS、Release 真机性能及隔离 tarball 应用的端到端运行仍待验证。迁移不增加下述未支持能力。
+验收结果（2026-10-11）：库构建及 24 项 Node 测试通过；Demo 类型检查通过，lint 无错误（旧测试导入有 14 项重复导入警告）。Android API 36 的 Small_Phone 模拟器已完成 adapter、resource、TextField 和 UI/KUI 测试。iPhone SE 3（iOS 18.2）与 iPhone 17 Pro（iOS 26.5）完成既有原生测试及新增 48 项真实 GPU 九宫格测试。旧 npm 0.1.0 可复现接缝透明度损失；本地修复用单个 shader/矩形完成九区采样，覆盖分数变换、旋转/翻转、alpha、过滤、密度、trim、退化边框及原始 KUI 状态。Android GPU 回归与 Release 真机性能仍待验证。Metro sourcemap 已确认运行时不包含生成器、编译器或 watcher；独立 tarball 安装的生成、类型检查、lint 和 Android export 已通过。迁移不增加下述未支持能力。
 
 ## 功能适配清单
 
 | 能力 | 当前范围 | 后续适配或验证 |
 | --- | --- | --- |
 | 显示树与变换 | 基本层级、矩阵、anchor、alpha、排序、矩形裁剪 | 嵌套/旋转裁剪、居中翻转、负缩放、skew、极端变换与 Web 输出比较 |
-| Bitmap / 图集 | 未旋转图集、scale、九宫格、纹理 density | rotated atlas、repeat、clip、trim 组合、tint、pixelHitTest、跨密度像素边界 |
+| Bitmap / 图集 | 未旋转图集、scale、九宫格、纹理 density；iOS GPU 接缝、分数变换、透明度、trim 和边框退化已验证 | Android GPU 回归、rotated atlas、repeat、clip、tint、pixelHitTest、更多跨密度像素边界 |
 | Graphics | 基本路径、纯色填充、实线描边及命中 | 渐变、虚线、复杂曲线、填充规则与命中一致性 |
 | TextField | 动态文字、系统字体 shaping、富文本运行、描边、对齐 | 中文/emoji/组合字符/RTL、换行和空行、字体 fallback、baseline 与 Web 的差异 |
 | Label / Button | KUI 工厂、皮肤状态、Label 测量与 Button 交互 | multiline shrink、状态切换、disabled、异步字体就绪、主题切换与反复挂载 |
@@ -73,6 +73,6 @@
 
 ## 本地开发流程（已接入）
 
-运行时在 `src/kurot`，生成器在 `src/generator`，Metro 入口在 `src/metro.cts`。Demo 的 `pnpm dev` 同时管理库编译、安装包同步、资源 watch 和 Expo。成功构建才更新 Demo；新增/删除模块也同步，生成器变化重启 watcher，Metro 配置变化重启服务器。旧 `/project` 构建 API 改为 `/generator`，命令名仍为 `kurot-project`。
+运行时在 `src/kurot`，生成器在 `src/generator`，Metro 入口在 `src/metro.cts`。Demo 的 `pnpm dev` 使用 npm 安装包，管理项目资源 watch 和 Expo。联合源码开发要选择明确声明本地 `file:` 依赖的应用，从库执行 `pnpm dev --project <应用目录> -- <命令>`；验证未发布修复时使用独立安装。成功构建才同步本地包；新增/删除模块也同步，生成器变化重启 watcher，Metro 配置变化重启服务器。npm 安装不会被同步覆盖。旧 `/project` 构建 API 改为 `/generator`，命令名仍为 `kurot-project`。
 
 本次重组验收：24 项 Node 测试通过，包含初次编译失败后恢复、文件增删、硬链接隔离、生成器/Metro 重启、退出码及子进程清理。实际 Demo 的一键启动、库变更同步和错误恢复通过；Android 原生 adapter、resource、TextField 和 UI/KUI 集成测试通过。资源生成仍不提供已实例化 Texture/Skin 的原位热替换。
