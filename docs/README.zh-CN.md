@@ -1,6 +1,6 @@
 # Kurot Skia
 
-`@kurot/skia` **0.1.1** — Kurot 的原生 Skia 渲染适配与资源/KUI 入口生成工具。
+`@kurot/skia` **0.1.2** — Kurot 的原生 Skia 渲染适配与资源/KUI 入口生成工具。
 
 [English](../README.md) · [原生运行时指南](native-runtime.md) · [库开发指南](development.md) · [适配与测试计划](PLAN.md) · [变更记录](../CHANGELOG.md)
 
@@ -8,7 +8,9 @@
 
 本包提供 React Native 运行时、Metro resolver、Node CLI 和构建脚本 API。相邻的 `Kurot-Skia-Demo` 已通过库使用渲染适配，并保留场景与项目初始化。应用可以使用 npm 发布包，开发库本身时使用本地依赖。
 
-0.1.1 修复 GPU 上九宫格在分数缩放和旋转时的接缝，以单个矩形完成九区采样，保留边框、图集密度/trim、过滤和透明度。修复在 iOS 18.2 与 26.5 模拟器通过 48 项 GPU 用例；公共 API、resource/KUI 格式和宿主要求不变。Android GPU 回归和 Release 真机性能仍待验证。本次源码准备 0.1.1，发布后再使用下文的 npm 安装命令。
+0.1.2 用原生 `drawImageNine` 和缓存图集子图替换 0.1.1 的自定义九宫格 shader。同一组 48 项 GPU 用例和缓存生命周期检查在 iOS 18.2 与 26.5 模拟器通过，覆盖分数变换、图集密度/trim、过滤和透明度。首次使用复制源像素并保留原图的 alpha 表示，后续绘制复用缓存。
+
+**从 0.1.1 迁移：**源图区域和九宫格分割线必须落在整数物理像素上，中心区域需为正且位于帧内。2× 密度允许 0.5 的逻辑坐标；任意小数物理分割线现在会显式报错。升级前需对齐这些分割线，或保留 0.1.1 处理该类几何。包入口/API、resource/KUI 格式和宿主要求不变。缓存生命周期、首次复制成本及待验证的 Android GPU / Release 真机测试见[原生验证与限制](native-runtime.md#validation-and-limits)。本次源码准备 0.1.2，发布后再使用下文的 npm 安装命令。
 
 接入原生渲染请先看[原生运行时指南](native-runtime.md)：把库放入运行时依赖，配置 `@kurot/skia/metro` 的 `createKurotResolver()`，再从 `@kurot/skia` 导入 `KurotView`。下文主要介绍资源/KUI 生成；只使用生成器的项目可以放入开发依赖。
 
@@ -16,24 +18,24 @@
 
 生成器需要 Node.js >=20 和 pnpm。应用本身还有独立的平台要求；Demo 使用的 Expo SDK 57 需要 Node.js >=22.13（[Expo SDK 文档](https://docs.expo.dev/versions/v57.0.0/)）。
 
-0.1.1 发布后，在现有 Kurot 应用中安装生成器：
+0.1.2 发布后，在现有 Kurot 应用中安装生成器：
 
 ```sh
 # 在应用项目中
-pnpm add --save-dev '@kurot/skia@0.1.1'
+pnpm add --save-dev '@kurot/skia@0.1.2'
 ```
 
 Expo 应用在这一步使用 [Expo 安装命令](https://docs.expo.dev/more/expo-cli/#install-dependencies)：
 
 ```sh
-pnpm exec expo install '@kurot/skia@0.1.1' --dev --pnpm
+pnpm exec expo install '@kurot/skia@0.1.2' --dev --pnpm
 ```
 
 接入原生渲染时去掉 `--dev`，将库作为运行时依赖，再按[原生运行时指南](native-runtime.md)配置。使用 npm 包的应用不需要库源码，直接使用下文的安装包资源监听命令。
 
 现有 Demo 使用 npm `@kurot/skia@0.1.0`；它的 `pnpm dev --ios` 或 `pnpm dev --android` 监听项目资源并启动 Expo。验证尚未发布的库改动时，使用明确声明本地 `file:` 依赖的应用安装，再运行库的开发工具。需要已有原生 development build。初次安装、同步与退出清理详见[库开发指南](development.md)。
 
-发布后要接收渲染修复，用 `pnpm exec expo install '@kurot/skia@0.1.1' --pnpm` 更新应用安装和 lockfile，再加 `--clear` 重启 Metro。这个补丁只改变 JavaScript 适配代码，已有包含 Skia 3.3.0 的 development build 可以复用。Core 2.5.3、UI 3.5.0、Skia 3.3.0 要求不变，无需迁移 XML、生成入口或皮肤。只用生成器的项目可独立选择更新，没有原生迁移要求。
+发布后用 `pnpm exec expo install '@kurot/skia@0.1.2' --pnpm` 更新应用安装和 lockfile，再加 `--clear` 重启 Metro。这个补丁只改变 JavaScript 适配代码，已有包含 Skia 3.3.0 的 development build 可以复用。Core 2.5.3、UI 3.5.0、Skia 3.3.0 要求不变。resource/KUI 格式和生成入口不变；调整皮肤分割线前需检查上面的源像素分割要求。精确依赖 0.1.0/0.1.1 的应用需显式更新版本声明，兼容的 0.1.x 范围可以更新安装和 lockfile 来采用。只用生成器的项目可独立选择更新，没有原生迁移要求。
 
 ## 生成项目入口
 

@@ -1,6 +1,6 @@
 # Kurot Skia：适配与测试计划
 
-更新日期：2026-10-11。准备发布版本：0.1.1，包含九宫格修复；已发布版本仍为 0.1.0。
+更新日期：2026-10-11。准备发布版本：0.1.2，使用原生 drawImageNine 和缓存子图替换 shader；已发布版本仍为 0.1.1。
 
 本文件记录当前能力、需要验证的假设和后续适配候选，不代表已经承诺支持全部功能。实际完成情况以测试结果和代码为准。
 
@@ -13,14 +13,14 @@
 - Demo 保留场景、生成资源、主题初始化和原生集成测试，使用 npm 0.1.0；源码修复在独立的本地包安装中验证。
 - 暂时绑定已经验证的 Core 2.5.3、UI 3.5.0 和 React Native Skia 3.3.0。Core 的内部模块边界还不是正式的跨平台 SDK 合约，升级必须重新验证。
 
-验收结果（2026-10-11）：库构建及 24 项 Node 测试通过；Demo 类型检查通过，lint 无错误（旧测试导入有 14 项重复导入警告）。Android API 36 的 Small_Phone 模拟器已完成 adapter、resource、TextField 和 UI/KUI 测试。iPhone SE 3（iOS 18.2）与 iPhone 17 Pro（iOS 26.5）完成既有原生测试及新增 48 项真实 GPU 九宫格测试。旧 npm 0.1.0 可复现接缝透明度损失；本地修复用单个 shader/矩形完成九区采样，覆盖分数变换、旋转/翻转、alpha、过滤、密度、trim、退化边框及原始 KUI 状态。Android GPU 回归与 Release 真机性能仍待验证。Metro sourcemap 已确认运行时不包含生成器、编译器或 watcher；独立 tarball 安装的生成、类型检查、lint 和 Android export 已通过。迁移不增加下述未支持能力。
+验收结果（2026-10-11）：库构建及 24 项 Node 测试通过；Demo 类型检查通过，lint 无错误（旧测试导入有 14 项重复导入警告）。Android API 36 的 Small_Phone 模拟器已完成 adapter、resource、TextField 和 UI/KUI 测试。iPhone SE 3（iOS 18.2）与 iPhone 17 Pro（iOS 26.5）完成既有原生测试及新增 48 项真实 GPU 九宫格测试。旧 npm 0.1.0 可复现接缝透明度损失；已发布 0.1.1 用 shader 修复，0.1.2 源码改用原生 drawImageNine 和源像素子图缓存，同一组 48 项用例不作修改即通过，覆盖分数变换、旋转/翻转、alpha、过滤、密度、trim、退化边框及原始 KUI 状态。新增缓存复用、状态切换、逐帧淘汰和销毁检查通过。首次复制源像素避免 GPU 中间图的 8 位预乘舍入误差；分割线需要整数物理像素，非整数显式报错。Android GPU 回归与 Release 真机性能仍待验证。Metro sourcemap 已确认运行时不包含生成器、编译器或 watcher；独立 tarball 安装的生成、类型检查、lint 和 Android export 已通过。迁移不增加下述未支持能力。
 
 ## 功能适配清单
 
 | 能力 | 当前范围 | 后续适配或验证 |
 | --- | --- | --- |
 | 显示树与变换 | 基本层级、矩阵、anchor、alpha、排序、矩形裁剪 | 嵌套/旋转裁剪、居中翻转、负缩放、skew、极端变换与 Web 输出比较 |
-| Bitmap / 图集 | 未旋转图集、scale、九宫格、纹理 density；iOS GPU 接缝、分数变换、透明度、trim 和边框退化已验证 | Android GPU 回归、rotated atlas、repeat、clip、tint、pixelHitTest、更多跨密度像素边界 |
+| Bitmap / 图集 | 未旋转图集、scale、九宫格、纹理 density；iOS GPU 接缝、分数变换、透明度、trim 和边框退化已验证 | Android GPU 回归、rotated atlas、repeat、clip、tint、pixelHitTest、任意小数物理分割线、外边缘 AA 对比、宽色域/HDR 子图、更多跨密度像素边界 |
 | Graphics | 基本路径、纯色填充、实线描边及命中 | 渐变、虚线、复杂曲线、填充规则与命中一致性 |
 | TextField | 动态文字、系统字体 shaping、富文本运行、描边、对齐 | 中文/emoji/组合字符/RTL、换行和空行、字体 fallback、baseline 与 Web 的差异 |
 | Label / Button | KUI 工厂、皮肤状态、Label 测量与 Button 交互 | multiline shrink、状态切换、disabled、异步字体就绪、主题切换与反复挂载 |
@@ -42,6 +42,7 @@
 - 记录 CPU/GPU 使用率、内存、纹理占用、GC、资源加载峰值，以及持续运行后的功耗、温升与降频。
 - 场景按规模递增：静态 UI、移动 sprites、动态图集、频繁变化的文字、复杂 Graphics、大量 alpha 层、滚动列表及资源重复加载/卸载。
 - 分别评估纯 update、纯绘制、综合场景，区分 JS 与 GPU 瓶颈。比较对象数量、实际绘制数量、分辨率和纹理大小。
+- 原生九宫格子图缓存仍需测量首次像素复制/GPU 源读回延迟、缓存占用、实际上传频率及复用后的帧耗时，并与 0.1.1 shader 实现对比；不从 API 调用数量推断硬件性能。
 - 优化候选包括裁剪不可见对象、减少临时分配、缓存文字/path、批量绘制、图集复用、离屏缓存，以及必要时在 worklet/原生代码中录制命令。每项需要前后对照数据。
 - 若与 C++/Metal/Vulkan 或其他引擎对比，必须使用同一设备、同一视觉内容、同一分辨率和帧率目标；不预设“原生慢多少/快多少”的比例。
 

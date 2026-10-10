@@ -1,8 +1,32 @@
 # Changelog
 
+## 0.1.2 — 2026-10-11
+
+Native nine-slice rendering and source-frame caching, prepared for npm publication.
+
+### Changed
+
+- Replace the custom SkSL/RuntimeEffect with native `drawImageNine` and cached atlas-frame images. Preserve logical borders, source density/trim, nearest/linear filtering, source/object opacity, collapsed destination centers and Core's small-size scale fallback for the validated integer source geometry.
+- Copy a frame's source pixels on first use as RGBA_8888, retaining the source alpha representation and avoiding intermediate premultiplied render targets. Reuse the same image across destination/grid/filter changes and skin-state switches within an active atlas. Full-image textures need no crop.
+- Release owned crops when their source is unused after a frame or the renderer is disposed; retain caller-owned source images. First use can block for GPU source readback and consumes additional crop storage. Performance is not benchmarked.
+
+### Compatibility and migration
+
+- Source frames must be integer physical pixels inside the image. A nine-slice center must be positive, inside the frame and have integer physical boundaries. Arbitrary fractional physical splits supported by 0.1.1 now fail explicitly; align those boundaries before upgrading or retain 0.1.1. Fractional logical grids remain valid when density conversion yields integer pixels, including half-pixel logical coordinates at 2×.
+- Package entries/types, resource/KUI formats and dependencies/peers remain unchanged. Core 2.5.3, UI 3.5.0 when used, and Skia 3.3.0 remain the validated hosts; no Core/UI source changes or other Kurot SDK releases are required.
+- After publication, native applications update their Skia installation/lockfile and restart Metro with `--clear`. Exact 0.1.0/0.1.1 declarations need an explicit version update; compatible 0.1.x ranges may adopt through their lockfile. Development builds containing Skia 3.3.0 can be reused. The current Demo keeps npm 0.1.0 until explicitly upgraded.
+- Generator-only adoption is optional. Core/UI development locks, templates, examples and other applications are unaffected.
+
+### Documentation and verification
+
+- Update English/Chinese usage guides, native runtime guidance and the adaptation plan for 0.1.2, including cache lifecycle, first-use cost and the physical-pixel grid restriction.
+- Release preparation passes `pnpm build`, all 24 Node tests with `FORCE_COLOR=1`, Demo type checking and `git diff --check`; Demo lint has no errors and 14 existing duplicate-import warnings. `pnpm pack` cleanly rebuilds the 0.1.2 tarball, whose native implementation, export targets/declarations, CLI and English/Chinese documentation are verified.
+- The same unmodified 48 GPU cases and existing native suites pass on iPhone SE (3rd generation), iOS 18.2, and iPhone 17 Pro, iOS 26.5. Added native checks cover image reuse, skin switches, unused-source eviction, renderer disposal and fractional-split rejection. Normal button joins and clicks are verified.
+- Android GPU, outer-edge AA comparison, HDR/wide-gamut crop fidelity and Release-device performance remain pending.
+
 ## 0.1.1 — 2026-10-11
 
-GPU nine-slice rendering correction, prepared for npm publication. Publication remains a separate step; the Demo still installs npm 0.1.0.
+GPU nine-slice rendering correction, published on npm. The Demo still installs npm 0.1.0.
 
 ### Fixed
 

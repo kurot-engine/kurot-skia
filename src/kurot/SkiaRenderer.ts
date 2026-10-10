@@ -27,7 +27,13 @@ export class SkiaRenderer {
     public render(stage: Stage, canvas: SkCanvas): number {
         this.usedGraphics = new Set();
         this.text.beginFrame();
-        const count = this.draw(stage, canvas, 1, 0xffffff);
+        this.nineSlice.beginFrame();
+        let count: number;
+        try {
+            count = this.draw(stage, canvas, 1, 0xffffff);
+        } finally {
+            this.nineSlice.endFrame();
+        }
         this.text.endFrame();
         for (const [graphics, draws] of this.graphics) {
             if (!this.usedGraphics.has(graphics)) {

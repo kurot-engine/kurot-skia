@@ -1,6 +1,6 @@
 # Library and Demo development
 
-The library and Expo Demo remain separate projects and repositories. This guide describes source development for `@kurot/skia` 0.1.1 using an installed local file package.
+The library and Expo Demo remain separate projects and repositories. This guide describes source development for `@kurot/skia` 0.1.2 using an installed local file package.
 
 Applications consuming the npm release use the installed `kurot-project` command and package entries without this supervisor. The current Demo uses npm `@kurot/skia@0.1.0`; its `pnpm dev` watches project resources and starts Expo. This guide requires an explicit local `file:` dependency. Use a separate Demo installation to validate unpublished fixes while keeping the original registry installation intact.
 

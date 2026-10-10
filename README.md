@@ -1,6 +1,6 @@
 # Kurot Skia
 
-`@kurot/skia` **0.1.1** — native Skia rendering adapters and resource/KUI entry generation for Kurot applications.
+`@kurot/skia` **0.1.2** — native Skia rendering adapters and resource/KUI entry generation for Kurot applications.
 
 [简体中文](docs/README.zh-CN.md) · [Native runtime guide](docs/native-runtime.md) · [Library development](docs/development.md) · [Adaptation plan](docs/PLAN.md) · [Changelog](CHANGELOG.md)
 
@@ -8,7 +8,9 @@ Turn an existing `resource.json`, local assets and KUI XML skins into a static T
 
 The package provides a React Native runtime, a Metro resolver helper, a Node CLI and a build-script API. The sibling `Kurot-Skia-Demo` uses the library renderer and keeps its scenes and project initialization. Applications can consume the npm release; use a local dependency when developing the library itself.
 
-Version 0.1.1 fixes GPU nine-slice seams during fractional scaling and rotation. It samples all nine regions in one rectangle, preserving borders, atlas density/trim, smoothing and opacity. The fix passes 48 GPU cases on iOS 18.2 and 26.5 simulators. Public APIs, resource/KUI formats and host requirements are unchanged; Android GPU regression and Release-device performance remain pending. This checkout prepares 0.1.1; publish it before using the npm installation commands below.
+Version 0.1.2 replaces 0.1.1's custom nine-slice shader with native `drawImageNine` and cached atlas crops. The implementation passes the same 48 GPU cases and cache lifecycle checks on iOS 18.2 and 26.5 simulators, covering fractional transforms, atlas density/trim, smoothing and opacity. Crops copy source pixels on first use and retain the source alpha representation; subsequent draws reuse them.
+
+**Migration from 0.1.1:** source frames and nine-slice boundaries must be integer physical pixels, with a positive center inside the frame. Logical half-pixel grids work at 2× density; arbitrary fractional physical splits now fail explicitly. Align those splits before upgrading, or keep 0.1.1 for that geometry. Package entries/APIs, resource/KUI formats and host requirements are unchanged. See [native validation and limits](docs/native-runtime.md#validation-and-limits) for cache lifetime, first-use copying and pending Android GPU/Release-device tests. This checkout prepares 0.1.2; use the npm commands below after publication.
 
 For native rendering, follow the [native runtime guide](docs/native-runtime.md): install the package as a runtime dependency, configure `createKurotResolver()` from `@kurot/skia/metro`, and import `KurotView` from `@kurot/skia`. The instructions below describe resource/KUI generation; generator-only projects can use a development dependency.
 
@@ -16,24 +18,24 @@ For native rendering, follow the [native runtime guide](docs/native-runtime.md):
 
 The generator requires Node.js >=20 and pnpm. Your application has its own platform requirements; the Demo's Expo SDK 57 requires Node.js >=22.13 ([Expo SDK reference](https://docs.expo.dev/versions/v57.0.0/)).
 
-After 0.1.1 is published, install the generator in an existing Kurot project:
+After 0.1.2 is published, install the generator in an existing Kurot project:
 
 ```sh
 # In your application
-pnpm add --save-dev '@kurot/skia@0.1.1'
+pnpm add --save-dev '@kurot/skia@0.1.2'
 ```
 
 For an Expo application, use [Expo's installer](https://docs.expo.dev/more/expo-cli/#install-dependencies) for that step:
 
 ```sh
-pnpm exec expo install '@kurot/skia@0.1.1' --dev --pnpm
+pnpm exec expo install '@kurot/skia@0.1.2' --dev --pnpm
 ```
 
 For native rendering, omit `--dev` so the library is a runtime dependency, then follow the [native runtime guide](docs/native-runtime.md). Applications using the npm package need no library checkout; use the installed resource-watch commands below.
 
 The existing Demo uses npm `@kurot/skia@0.1.0`; its `pnpm dev --ios` or `pnpm dev --android` watches project resources and starts Expo. To test unpublished library changes, use an application installation explicitly declaring a local `file:` dependency and run the library's development supervisor. An existing native development build is required. See [library development](docs/development.md) for setup, synchronization and cleanup.
 
-To adopt the rendering fix after publication, update the application's installed package and lockfile with `pnpm exec expo install '@kurot/skia@0.1.1' --pnpm`, then restart Metro with `--clear`. An existing development build containing Skia 3.3.0 can be reused because this patch changes JavaScript adapters only. Core 2.5.3, UI 3.5.0 and Skia 3.3.0 requirements stay the same; no XML, generated-entry or skin migration is needed. Generator-only projects can adopt this patch separately without a native migration.
+After publication, adopt the native implementation with `pnpm exec expo install '@kurot/skia@0.1.2' --pnpm`, then restart Metro with `--clear`. An existing development build containing Skia 3.3.0 can be reused because this patch changes JavaScript adapters only. Core 2.5.3, UI 3.5.0 and Skia 3.3.0 requirements stay the same. Resource/KUI formats and generated entries do not change; review the source-pixel grid requirement above before updating authored grids. Exact 0.1.0/0.1.1 dependencies need an explicit update, while compatible 0.1.x ranges can adopt through installation/lockfile updates. Generator-only projects can adopt separately without a native migration.
 
 ## Generate your project entry
 

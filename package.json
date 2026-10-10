@@ -1,6 +1,6 @@
 {
 	"name": "@kurot/skia",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"description": "Skia native rendering adapters and build-time resource/KUI generation for Kurot",
 	"repository": {
 		"type": "git",

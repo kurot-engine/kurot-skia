@@ -1,8 +1,12 @@
 # Kurot-Skia
 
-Version 0.1.1 is prepared for publication with the GPU nine-slice seam fix.
+Version 0.1.2 is prepared for publication with native drawImageNine and cached
+pixel crops, validated by the same 48 iOS GPU cases and native cache lifecycle checks.
+Source frames and nine-slice boundaries must be integer physical pixels; read the
+runtime guide before adopting fractional grids. Published 0.1.1 retains its shader
+implementation. Never republish an existing version with changed contents.
 The native Skia adapter and Node resource/KUI toolkit retain the 0.1.0 entries,
-host versions and authored formats. Publication is still a separate user action.
+host versions and authored formats. Publishing 0.1.2 remains a separate user action.
 The Expo application in `../Kurot-Skia-Demo` consumes the installed package;
 scenes, generated inputs and project-owned UI initialization stay in the Demo.
 Native adapters live under `src/kurot`. The root export is RN-only,
