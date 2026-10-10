@@ -1,118 +1,265 @@
-# Kurot-Skia
+# Kurot Skia
 
-私有库项目的起点，版本 `0.0.0`。当前实现的是 **Node 构建时项目入口生成器**；
-RN/Skia 渲染、输入、资源端口和 UI 适配仍在相邻的 `Kurot-Skia-Demo`。
-这里不依赖 React Native、Expo、Skia、Core 或 UI 运行时，也尚未发布 npm 包。
+`@kurot/skia` **0.1.0** — build-time resource and KUI skin entry generation for Kurot applications.
 
-库实现直接放在 `src/kurot/`，沿用原引擎的目录习惯，不另设 `project` 子目录。
-包入口 `@kurot/skia/project` 专供 Node 构建脚本使用，由 package.json 映射到
-编译产物，与源码目录名无关。
+[简体中文](docs/README.zh-CN.md) · [Changelog](CHANGELOG.md)
 
-## 开始
+Turn an existing `resource.json`, local assets and KUI XML skins into a static TypeScript entry that your bundler can resolve. The generator maintains the asset map, skin imports, factory registration and theme mapping for you, and updates them as you edit the project.
 
-Node >=20，pnpm。
+Version 0.1.0 provides a Node CLI and a build-script API. Native rendering, input and runtime resource/theme adapters currently live in the sibling `Kurot-Skia-Demo` project. This package is private and has not been published to npm; use a local development dependency.
+
+## Install
+
+The generator requires Node.js >=20 and pnpm. Your application has its own platform requirements; the Demo's Expo SDK 57 requires Node.js >=22.13 ([Expo SDK reference](https://docs.expo.dev/versions/v57.0.0/)).
+
+Build the library checkout first:
 
 ```sh
-cd ~/Workspace/Kurot/Kurot-Skia
+# In Kurot-Skia
 pnpm install
 pnpm build
-pnpm test
-pnpm generate:demo
 ```
 
-Demo 已消费生成结果。之后在 `../Kurot-Skia-Demo` 中执行 `pnpm start`、
-`pnpm android`、`pnpm ios` 或 `pnpm test:native` 会先重新生成入口。
-单独更新资源/皮肤时执行 `pnpm generate:project`。直接执行 `pnpm exec expo ...`
-会绕过这个生成步骤，需要先手动运行生成命令。
-
-## 输入与输出
-
-默认读取 `resource/resource.json`，递归扫描其所在目录中的所有 `.kui.xml`，
-并在存在时读取 `resource/config/style.json`。输出到 `src/generated/kurot/`：
-
-| 文件 | 用途 |
-| --- | --- |
-| `assets.ts` | 静态资源表、清单 URL、资源根路径、远程 URL 列表 |
-| `skins/**/*.ts` | 每份原始 KUI 的编译工厂，保留相对目录 |
-| `skins.ts` | 全部皮肤的静态导入、完整类名工厂表、主题映射/URL、注册/恢复函数 |
-| `theme.json` | 生成的主题配置 |
-| `index.ts` | 项目统一入口 |
-| `.kurot-project.json` | 生成目录的所有权与文件清单 |
-
-原始资源名称、groups、subkeys、九宫格、图集 resolution 和 XML 不被改写。
-JSON/文本内嵌到入口；图片与音频产生静态资源引用。图集的 `file` 和 bitmap-font
-描述文件的图片依赖自动收集，不需要手工登记。修改 JSON/文本后也要重新生成。
-远程资源保持原 URL，不在构建时下载或发现远程描述文件的依赖。
-
-目前识别 Core 内置的 `image`、`sheet`、`json`、`text`、`font`、`sound` 六类资源。
-`font` 在资源清单中指 bitmap-font 描述文件；音频以 `kind: "file"` 输出。
-资源打包不等于原生解码/渲染支持：Demo 目前没有接入 bitmap-font、音频或
-style.json 字体文件的注册。style.json 当前只参与编译期样式解析。
-
-默认主题映射沿用 CLI 内置控件的 `<控件名>Skin` 命名约定。其他皮肤一样会编译并
-注册完整类名，可以通过显式 `skinName` 使用。自定义 host 映射或默认皮肤重名时，
-用 `--theme-map` 指定 `{ "Button": "alternate.ButtonSkin" }` 这样的 JSON 对象。
-该映射文件相对于命令执行目录；其他路径参数相对于 `--project`。
-当前尚未接入项目自定义组件命名空间发现，未知 KUI 组件会明确报错。
-
-## 生成其他项目
+Then install it in an existing Kurot project located next to the library:
 
 ```sh
-node dist/kurot/cli.js --project ../MyGame
+# In your application
+pnpm add --save-dev '@kurot/skia@file:../Kurot-Skia'
+```
 
-# CLI 游戏项目使用 default.res.json，可显式指定清单
-node dist/kurot/cli.js --project ../MyGame \
+For an Expo application, use [Expo's installer](https://docs.expo.dev/more/expo-cli/#install-dependencies) for that step:
+
+```sh
+pnpm exec expo install '@kurot/skia@file:../Kurot-Skia' --dev --pnpm
+```
+
+The existing Demo already declares this dependency. From `Kurot-Skia-Demo`, run `pnpm install` after building the library, then `pnpm start --dev-client` or `pnpm android`.
+
+Run `pnpm build` in the library after editing its source. Run `pnpm install` in the application after adding compiled files or changing package metadata. Application scripts consume the installed package's command, without referring to a neighboring `dist` directory.
+
+## Generate your project entry
+
+A typical input tree is:
+
+```text
+resource/
+├── resource.json
+├── assets/
+│   ├── logo.png
+│   └── ui/
+│       ├── ui.json
+│       └── ui.png
+├── config/
+│   └── style.json             # optional project styles
+└── ui/
+    └── ButtonSkin.kui.xml
+```
+
+Keep your existing resource format. For example, a standalone image entry is:
+
+```json
+{
+  "resources": [
+    { "name": "logo", "type": "image", "url": "assets/logo.png" }
+  ],
+  "groups": [
+    { "name": "preload", "keys": "logo" }
+  ]
+}
+```
+
+URLs are relative to the manifest directory. A sheet or bitmap-font descriptor resolves its image relative to its own file. Add resources to the manifest as usual; the generator follows those declarations and scans every `.kui.xml` under the skin directory.
+
+Generate once from the application directory:
+
+```sh
+pnpm exec kurot-project --project .
+```
+
+Defaults are `resource/resource.json`, skins under `resource/`, optional styles at `resource/config/style.json`, and output under `src/generated/kurot/`. The resource and style defaults follow the manifest directory if you select a different manifest.
+
+For a Kurot CLI game using `default.res.json`:
+
+```sh
+pnpm exec kurot-project --project . \
   --manifest resource/default.res.json \
   --skins resource/ui \
   --output src/generated/kurot
 ```
 
-默认 `--assets metro` 产生字面量 `require(...)` 和无扩展名的静态皮肤导入。
-`--assets url` 产生 `new URL(..., import.meta.url).href` 与 `.js` ESM 导入，供
-支持这些语义的构建器使用。输出都是 TypeScript，需要由宿主项目编译/打包；
-这个选项不会实现某个平台的运行时资源加载器。
+## Develop with watch
 
-也可以从构建脚本调用 `@kurot/skia/project` 导出的 `generateProject`：
+Watch without launching another program:
+
+```sh
+pnpm exec kurot-project --project . --watch
+```
+
+Or run the generator and your development server together:
+
+```sh
+pnpm exec kurot-project --project . --watch -- expo start --dev-client
+```
+
+Add these scripts to an Expo application's `package.json`:
+
+```json
+{
+  "scripts": {
+    "generate:project": "kurot-project --project .",
+    "watch:project": "kurot-project --project . --watch",
+    "start": "kurot-project --project . --watch -- expo start",
+    "android": "kurot-project --project . --watch -- expo run:android",
+    "ios": "kurot-project --project . --watch -- expo run:ios"
+  }
+}
+```
+
+`pnpm start --dev-client` now generates the entry and starts Expo. Saving the manifest, an image, a sheet descriptor, text, KUI or project styles regenerates it automatically. Skin additions, moves and removals update imports, registration and theme output. Referenced local assets outside the resource directory are watched too.
+
+The watcher waits briefly for writes to settle, coalesces rapid saves and serializes generation. Invalid saves report an error and retain the last successful output; fixing the input resumes generation. Generated files and staging directories are excluded from watching.
+
+The command after `--` starts in the project directory after the first successful generation, inherits the terminal/environment and stays running through subsequent saves. Its exit closes the watcher and forwards its exit code. Ctrl+C or SIGTERM closes the watcher and stops the command. Running Expo directly requires a separate watcher terminal.
+
+## Use the generated entry
+
+The generator creates:
+
+| Output | Purpose |
+| --- | --- |
+| `assets.ts` | `bundledAssets`, `resourceConfigURL`, `resourceRoot` and `remoteURLs` |
+| `skins/**/*.ts` | One compiled factory per KUI file, preserving its relative path |
+| `skins.ts` | Static skin imports, `skinFactories`, `theme`, `themeConfigURL` and `registerSkinFactories()` |
+| `theme.json` | Generated component-to-skin mapping and skin module reference |
+| `index.ts` | Combined resource and skin exports |
+| `.kurot-project.json` | Generator ownership and output file list |
+
+Import this generated application entry in runtime code:
+
+```ts
+import {
+    bundledAssets, resourceConfigURL, resourceRoot,
+    skinFactories, theme, themeConfigURL, registerSkinFactories,
+} from './generated/kurot';
+```
+
+Connect these values to your host adapters:
+
+1. Register `bundledAssets` with the host's resource loader. JSON/text entries contain values; image/file entries contain bundler references. The loader must translate these entries into the platform's text and image loading contracts.
+2. Use `resourceConfigURL` and `resourceRoot` with Kurot's `Resource.loadConfig()` after installing that loader. Resource names, groups and subkeys remain the project's own.
+3. Call `registerSkinFactories()` and retain its returned restoration callback. It registers full skin class names on `globalThis` by default, or on a supplied `Record<string, unknown>`. `skinFactories` also supports a host that uses its own factory lookup.
+4. Provide `theme` through the host's theme adapter and use `themeConfigURL` as its logical configuration URL. A static module loader can register the factories when `theme.skinsJs` is requested. Restore registrations when the host session is disposed.
+
+The Demo implements these connections in `src/resources/bundled.ts` and `src/ui/native-ui.ts`, with native loaders in `src/skia/`. Creating a new native application also requires those runtime adapters and a renderer. Generated modules alone do not install them or start the engine.
+
+Skin modules import `@kurot/core` and `@kurot/ui`; the host supplies those packages. The Demo's tested baseline is Core 2.5.3 and UI 3.5.0. The generator itself has no Core/UI runtime dependencies or peers.
+
+### Theme mapping
+
+A skin whose final class-name segment equals a built-in component's name plus `Skin` supplies that component's default skin. For example, `skins.ButtonSkin` maps `Button` to that factory. Other skins are compiled and registered by their full class names for explicit `skinName` use.
+
+Use a JSON map when choosing among defaults or mapping a custom host key:
+
+```json
+{ "Button": "alternate.ButtonSkin" }
+```
+
+```sh
+pnpm exec kurot-project --project . --theme-map config/theme-map.json --watch
+```
+
+Every mapped class must exist in the scanned KUI files. Duplicate full class names and ambiguous default skins are errors. The map is read again on every generation.
+
+## How it works
+
+```mermaid
+flowchart LR
+    A["resource.json + local assets"] --> G["kurot-project · Node"]
+    B["KUI XML + style.json"] --> G
+    G --> E["Generated TypeScript entry"]
+    E --> M["Metro / ESM bundler"]
+    M --> H["Host resource + theme adapters"]
+    H --> K["Kurot UI + display tree"]
+    K --> S["Skia renderer · Demo"]
+```
+
+The generator validates resource declarations, collects their local dependencies, and compiles all KUI using the pinned Kurot CLI compiler. Project styles resolve Label presets and color references during compilation. Authored manifests, names, groups, object subkeys, XML, nine-slice grids and sheet resolution are preserved.
+
+JSON and text are embedded in TypeScript. Images and audio become static references: `--assets metro` emits literal `require(...)` calls and extensionless skin imports; `--assets url` emits `new URL(..., import.meta.url).href` and `.js` skin imports. Your bundler must support the chosen mode and compile the generated TypeScript. Neither mode copies the source assets.
+
+All inputs must validate and compile before an owned output directory is replaced. Removed skins leave no stale factories. Missing resources, invalid KUI or unrecognized files in the output stop generation and preserve the previous result. Keep authored code out of the generated directory.
+
+The phone consumes bundled code and assets, so it does not need to parse KUI XML or discover a theme's modules dynamically at runtime. Runtime resource caching, image decoding, theme application and rendering remain the host's responsibility.
+
+## CLI reference
+
+| Option | Default / meaning |
+| --- | --- |
+| `--project <dir>` | Current directory; project root |
+| `--manifest <file>` | `resource/resource.json` |
+| `--skins <dir>` | Manifest directory; recursively scan `.kui.xml` |
+| `--style <file>` | `<manifest directory>/config/style.json`; optional unless explicitly supplied |
+| `--output <dir>` | `src/generated/kurot` |
+| `--assets metro\|url` | `metro`; generated asset-reference and import mode |
+| `--theme-map <file>` | Optional JSON object of host keys to skin class names |
+| `--watch`, `-w` | Generate initially and keep watching |
+| `--help`, `-h` | Show command usage |
+
+Manifest, skin, style and output paths are relative to `--project` and must stay inside that project. `--theme-map` is relative to the command's working directory. Paths may be absolute where they satisfy the same constraints. `-- <command> <args...>` is available only with `--watch`.
+
+## Build-script API
+
+Import the Node-only API from `@kurot/skia/project` in build scripts. Runtime applications import the generated files instead.
 
 ```ts
 import { generateProject } from '@kurot/skia/project';
 
-await generateProject({
+const result = await generateProject({
     projectRoot: '/path/to/game',
     manifest: 'resource/resource.json',
     outputDir: 'src/generated/kurot',
+    assetMode: 'metro',
 });
+console.info(result.outputDir, result.assets, result.skins);
 ```
 
-当前 Demo 使用相邻目录的已构建 CLI；安装为本地构建依赖后可以使用上述包入口。
-该 Node 入口应只出现在构建脚本中，不能导入 RN 应用运行时。
+`ProjectOptions` also accepts `skinsDir`, `styleSheet` and either `themeSkins` (a host-to-class map) or `themeMapFile` (a JSON file). API paths are relative to `projectRoot`, including `themeMapFile`. `ProjectResult` provides `outputDir`, `resourceConfigURL`, `assets`, `remoteURLs`, `skins` and `files`; asset URLs are project-relative logical URLs, and output file paths are relative to the output directory.
 
-## 宿主消费
-
-资源适配层将生成的 `bundledAssets` 交给自己的注册函数；UI 适配层消费
-`theme`，调用 `registerSkinFactories()` 注册全部工厂并保留其恢复回调。
-不需要逐个写资源路径、导入皮肤或维护完整类名注册表。
+For a long-running build script:
 
 ```ts
-import { bundledAssets, resourceConfigURL, resourceRoot } from './generated/kurot/assets';
-import { theme, themeConfigURL, registerSkinFactories } from './generated/kurot/skins';
+import { watchProject } from '@kurot/skia/project';
+
+const stopped = new Promise<void>(resolve => {
+    process.once('SIGINT', resolve);
+    process.once('SIGTERM', resolve);
+});
+const watcher = await watchProject({ projectRoot: '/path/to/game' }, {
+    debounceMs: 100,
+    onGenerated: result => console.info(result.outputDir),
+    onError: error => console.error(error.message),
+});
+await stopped;
+await watcher.close();
 ```
 
-生成入口不自动启动引擎或安装平台端口。Demo 的 `src/resources/bundled.ts` 和
-`src/ui/native-ui.ts` 展示现有平台适配如何消费它。
+`watchProject()` performs an initial generation and returns a `ProjectWatcher`. Generation errors invoke `onError` and keep watching, including an invalid initial input. `onGenerated` runs after successful generation. `close()` is idempotent, cancels scheduled work and waits for an active generation. The API caller owns signal handling and any development-server process; the CLI handles those for you.
 
-## 实现边界与验证
+## Supported inputs and limits
 
-使用固定的 registry CLI `3.6.0` 和 ui-document `0.13.1`，复用 KUI 编译器的
-资源默认值、Label 预设、颜色与状态语义。CLI 尚无公开 compiler 子路径，暂时
-在 `src/kurot/compiler.ts` 隔离内部路径引用；升级 CLI 时必须重新验证。
-TypeScript AST 只补工厂返回类型和 Skin 动态字段类型，保留原编译器的字段赋值。
-布局对象也能保留原来的注册方式，不受 `Skin.setPart` 的显示对象类型限制。
+The generator recognizes `image`, `sheet`, `json`, `text`, `font` and `sound`. Here, `font` means a bitmap-font descriptor and its image page. Sound is emitted as a `file` entry. Local resource URLs must be plain paths without query strings, fragments or backslashes, and resolve inside the project. Symlinks and special files in scanned skin directories are rejected.
 
-所有输入验证/编译成功后才替换生成目录；缺文件、未知组件、重复类名或模糊默认
-映射会失败并保留旧输出。生成目录中发现未登记的文件也会拒绝覆盖；不要把
-手写代码放进这个目录。删除源皮肤后，下一次生成会删除对应旧产物。
+Remote URLs are retained for runtime loading. They are not downloaded or watched, and dependencies inside remote sheet/font descriptors are not discovered. Unknown resource types and unknown KUI component namespaces require explicit build-time support.
 
-`pnpm test` 覆盖资源依赖、嵌套 KUI、原始状态/样式/九宫格、静态工厂注册与恢复、
-确定性、陈旧文件清理、失败保留以及错误输入。另已用原引擎示例的全部 17 份 KUI
-验证生成，包括 DefaultUISkin 和 16 份控件皮肤；编译支持不代表这些控件已完成 RN 适配。
+Resource generation does not provide platform rendering support for every resource type. The Demo currently has no bitmap-font/audio runtime integration or bundled font registration; `style.json` is used for compilation. Its UI runtime validation focuses on Label and Button. Compiling additional skins does not establish native support for all their controls.
+
+Compiler behavior comes from pinned `@kurot/cli` 3.6.0 and `@kurot/ui-document` 0.13.1. The compiler's internal import is isolated in `src/kurot/compiler.ts`; validate it when updating CLI.
+
+## Develop the library
+
+```sh
+pnpm build
+pnpm test
+```
+
+Tests cover resource discovery, KUI compilation, static registration/restoration, deterministic output, stale-file cleanup, failures and watch/command lifecycles. The implementation lives directly in `src/kurot/`.

@@ -3,3 +3,4 @@ dist/
 .test-build/
 .DS_Store
 *.tsbuildinfo
+.wu/
