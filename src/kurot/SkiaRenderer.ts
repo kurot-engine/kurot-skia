@@ -1,16 +1,14 @@
 import { DisplayObjectContainer, setGraphicsHitTest } from '@kurot/core';
-import type { Bitmap, BitmapText, DisplayObject, Graphics, Mesh, Stage, TextField } from '@kurot/core';
+import type { Bitmap, BitmapText, DisplayObject, Mesh, Stage, TextField } from '@kurot/core';
 import { setBitmapPixelHitTest } from '@kurot/core/dist/kurot/display/Bitmap.js';
 import { AlphaType, BlendMode, ClipOp, ColorType, Skia } from 'react-native-skia';
 import type { SkCanvas } from 'react-native-skia';
 
-import { compileGraphics, disposeGraphics, skColor } from './graphics.js';
-import type { GraphicsDraw } from './graphics.js';
 import { NativeBitmapRenderer } from './NativeBitmapRenderer.js';
 import { NativeBitmapBatchRenderer } from './NativeBitmapBatchRenderer.js';
 import { NativeCacheRenderer } from './NativeCacheRenderer.js';
 import { NativeEffects } from './NativeEffects.js';
-import { NativeImagePaint } from './NativeImagePaint.js';
+import { NativeGraphicsRenderer } from './NativeGraphicsRenderer.js';
 import { NativeMeshRenderer } from './NativeMeshRenderer.js';
 import { NativeParticleRenderer } from './NativeParticleRenderer.js';
 import { NativeTextRenderer } from './NativeTextRenderer.js';
@@ -21,17 +19,15 @@ import { nativeBlendMode } from './blend.js';
  * All native caches are bounded by their users' visible-frame lifecycle.
  */
 export class SkiaRenderer {
-	private readonly graphics = new Map<Graphics, GraphicsDraw[]>();
+	private readonly graphics = new NativeGraphicsRenderer();
 	private readonly bitmap = new NativeBitmapRenderer();
 	private readonly bitmapBatch = new NativeBitmapBatchRenderer();
 	private readonly mesh = new NativeMeshRenderer();
 	private readonly particles = new NativeParticleRenderer();
 	private readonly cache = new NativeCacheRenderer();
 	private readonly effects = new NativeEffects();
-	private readonly graphicPaint = new NativeImagePaint();
 	private readonly maskPaint = Skia.Paint();
 	private readonly text = new NativeTextRenderer();
-	private readonly usedGraphics = new Set<Graphics>();
 	private readonly drawing = new Set<DisplayObject>();
 
 	public constructor(
@@ -43,11 +39,7 @@ export class SkiaRenderer {
 			throw new RangeError('Native render resolution must be positive.');
 		this.maskPaint.setBlendMode(BlendMode.DstIn);
 		if (!ownsHitTests) return;
-		setGraphicsHitTest((graphics, x, y) =>
-			this.getGraphics(graphics).some(draw =>
-				draw.dashed ? this.dashHit(draw, x, y) : draw.hitPath.contains(x, y),
-			),
-		);
+		setGraphicsHitTest((graphics, x, y) => this.graphics.hitTest(graphics, x, y));
 		setBitmapPixelHitTest((bitmap, x, y) => this.pixelHit(bitmap, x, y));
 	}
 
@@ -72,21 +64,19 @@ export class SkiaRenderer {
 			setGraphicsHitTest(() => false);
 			setBitmapPixelHitTest(() => false);
 		}
-		for (const draws of this.graphics.values()) disposeGraphics(draws);
-		this.graphics.clear();
+		this.graphics.dispose();
 		this.bitmap.dispose();
 		this.bitmapBatch.dispose();
 		this.mesh.dispose();
 		this.particles.dispose();
 		this.cache.dispose();
 		this.effects.dispose();
-		this.graphicPaint.dispose();
 		this.maskPaint.dispose();
 		this.text.dispose();
 	}
 
 	private renderFrame(object: DisplayObject, canvas: SkCanvas, local: boolean): number {
-		this.usedGraphics.clear();
+		this.graphics.beginFrame();
 		this.bitmap.beginFrame();
 		this.bitmapBatch.beginFrame();
 		this.mesh.beginFrame();
@@ -104,12 +94,7 @@ export class SkiaRenderer {
 			this.cache.endFrame();
 			this.effects.endFrame();
 			this.text.endFrame();
-			for (const [graphics, draws] of this.graphics) {
-				if (!this.usedGraphics.has(graphics)) {
-					disposeGraphics(draws);
-					this.graphics.delete(graphics);
-				}
-			}
+			this.graphics.endFrame();
 		}
 	}
 
@@ -208,18 +193,7 @@ export class SkiaRenderer {
 			case 4: {
 				const graphics = object.graphics;
 				if (!graphics) throw new Error('Graphics render tag has no Graphics object.');
-				for (const draw of this.getGraphics(graphics)) {
-					const paint = draw.shader ? this.graphicPaint.get(draw.alpha * alpha, tint) : draw.paint;
-					if (draw.shader) {
-						paint.setShader(draw.shader);
-					} else {
-						paint.setColor(skColor(draw.color, tint));
-						paint.setAlphaf(draw.alpha * alpha);
-					}
-					canvas.drawPath(draw.path, paint);
-					if (draw.shader) paint.setShader(null);
-					count++;
-				}
+				count += this.graphics.draw(graphics, canvas, alpha, tint);
 				break;
 			}
 			case 1:
@@ -266,44 +240,6 @@ export class SkiaRenderer {
 			}
 		}
 		return count;
-	}
-
-	private getGraphics(graphics: Graphics): GraphicsDraw[] {
-		this.usedGraphics.add(graphics);
-		let draws = this.graphics.get(graphics);
-		if (!draws || graphics.canvasCacheDirty) {
-			const next = compileGraphics(graphics);
-			if (draws) disposeGraphics(draws);
-			draws = next;
-			this.graphics.set(graphics, draws);
-			graphics.canvasCacheDirty = false;
-		}
-		return draws;
-	}
-
-	private dashHit(draw: GraphicsDraw, x: number, y: number): boolean {
-		if (!draw.hitPath.contains(x, y)) return false;
-		const surface = Skia.Surface.MakeOffscreen(1, 1);
-		if (!surface) return false;
-		const paint = draw.paint.copy();
-		try {
-			paint.setAlphaf(1);
-			const canvas = surface.getCanvas();
-			canvas.clear(Skia.Color('transparent'));
-			canvas.translate(-Math.floor(x), -Math.floor(y));
-			canvas.drawPath(draw.path, paint);
-			surface.flush();
-			const pixels = canvas.readPixels(0, 0, {
-				width: 1,
-				height: 1,
-				colorType: ColorType.RGBA_8888,
-				alphaType: AlphaType.Unpremul,
-			});
-			return pixels !== null && pixels[3] > 0;
-		} finally {
-			paint.dispose();
-			surface.dispose();
-		}
 	}
 
 	private pixelHit(bitmap: Bitmap, x: number, y: number): boolean {

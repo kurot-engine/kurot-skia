@@ -14,11 +14,11 @@ Keep the Node entries out of application runtime imports. The runtime entry does
 
 ## Install in an application
 
-Install 0.1.3 as a runtime dependency in the Expo application. It includes native Mesh/game/UI support and shared Spine caches, retaining native nine-slice rendering and cached source-frame images:
+After publication, install 0.1.4 as a runtime dependency in the Expo application. It adds stable notification callbacks and internal rendering organization, retaining 0.1.3 native Mesh/game/UI support, shared Spine caches and native nine-slice rendering:
 
 ```sh
 # In the application
-pnpm exec expo install '@kurot/skia@0.1.3' --pnpm
+pnpm exec expo install '@kurot/skia@0.1.4' --pnpm
 ```
 
 The tested host is Core 2.5.3, UI 3.5.0, React Native Skia 3.3.0, React 19.2.3 and React Native 0.86.3 with Expo 57. Core and Skia are currently bound to those exact package versions because this adapter uses their internal/rendering contracts. UI 3.5.0 is required when installing UI. Core, UI, React, React Native and Skia are host peers; their optional metadata lets generator-only consumers omit native packages. A native application supplies Core, React, React Native and Skia, plus UI if it uses KUI controls.
@@ -95,9 +95,29 @@ export function Game(): ReactElement {
 
 Omit `height` to use the view's full aspect ratio with a logical width. Set `height` for a fixed logical stage fitted into the native view. The view's parent must allocate space, typically with `flex: 1`.
 
-Keep `createScene`, `onError` and optional `onStats` callbacks stable, using module functions or `useCallback`. Changed callbacks or viewport dimensions recreate the scene. `KurotView` creates the Stage and renderer, runs Core's ticker at a target of 60 fps, forwards touch input, stops in the background, and disposes the scene and native recording context on unmount.
+Keep `createScene` stable, using a module function or `useCallback`. Changing the scene factory or viewport dimensions recreates the scene. `onError` and optional `onStats` use the latest committed callbacks without rebuilding the Stage, renderer or input session. `KurotView` creates the Stage and renderer, runs Core's ticker at a target of 60 fps, forwards touch input, stops in the background, and disposes the scene and native recording context on unmount.
 
 Use one active `KurotView`. The current ticker, Graphics hit-test hook and UI Theme contain global state; concurrent views are future work. `FrameStats.fps` counts recording/submission callbacks and `draws` counts adapter operations. Neither is a GPU timing or hardware draw-call measurement.
+
+## Internal rendering responsibilities
+
+Version 0.1.4 separates the host, frame loop and drawing resources. These
+modules are internal; applications keep using `KurotView` and `SkiaRenderer`.
+
+| Module in `src/kurot/` | Responsibility |
+| --- | --- |
+| `KurotView.tsx` | RN layout, Stage/session creation, touch/input overlays, AppState and Core ticker registration; notification callbacks stay independent of scene lifetime. |
+| `NativeFrameLoop.ts` | Scene update timing, delta clamping, recording/submission profiles and the stopped/failed loop lifecycle; no React or native runtime imports. |
+| `NativeFrameRenderer.ts` | One view's Graphite context, physical viewport and display-tree renderer; clears, transforms and clips each recording. |
+| `native-frame.ts` | Finishes every opened recording, submits only complete frames and releases local recording ownership even if drawing/submission fails. |
+| `SkiaRenderer.ts` | Kurot tree order, inherited alpha/tint, transforms, clipping, compositing and primitive/batch dispatch. |
+| `NativeGraphicsRenderer.ts` | Compiled Graphics paths, per-frame cache use/eviction, solid/gradient Paint and the same geometry for hit testing. |
+| Other `Native*Renderer` modules | Images, Mesh, particles, text and GPU captures with their existing cache and ownership contracts. |
+
+Core's ticker remains the frame source. Background resume resets delta/statistics
+time, and a failed loop stays stopped until its scene is recreated. This
+organization preserves continuous rendering, display semantics and the existing
+cache budgets. It adds no static-scene detection, Picture cache or new backend API.
 
 ## Connect generated resources and UI
 

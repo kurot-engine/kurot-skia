@@ -1,8 +1,10 @@
 # Kurot-Skia
 
-Version 0.1.3 is prepared for publication with native feature completion and
-opt-in shared Spine caches. Version 0.1.2 is published and the separate Demo
-uses it until 0.1.3 registry availability is verified. Never republish an existing
+Version 0.1.4 is prepared for publication with internal rendering organization
+and stable notification callbacks. Version 0.1.3 is published (npm versions/latest
+verified on 2026-10-11), with native feature completion and opt-in shared Spine
+caches. The separate Demo declares registry 0.1.3; adopt 0.1.4 only after its
+registry availability is verified. Never republish an existing
 version or claim registry adoption from a source version alone.
 Read docs/native-feature-assessment.md for coverage, measurements and remaining
 physical-device/media/custom-effect gates. Native device tests and performance
@@ -28,7 +30,15 @@ Native adapters live under `src/kurot`. The root export is RN-only,
 `./metro` is a Node configuration helper, and `./generator` is Node build-time only.
 Read `docs/native-runtime.md` and `docs/PLAN.md` before extending native support.
 
-The Demo consumes npm `@kurot/skia@0.1.2` and calls its installed
+Native rendering separates KurotView's RN/session lifecycle, NativeFrameLoop's
+headless timing, NativeFrameRenderer's Graphite viewport/ownership, and
+SkiaRenderer's display-tree/compositing dispatch. NativeGraphicsRenderer owns
+compiled paths, paints, cache eviction and hit geometry. Notification callback
+changes preserve the scene; factory/viewport changes recreate it. Keep continuous
+Core ticker rendering and existing cache/batch contracts. See the internal
+responsibility table in docs/native-runtime.md before changing these boundaries.
+
+The Demo consumes npm `@kurot/skia@0.1.3` and calls its installed
 `kurot-project` binary. Keep compiled output in the package's `files` list.
 The npm release is public. `prepack` cleans and rebuilds shipped output, and
 `prepublishOnly` runs tests. Verify registry availability before changing the

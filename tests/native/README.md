@@ -42,6 +42,8 @@ fractional scaling, density, rotation, trim, tint, alpha and blend; this regress
 reproduced atlas bleeding before isolated-frame caching was added.
 After benchmarks, three actual RN Graphite view mounts exercise updates, changed
 logical dimensions, profiling and native scene cleanup before showing the gallery.
+Each mount replaces its stats/error callbacks and requires the same scene to
+continue updating and reporting through the replacement callback.
 The mounts also focus and switch Core fields through actual RN TextInput views,
 then require native focus release within 500 ms of unmount. This checks mounted
 editing state; it does not certify real keystrokes, IME candidates or preedit.

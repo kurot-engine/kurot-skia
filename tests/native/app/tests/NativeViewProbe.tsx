@@ -17,10 +17,12 @@ export function NativeViewProbe({ onFinished, onFailure }: {
 }): ReactElement | undefined {
     const [step, setStep] = useState(0);
     const [visible, setVisible] = useState(true);
+    const [callbackVersion, setCallbackVersion] = useState(0);
     const created = useRef(0); const disposed = useRef(0); const updates = useRef(0);
     const completed = useRef(false);
     const field = useRef<TextField | undefined>(undefined);
     const firstHost = useRef<unknown>(undefined);
+    const callbackSceneCount = useRef(0);
     const createScene = useCallback((stage: Stage): NativeScene => {
         created.current++;
         const shape = new Shape(); shape.graphics.beginFill(0x67e3bb);
@@ -45,6 +47,13 @@ export function NativeViewProbe({ onFinished, onFailure }: {
     }, []);
     const stats = useCallback((value: FrameStats): void => {
         if (value.frames < 20 || completed.current) return;
+        if (callbackVersion === 0) {
+            callbackSceneCount.current = created.current;
+            setCallbackVersion(1);
+            return;
+        }
+        assert(created.current === callbackSceneCount.current,
+            'changing stats and error callbacks preserves the native scene');
         assert(value.draws > 0 && value.profile && value.profile.samples > 0
             && Number.isFinite(value.profile.totalMs.p95), 'native view records actual draws and timings');
         assert(field.current?.stage && activeNativeInput(field.current.stage)?.field === field.current
@@ -53,9 +62,12 @@ export function NativeViewProbe({ onFinished, onFailure }: {
             'switching Core fields mounts a distinct RN editing view');
         completed.current = true;
         void reportResult({ type: 'native-view', step, inputFocused: true, inputSwitched: true,
-            scenesCreated: created.current, scenesDisposed: disposed.current, ...value });
+            callbacksUpdated: true, scenesCreated: created.current, scenesDisposed: disposed.current, ...value });
         setVisible(false);
-    }, [step]);
+    }, [step, callbackVersion]);
+    const fail = useCallback((message: string): void => {
+        onFailure(`callback ${callbackVersion}: ${message}`);
+    }, [onFailure, callbackVersion]);
     useEffect(() => {
         if (visible) {
             const timeout = setTimeout(() => onFailure('Native view did not finish within 10 seconds'), 10000);
@@ -71,12 +83,12 @@ export function NativeViewProbe({ onFinished, onFailure }: {
                 assert(updates.current > 0, 'KurotView drives scene updates');
                 assert(!TextInput.State.currentlyFocusedInput(), 'RN editing focus is released after unmount');
                 if (step === 2) { onFinished(); return; }
-                completed.current = false; setStep(step + 1); setVisible(true);
+                completed.current = false; setCallbackVersion(0); setStep(step + 1); setVisible(true);
             } catch (error) { onFailure(error instanceof Error ? error.message : String(error)); }
         };
         let frame = requestAnimationFrame(verify);
         return () => cancelAnimationFrame(frame);
     }, [visible, step, onFinished, onFailure]);
     return visible ? <KurotView width={step === 1 ? 192 : 128} height={256}
-        createScene={createScene} onStats={stats} onError={onFailure} /> : undefined;
+        createScene={createScene} onStats={stats} onError={fail} /> : undefined;
 }

@@ -1,6 +1,6 @@
 # Kurot Skia：适配与测试计划
 
-更新日期：2026-10-11。0.1.3 收入原生特性补全和可选的共享 Spine 动画缓存。完整能力矩阵、原生测试和性能结果见 [native-feature-assessment.md](native-feature-assessment.md)，缓存测量见 [native-spine-shared-cache.md](native-spine-shared-cache.md)。发布和 Demo 的 npm 采用需要单独检查；历史测试数据保留实际测试版本和构建摘要。
+更新日期：2026-10-11。0.1.4 准备发布，收入原生渲染组织调整和保留场景的回调更新；0.1.3 已发布原生特性补全和可选的共享 Spine 动画缓存。完整能力矩阵、原生测试和性能结果见 [native-feature-assessment.md](native-feature-assessment.md)，缓存测量见 [native-spine-shared-cache.md](native-spine-shared-cache.md)。发布和 Demo 的 npm 采用需要单独检查；历史测试数据保留实际测试版本和构建摘要。
 
 本文件记录当前能力、需要验证的假设和后续适配候选，不代表已经承诺支持全部功能。实际完成情况以测试结果和代码为准。
 
@@ -38,6 +38,12 @@
 原生 Bitmap 扩展、Mesh、BitmapText、粒子、缓存、内置滤镜、混合模式、渐变/虚线、RenderTexture、字体和输入桥已实现。发布版 Game、Spine 4.0–4.3、16 套原始皮肤及 5,000 条虚拟列表纳入独立原生测试。Node 生成器增加 Spine 多页图集与无损二进制资源，watch 跟踪新页面和二进制变更。动态字体测量采用最多 1,024 条短文本数值缓存，字体注册变更会清空；离屏显示缓存最多保留约 64 MiB RGBA 图像，单图上限 4096²。
 
 DragonBones 的图像、旋转/trim 图集、加权/形变网格、嵌套骨架、动画事件和资源所有权已通过原生 GPU 检查；真实项目二进制/Surface 资源仍需专项验证。精灵批绘制仅用于完全不透明、至多 256² 物理像素的源帧，要求完整对象透明度及相同帧/tint/过滤方式；透明图与淡入淡出回退单张绘制，避免已复现的颜色舍入差异。粒子缓存旋转还原后的独立源帧，避免分数缩放采到相邻图集像素。首次复制/alpha 检查不计入预热后基准，需要单独测量。这里的实现不代表完整媒体、任意 WebGL Shader 或 Release 真机性能验收。原生输入桥的自动检查覆盖 UTF-16 选区、焦点、提交限制和拆卸；实际键盘/IME 与自定义字体编辑外观需要独立宿主验收。后续清单以评估报告的当前矩阵为准。
+
+### 0.1.4 原生渲染组织调整
+
+借鉴 Popkorn 的宿主、帧循环和绘制资源分工，拆出无原生运行时依赖的 NativeFrameLoop、管理 Graphite 上下文与录制事务的 NativeFrameRenderer，以及负责路径/画笔缓存与命中的 NativeGraphicsRenderer。KurotView 保留 RN 布局、场景、输入和前后台生命周期；SkiaRenderer 保留显示树、合成与图元派发。Core ticker 的持续绘制、现有合批、缓存预算和绘制语义保持原样，模块职责见 [native-runtime.md](native-runtime.md#internal-rendering-responsibilities)。
+
+通知回调通过已提交的引用更新：替换 onStats/onError 保留场景，工厂或视口变化仍重建。调整后库构建、45 项 Node 测试、独立宿主类型检查和零警告 lint 通过；重新构建的 iOS 26.5 Release 模拟器宿主通过完整功能/GPU 套件、18 个性能场景和三轮回调替换、输入与卸载检查。下述多平台性能基线保留原始测试身份；本次组织调整的原生复测覆盖 iOS 26.5。
 
 ## 性能验证
 

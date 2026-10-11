@@ -1,13 +1,45 @@
+# Dependencies and package-manager data
 node_modules/
+.pnpm-store/
+
+# Generated build output and staging directories
 dist/
 .test-build/
-.DS_Store
 *.tsbuildinfo
 .kurot-build-*/
-.wu/
+.kurot-project-*/
+
+# Native test app output and local native tooling
 .expo/
 tests/native/app/src/generated/
 tests/native/app/ios/
 tests/native/app/android/
 tests/native/results/
 /.native-tools/
+
+# Logs and coverage
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+coverage/
+
+# Local environment files (keep shareable examples)
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Editor and operating-system files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+.zed/
+.wu/
+*.swp
+*.swo
+
+# Local reference sources (not distributed)
+/reference/

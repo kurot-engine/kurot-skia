@@ -3,28 +3,18 @@ import { useEffect, useRef, useState } from 'react';
 import type { ReactElement } from 'react';
 import { AppState, StyleSheet, View } from 'react-native';
 import type { GestureResponderEvent } from 'react-native';
-import { ClipOp, Skia, SkiaGraphiteView } from 'react-native-skia';
+import { SkiaGraphiteView } from 'react-native-skia';
 import type { SkiaGraphiteViewRef } from 'react-native-skia';
 
-import { frameProfile } from './frame-stats.js';
-import type { FrameProfile, FrameTiming } from './frame-stats.js';
+import { NativeFrameLoop } from './NativeFrameLoop.js';
+import type { FrameStats, NativeScene } from './NativeFrameLoop.js';
+import { NativeFrameRenderer } from './NativeFrameRenderer.js';
 import { NativeTouch } from './NativeTouch.js';
-import { SkiaRenderer } from './SkiaRenderer.js';
 import { createViewport } from './viewport.js';
 import { NativeInputOverlay } from './NativeInputOverlay.js';
 import { blurNativeInput, updateNativeInput } from './NativeInputController.js';
 
-export interface NativeScene {
-	update(deltaSeconds: number): void;
-	dispose(): void;
-}
-
-export interface FrameStats {
-	fps: number;
-	draws: number;
-	frames: number;
-	profile?: FrameProfile;
-}
+export type { FrameStats, NativeScene } from './NativeFrameLoop.js';
 
 export interface KurotViewProps {
 	width: number;
@@ -37,18 +27,21 @@ export interface KurotViewProps {
 export function KurotView({ width, height, createScene, onStats, onError }: KurotViewProps): ReactElement {
 	const view = useRef<SkiaGraphiteViewRef | undefined>(undefined);
 	const input = useRef<NativeTouch | undefined>(undefined);
+	const callbacks = useRef({ onStats, onError });
 	const [size, setSize] = useState({ width: 0, height: 0 });
 	const [inputStage, setInputStage] = useState<Stage>();
 	// Omitting height fills the native view while retaining logical width.
 	const stageHeight = height ?? (size.width > 0 ? (width * size.height) / size.width : 0);
 
 	useEffect(() => {
+		callbacks.current = { onStats, onError };
+	}, [onStats, onError]);
+
+	useEffect(() => {
 		if (!view.current || size.width <= 0 || size.height <= 0) {
 			return;
 		}
-		const context = view.current.getContext();
-		const viewport = createViewport(context.width, context.height, width, stageHeight);
-		const renderer = new SkiaRenderer(viewport.scale);
+		const renderer = new NativeFrameRenderer(view.current.getContext(), width, stageHeight);
 		const stage = new Stage();
 		stage.setContentSize(width, stageHeight);
 		stage.frameRate = 60;
@@ -61,93 +54,34 @@ export function KurotView({ width, height, createScene, onStats, onError }: Kuro
 			input.current = undefined;
 			stage.removeChildren();
 			renderer.dispose();
-			context.dispose();
-			onError(error instanceof Error ? error.message : String(error));
+			callbacks.current.onError(error instanceof Error ? error.message : String(error));
 			return;
 		}
 		setInputStage(stage);
-		const timings: FrameTiming[] = [];
-		let previousTime = performance.now();
-		let statsTime = previousTime;
-		let frames = 0;
-		let intervalFrames = 0;
-		let running = false;
-		let failed = false;
-		const player = {
-			render: (): void => {
-				const now = performance.now();
-				const delta = Math.min((now - previousTime) / 1000, 0.05);
-				previousTime = now;
-				try {
-					scene.update(delta);
-					updateNativeInput(stage);
-					const updated = performance.now();
-					const canvas = context.beginRecording();
-					let draws = 0;
-					let recorded = updated;
-					let complete = false;
-					try {
-						canvas.clear(Skia.Color('#10192b'));
-						canvas.translate(viewport.x, viewport.y);
-						canvas.scale(viewport.scale, viewport.scale);
-						canvas.clipRect({ x: 0, y: 0, width, height: stageHeight }, ClipOp.Intersect, true);
-						draws = renderer.render(stage, canvas);
-						complete = true;
-					} finally {
-						const recording = context.finishRecording();
-						recorded = performance.now();
-						try {
-							if (complete) context.submit(recording);
-						} finally {
-							recording.dispose();
-						}
-					}
-					const submitted = performance.now();
-					if (onStats)
-						timings.push({
-							updateMs: updated - now,
-							recordMs: recorded - updated,
-							submitMs: submitted - recorded,
-							totalMs: submitted - now,
-						});
-					frames++;
-					intervalFrames++;
-					if (now - statsTime >= 1000) {
-						onStats?.({
-							fps: Math.round((intervalFrames * 1000) / (now - statsTime)),
-							draws,
-							frames,
-							profile: frameProfile(timings),
-						});
-						timings.length = 0;
-						intervalFrames = 0;
-						statsTime = now;
-					}
-				} catch (error) {
-					failed = true;
-					stop();
-					const message = error instanceof Error ? error.message : String(error);
-					console.error(message);
-					onError(message);
-				}
+		const player = new NativeFrameLoop({
+			update(delta): void {
+				scene.update(delta);
+				updateNativeInput(stage);
 			},
-		};
+			draw: () => renderer.draw(stage),
+			get onStats(): KurotViewProps['onStats'] {
+				return callbacks.current.onStats;
+			},
+			onError(message): void {
+				stop();
+				console.error(message);
+				callbacks.current.onError(message);
+			},
+		});
 		const stop = (): void => {
 			blurNativeInput(stage);
 			touch.cancelAll();
 			ticker.removePlayer(player);
 			ticker.stop();
-			running = false;
+			player.stop();
 		};
 		const start = (): void => {
-			if (running || failed) {
-				return;
-			}
-			previousTime = performance.now();
-			statsTime = previousTime;
-			intervalFrames = 0;
-			timings.length = 0;
-			running = true;
+			if (!player.start()) return;
 			ticker.addPlayer(player);
 			ticker.start();
 		};
@@ -172,11 +106,10 @@ export function KurotView({ width, height, createScene, onStats, onError }: Kuro
 			} finally {
 				stage.removeChildren();
 				renderer.dispose();
-				context.dispose();
 				setInputStage(undefined);
 			}
 		};
-	}, [width, stageHeight, size, createScene, onStats, onError]);
+	}, [width, stageHeight, size, createScene]);
 
 	const forward = (event: GestureResponderEvent, action: 'begin' | 'move' | 'end'): void => {
 		const viewport = createViewport(size.width, size.height, width, stageHeight);

@@ -1,5 +1,28 @@
 # Changelog
 
+## 0.1.4 — 2026-10-11
+
+Native rendering organization and stable notification callbacks, prepared for publication.
+
+### Changed
+
+- Separate RN host/session lifecycle, headless frame timing, Graphite recording transactions and Graphics drawing/cache ownership into internal modules. Preserve display order, compositing, continuous Core ticker rendering, batching and cache budgets.
+- Keep the native scene when `onStats` or `onError` changes, using the latest committed callbacks. Scene factory or viewport changes still recreate it.
+- Centralize recording cleanup after drawing/submission failures, and test stopped/failed loops, resume clocks and profiling boundaries. Expand mounted native checks to replace both callbacks while retaining the scene and input session.
+- Update English/Chinese usage guides, runtime responsibilities and the adaptation plan. Ignore local reference sources, native outputs, staging files and development caches.
+
+### Compatibility and adoption
+
+- Public package entries/types, Core 2.5.3, UI 3.5.0 and Skia 3.3.0 requirements, and resource/KUI formats are unchanged. No Core/UI/Game/Spine or other engine SDK release is required.
+- After publication, the Demo's exact registry 0.1.3 declaration needs an explicit update to adopt 0.1.4. Compatible 0.1.x ranges may adopt through their installations/locks. Restart Metro with `--clear`; rebuild embedded Release bundles. Existing development builds containing Skia 3.3.0 can be reused.
+- The independent native test host retains its explicit `file:` dependency and refreshes that installation for source validation. Generator-only adoption is optional; engine packages, templates/examples and other applications are unaffected.
+
+### Release verification
+
+- `pnpm build`, all 45 Node tests and `git diff --check` pass. The independent native host passes type checking and zero-warning lint.
+- `pnpm pack` cleanly rebuilds the 0.1.4 tarball. All package entry targets/declarations, four new internal modules and English/Chinese guides are present; private test hosts, reference sources and native outputs are excluded.
+- A freshly rebuilt iOS 26.5 Release simulator host passes the complete functional/GPU suite, 18 benchmark fixtures and three mounted callback-replacement/input/cleanup checks. Historical iOS 18.2/Android results retain their original 0.1.3 source/build identity; this refactor was rerun on iOS 26.5.
+
 ## 0.1.3 — 2026-10-11
 
 Native feature completion and opt-in shared Spine animation caching.
