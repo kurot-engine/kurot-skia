@@ -1,7 +1,7 @@
 import type { Mesh } from '@kurot/core';
 import type { SkVertices } from 'react-native-skia';
-import { sharedSpineGeometryKey } from './spine-cache-data.js';
-import type { SpineCacheScope } from './spine-cache-data.js';
+import { sharedSpineGeometryKey } from '../spine/spine-cache-data.js';
+import type { SpineCacheScope } from '../spine/spine-cache-data.js';
 
 interface Part {
 	positions: number[];

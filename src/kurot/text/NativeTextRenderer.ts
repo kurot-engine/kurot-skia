@@ -5,7 +5,7 @@ import type { SkCanvas, SkParagraph } from 'react-native-skia';
 
 import { getTextRenderPadding } from '@kurot/core/dist/kurot/text/TextRenderBounds.js';
 import { getTextVerticalOffset } from '@kurot/core/dist/kurot/text/TextVerticalLayout.js';
-import { skColor } from './graphics.js';
+import { skColor } from '../rendering/graphics.js';
 import { createParagraph, nativeFontStyle } from './paragraph.js';
 import { nativeFontRevision } from './NativeFontManager.js';
 

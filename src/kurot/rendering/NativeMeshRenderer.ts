@@ -7,9 +7,9 @@ import { NativeImagePaint } from './NativeImagePaint.js';
 import { NativeMeshGeometryPool } from './NativeMeshGeometryPool.js';
 import type { SharedMeshGeometry } from './NativeMeshGeometryPool.js';
 import { nativeBlendMode } from './blend.js';
-import { getSkiaImage } from './textures.js';
-import { sharedSpineGeometryKey } from './spine-cache-data.js';
-import { getNativePictureCache } from './NativePictureCache.js';
+import { getSkiaImage } from '../resources/textures.js';
+import { sharedSpineGeometryKey } from '../spine/spine-cache-data.js';
+import { getNativePictureCache } from '../cache/NativePictureCache.js';
 
 interface MeshCache {
 	vertices: SkVertices[];

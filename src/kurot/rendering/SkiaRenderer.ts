@@ -6,14 +6,14 @@ import type { SkCanvas } from 'react-native-skia';
 
 import { NativeBitmapRenderer } from './NativeBitmapRenderer.js';
 import { NativeBitmapBatchRenderer } from './NativeBitmapBatchRenderer.js';
-import { NativeCacheRenderer } from './NativeCacheRenderer.js';
+import { NativeCacheRenderer } from '../cache/NativeCacheRenderer.js';
 import { NativeEffects } from './NativeEffects.js';
 import { NativeGraphicsRenderer } from './NativeGraphicsRenderer.js';
 import { NativeMeshRenderer } from './NativeMeshRenderer.js';
 import { NativeParticleRenderer } from './NativeParticleRenderer.js';
-import { NativePictureCacheRenderer } from './NativePictureCacheRenderer.js';
-import type { NativePictureCacheLimits, NativePictureCacheStats } from './NativePictureCacheRenderer.js';
-import { NativeTextRenderer } from './NativeTextRenderer.js';
+import { NativePictureCacheRenderer } from '../cache/NativePictureCacheRenderer.js';
+import type { NativePictureCacheLimits, NativePictureCacheStats } from '../cache/NativePictureCacheRenderer.js';
+import { NativeTextRenderer } from '../text/NativeTextRenderer.js';
 import { nativeBlendMode } from './blend.js';
 
 /**

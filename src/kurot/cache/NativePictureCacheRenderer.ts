@@ -4,7 +4,7 @@ import { Skia } from 'react-native-skia';
 import type { SkCanvas, SkPicture } from 'react-native-skia';
 
 import { getNativePictureCache, NativePictureCache } from './NativePictureCache.js';
-import { nativeFontRevision } from './NativeFontManager.js';
+import { nativeFontRevision } from '../text/NativeFontManager.js';
 import { PictureDependencies } from './picture-dependencies.js';
 
 export interface NativePictureCacheLimits {

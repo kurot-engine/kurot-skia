@@ -6,7 +6,7 @@ import type { SkCanvas, SkImage, SkPaint, SkRect } from 'react-native-skia';
 
 import { NativeImagePaint } from './NativeImagePaint.js';
 import { NativeNineSliceRenderer } from './nine-slice.js';
-import { getSkiaImage } from './textures.js';
+import { getSkiaImage } from '../resources/textures.js';
 
 export function drawImageRegion(
 	canvas: SkCanvas,

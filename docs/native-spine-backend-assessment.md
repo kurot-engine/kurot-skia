@@ -57,9 +57,9 @@ actors benefit from exact geometry sharing and are a weaker acceptance fixture.
 | Spine `SkeletonRenderer` | JS AnimationState update/apply, world transforms, then one SlotRenderer update per draw-order slot |
 | Spine `SlotRenderer` | Weighted/clipped vertices, per-frame JS positions/UV/index copies and Core Mesh invalidation |
 | Spine `SkeletonAnimation` / `Track` | Public mutable runtime objects; JS queue, segments, events, promises and synchronous `update(0)` |
-| `src/kurot/NativeMeshRenderer.ts` | Ordered batches and immutable geometry sharing; ordinary JS Mesh input |
+| `src/kurot/rendering/NativeMeshRenderer.ts` | Ordered batches and immutable geometry sharing; ordinary JS Mesh input |
 | Skia `cpp/api/JsiSkVertices.h` | Reads JS point arrays element by element, builds native vectors, then copies to SkVertices |
-| `src/kurot/KurotView.tsx` / Core `SystemTicker` | View selects 60 FPS; Core throttling caps its interval calculation at 60 |
+| `src/kurot/view/KurotView.tsx` / Core `SystemTicker` | View selects 60 FPS; Core throttling caps its interval calculation at 60 |
 
 ## Native runtime and rendering boundary
 

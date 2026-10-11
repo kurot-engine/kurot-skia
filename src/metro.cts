@@ -28,17 +28,17 @@ export function createKurotResolver(projectRoot: string, previous?: CustomResolv
 	const native = path.dirname(hostRequire.resolve('@kurot/skia'));
 	const ports = new Map(
 		[
-			['net/HttpRequest.js', 'NativeHttpRequest.js'],
-			['net/ImageLoader.js', 'NativeImageLoader.js'],
-			['text/TextMeasurer.js', 'NativeTextMeasurer.js'],
-			['text/TextSegmentation.js', 'NativeTextSegmentation.js'],
-			['text/InputController.js', 'NativeInputController.js'],
-			['media/Sound.js', 'NativeSound.js'],
-			['media/SoundChannel.js', 'NativeSound.js'],
-			['resource/analyzers/SoundAnalyzer.js', 'NativeSoundAnalyzer.js'],
-			['resource/analyzers/FontAnalyzer.js', 'NativeFontAnalyzer.js'],
-			['utils/FontManager.js', 'NativeFontManager.js'],
-			['display/texture/RenderTexture.js', 'NativeRenderTexture.js'],
+			['net/HttpRequest.js', 'resources/NativeHttpRequest.js'],
+			['net/ImageLoader.js', 'resources/NativeImageLoader.js'],
+			['text/TextMeasurer.js', 'text/NativeTextMeasurer.js'],
+			['text/TextSegmentation.js', 'text/NativeTextSegmentation.js'],
+			['text/InputController.js', 'input/NativeInputController.js'],
+			['media/Sound.js', 'resources/NativeSound.js'],
+			['media/SoundChannel.js', 'resources/NativeSound.js'],
+			['resource/analyzers/SoundAnalyzer.js', 'resources/NativeSoundAnalyzer.js'],
+			['resource/analyzers/FontAnalyzer.js', 'text/NativeFontAnalyzer.js'],
+			['utils/FontManager.js', 'text/NativeFontManager.js'],
+			['display/texture/RenderTexture.js', 'cache/NativeRenderTexture.js'],
 		].map(([source, target]) => [path.join(core, 'dist/kurot', source), path.join(native, target)]),
 	);
 	const browserCache = path.join(core, 'dist/kurot/player/canvas/DisplayList.js');
@@ -61,10 +61,10 @@ export function createKurotResolver(projectRoot: string, previous?: CustomResolv
 			}
 			const file = path.resolve(path.dirname(context.originModulePath), moduleName);
 			if (file === browserCache) {
-				return source(path.join(native, 'NativeDisplayList.js'));
+				return source(path.join(native, 'cache/NativeDisplayList.js'));
 			}
 			if (file === browserTheme) {
-				return source(path.join(native, 'NativeTheme.js'));
+				return source(path.join(native, 'resources/NativeTheme.js'));
 			}
 			if (context.originModulePath.startsWith(core + path.sep)) {
 				const port = ports.get(file);

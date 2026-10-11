@@ -14,11 +14,11 @@ Keep the Node entries out of application runtime imports. The runtime entry does
 
 ## Install in an application
 
-Install published 0.1.4 as a runtime dependency in the Expo application. It adds stable notification callbacks and internal rendering organization, retaining 0.1.3 native Mesh/game/UI support, shared Spine caches and native nine-slice rendering:
+Version 0.1.5 is prepared for publication with opt-in Picture caching and runtime source organization. After registry availability is confirmed, install it as a runtime dependency in the Expo application:
 
 ```sh
 # In the application
-pnpm exec expo install '@kurot/skia@0.1.4' --pnpm
+pnpm exec expo install '@kurot/skia@0.1.5' --pnpm
 ```
 
 The tested host is Core 2.5.3, UI 3.5.0, React Native Skia 3.3.0, React 19.2.3 and React Native 0.86.3 with Expo 57. Core and Skia are currently bound to those exact package versions because this adapter uses their internal/rendering contracts. UI 3.5.0 is required when installing UI. Core, UI, React, React Native and Skia are host peers; their optional metadata lets generator-only consumers omit native packages. A native application supplies Core, React, React Native and Skia, plus UI if it uses KUI controls.
@@ -104,25 +104,50 @@ Use one active `KurotView`. The current ticker, Graphics hit-test hook and UI Th
 Version 0.1.4 separates the host, frame loop and drawing resources. These
 modules are internal; applications keep using `KurotView` and `SkiaRenderer`.
 
+### Runtime source layout
+
+Version 0.1.5 groups existing modules into the following directories. Published
+0.1.4 has the earlier flat layout. File names, implementation bodies and public
+package entries/exports are preserved; imports and Metro's compiled adapter
+paths follow the directories. `index.ts`, `core-native.ts` and the native editor
+`tsconfig.json` stay at the root of `src/kurot/`.
+Both runtime barrels group exports by responsibility, with associated type
+exports beside their modules; exported names and targets are preserved.
+
+| Directory in `src/kurot/` | Responsibility |
+| --- | --- |
+| `view/` | KurotView, Stage/session lifecycle, frame loop/recording, timing profiles and viewport. |
+| `rendering/` | SkiaRenderer tree dispatch, image/Mesh/Graphics/particle painters, batching, geometry, nine-slice and effects. |
+| `cache/` | Image and optional Picture cache ownership, dependency checks, DisplayList and RenderTexture captures. |
+| `text/` | Text renderer, Paragraph shaping, measurement, segmentation, font registration and font resources. |
+| `input/` | Touch forwarding, editing controller and RN TextInput overlay. |
+| `resources/` | HTTP/image transport, bundled assets, texture bindings, Theme and optional audio ports. |
+| `spine/` | Optional sampled-animation cache, independent playback and shared pose data. |
+
+Keep direct imports between these modules; the root barrel is for applications.
+Historical measurement JSON source manifests retain the paths and hashes of
+their recorded checkouts, including the Picture measurements committed in
+`6259254`. This directory move does not rename or replace those measurements.
+
 | Module in `src/kurot/` | Responsibility |
 | --- | --- |
-| `KurotView.tsx` | RN layout, Stage/session creation, touch/input overlays, AppState and Core ticker registration; notification callbacks stay independent of scene lifetime. |
-| `NativeFrameLoop.ts` | Scene update timing, delta clamping, recording/submission profiles and the stopped/failed loop lifecycle; no React or native runtime imports. |
-| `NativeFrameRenderer.ts` | One view's Graphite context, physical viewport and display-tree renderer; clears, transforms and clips each recording. |
-| `native-frame.ts` | Finishes every opened recording, submits only complete frames and releases local recording ownership even if drawing/submission fails. |
-| `SkiaRenderer.ts` | Kurot tree order, inherited alpha/tint, transforms, clipping, compositing and primitive/batch dispatch. |
-| `NativeGraphicsRenderer.ts` | Compiled Graphics paths, per-frame cache use/eviction, solid/gradient Paint and the same geometry for hit testing. |
+| `view/KurotView.tsx` | RN layout, Stage/session creation, touch/input overlays, AppState and Core ticker registration; notification callbacks stay independent of scene lifetime. |
+| `view/NativeFrameLoop.ts` | Scene update timing, delta clamping, recording/submission profiles and the stopped/failed loop lifecycle; no React or native runtime imports. |
+| `view/NativeFrameRenderer.ts` | One view's Graphite context, physical viewport and display-tree renderer; clears, transforms and clips each recording. |
+| `view/native-frame.ts` | Finishes every opened recording, submits only complete frames and releases local recording ownership even if drawing/submission fails. |
+| `rendering/SkiaRenderer.ts` | Kurot tree order, inherited alpha/tint, transforms, clipping, compositing and primitive/batch dispatch. |
+| `rendering/NativeGraphicsRenderer.ts` | Compiled Graphics paths, per-frame cache use/eviction, solid/gradient Paint and the same geometry for hit testing. |
 | Other `Native*Renderer` modules | Images, Mesh, particles, text and GPU captures with their existing cache and ownership contracts. |
 
 Core's ticker remains the frame source. Background resume resets delta/statistics
 time, and a failed loop stays stopped until its scene is recreated. This
 organization preserves continuous rendering, display semantics and the existing
 cache budgets. Version 0.1.4 adds no static-scene detection, Picture cache or new backend API.
-The working tree adds the opt-in Picture cache described below.
+Version 0.1.5 adds the opt-in Picture cache described below.
 
-## Picture caching (unreleased)
+## Picture caching
 
-The working tree adds `NativePictureCache`; published 0.1.4 does not contain it.
+Version 0.1.5 adds `NativePictureCache`; published 0.1.4 does not contain it.
 It is an explicit native option, independent of Core's `cacheAsTexture()` image
 captures. Core/UI/Game/Spine sources and version requirements remain unchanged.
 Use the independent local-file host when testing this feature.
@@ -195,6 +220,11 @@ JS-thread record plus synchronous offscreen GPU wait, not presented phone FPS.
 
 ### Release measurements — 2026-10-11
 
+These measurements use the Picture feature checkout recorded in commit
+`6259254`, before the directory and barrel organization in 0.1.5. Original
+source/build identities are retained; the measurements are not relabeled as
+tests of the 0.1.5 tarball.
+
 Both final production Hermes builds passed their complete GPU/functional suites,
 18 original benchmarks, 18 separate Picture comparisons and three mounted RN
 callback/input/cleanup probes. The iOS host was iPhone 17 Pro / iOS 26.5 on Mac
@@ -264,7 +294,7 @@ For UI, retain project-owned setup that installs an `IAssetAdapter` backed by th
 
 - `KurotView`, `KurotViewProps`, `NativeScene`, `FrameStats`: native canvas and scene lifecycle.
 - `SkiaRenderer`: imperative rendering into a provided `SkCanvas`; owns Graphics hit testing and text/path/nine-slice caches. Dispose it when finished.
-- Unreleased: `NativePictureCache`, `NativePictureCacheLimits`, `NativePictureCacheStats`: opt-in subtree command ownership, renderer retention limits and diagnostics. Dispose each handle with its scene.
+- Added in 0.1.5: `NativePictureCache`, `NativePictureCacheLimits`, `NativePictureCacheStats`: opt-in subtree command ownership, renderer retention limits and diagnostics. Dispose each handle with its scene.
 - `NativeTouch`, `createViewport`, `Viewport`: input forwarding and logical coordinate mapping.
 - `createSkiaBitmapData`, `createSkiaTexture`, `getSkiaImage`: bind native images to Core geometry. The loader transfers image ownership; `createSkiaTexture()` leaves the image owned by its caller.
 - `registerNativeAssets`, `getNativeAsset`, `NativeAsset`: register/query the application's static JSON/text/image table. The current registry is process-wide; scoped registration is future work.

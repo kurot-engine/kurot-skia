@@ -1,28 +1,47 @@
-export { KurotView } from './KurotView.js';
-export type { KurotViewProps, NativeScene, FrameStats } from './KurotView.js';
-export { SkiaRenderer } from './SkiaRenderer.js';
-export { NativePictureCache } from './NativePictureCache.js';
-export type { NativePictureCacheLimits, NativePictureCacheStats } from './NativePictureCacheRenderer.js';
-export { NativeTouch } from './NativeTouch.js';
-export { createSkiaTexture, createSkiaBitmapData, getSkiaImage } from './textures.js';
-export { registerNativeAssets, getNativeAsset } from './native-assets.js';
-export type { NativeAsset } from './native-assets.js';
-export { registerNativeSkinModule } from './NativeTheme.js';
-export { ImageLoader as NativeImageLoader } from './NativeImageLoader.js';
-export { HttpRequest as NativeHttpRequest } from './NativeHttpRequest.js';
-export { createViewport } from './viewport.js';
-export type { Viewport } from './viewport.js';
-export { measureText, measureTextMetrics } from './NativeTextMeasurer.js';
-export type { NativeTextMetrics } from './NativeTextMeasurer.js';
-export { createParagraph, nativeFontStyle } from './paragraph.js';
-export { registerNativeAudioBackend } from './NativeSound.js';
-export type { NativeAudioBackend, NativeAudioAsset, NativeAudioPlayback } from './NativeSound.js';
-export { NativeInputOverlay } from './NativeInputOverlay.js';
-export type { NativeInputOverlayProps } from './NativeInputOverlay.js';
-export { activeNativeInput, blurNativeInput, updateNativeInput } from './NativeInputController.js';
-export { clearNativeFonts } from './NativeFontManager.js';
+// ── View and frame lifecycle ──
 
-export type { FrameTiming, FrameProfile, TimingDistribution } from './frame-stats.js';
-export { NativeSpineAnimationCache } from './NativeSpineAnimationCache.js';
-export type { NativeSpineAnimationCacheOptions, NativeSpineCacheSource } from './NativeSpineAnimationCache.js';
-export { NativeSpineCachedAnimation } from './NativeSpineCachedAnimation.js';
+export { KurotView } from './view/KurotView.js';
+export type { KurotViewProps, NativeScene, FrameStats } from './view/KurotView.js';
+export { createViewport } from './view/viewport.js';
+export type { Viewport } from './view/viewport.js';
+export type { FrameTiming, FrameProfile, TimingDistribution } from './view/frame-stats.js';
+
+// ── Rendering ──
+
+export { SkiaRenderer } from './rendering/SkiaRenderer.js';
+
+// ── Caching ──
+
+export { NativePictureCache } from './cache/NativePictureCache.js';
+export type { NativePictureCacheLimits, NativePictureCacheStats } from './cache/NativePictureCacheRenderer.js';
+
+// ── Text and fonts ──
+
+export { measureText, measureTextMetrics } from './text/NativeTextMeasurer.js';
+export type { NativeTextMetrics } from './text/NativeTextMeasurer.js';
+export { createParagraph, nativeFontStyle } from './text/paragraph.js';
+export { clearNativeFonts } from './text/NativeFontManager.js';
+
+// ── Input ──
+
+export { NativeTouch } from './input/NativeTouch.js';
+export { NativeInputOverlay } from './input/NativeInputOverlay.js';
+export type { NativeInputOverlayProps } from './input/NativeInputOverlay.js';
+export { activeNativeInput, blurNativeInput, updateNativeInput } from './input/NativeInputController.js';
+
+// ── Resources ──
+
+export { createSkiaTexture, createSkiaBitmapData, getSkiaImage } from './resources/textures.js';
+export { registerNativeAssets, getNativeAsset } from './resources/native-assets.js';
+export type { NativeAsset } from './resources/native-assets.js';
+export { registerNativeSkinModule } from './resources/NativeTheme.js';
+export { ImageLoader as NativeImageLoader } from './resources/NativeImageLoader.js';
+export { HttpRequest as NativeHttpRequest } from './resources/NativeHttpRequest.js';
+export { registerNativeAudioBackend } from './resources/NativeSound.js';
+export type { NativeAudioBackend, NativeAudioAsset, NativeAudioPlayback } from './resources/NativeSound.js';
+
+// ── Spine ──
+
+export { NativeSpineAnimationCache } from './spine/NativeSpineAnimationCache.js';
+export type { NativeSpineAnimationCacheOptions, NativeSpineCacheSource } from './spine/NativeSpineAnimationCache.js';
+export { NativeSpineCachedAnimation } from './spine/NativeSpineCachedAnimation.js';

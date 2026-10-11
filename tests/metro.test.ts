@@ -47,25 +47,25 @@ test('Metro uses one host Core and redirects its browser ports to installed nati
         assert.equal(sourceFile(resolve(appContext, '@kurot/core', 'ios')), path.join(native, 'core-native.js'));
         const origin = path.join(core, 'dist/kurot/resource/Resource.js');
         for (const [module, port] of [
-            ['net/ImageLoader.js', 'NativeImageLoader.js'],
-            ['net/HttpRequest.js', 'NativeHttpRequest.js'],
-            ['text/TextMeasurer.js', 'NativeTextMeasurer.js'],
-            ['text/TextSegmentation.js', 'NativeTextSegmentation.js'],
-            ['text/InputController.js', 'NativeInputController.js'],
-            ['media/Sound.js', 'NativeSound.js'],
-            ['media/SoundChannel.js', 'NativeSound.js'],
-            ['resource/analyzers/SoundAnalyzer.js', 'NativeSoundAnalyzer.js'],
-            ['resource/analyzers/FontAnalyzer.js', 'NativeFontAnalyzer.js'],
-            ['utils/FontManager.js', 'NativeFontManager.js'],
-            ['display/texture/RenderTexture.js', 'NativeRenderTexture.js'],
-            ['player/canvas/DisplayList.js', 'NativeDisplayList.js'],
+            ['net/ImageLoader.js', 'resources/NativeImageLoader.js'],
+            ['net/HttpRequest.js', 'resources/NativeHttpRequest.js'],
+            ['text/TextMeasurer.js', 'text/NativeTextMeasurer.js'],
+            ['text/TextSegmentation.js', 'text/NativeTextSegmentation.js'],
+            ['text/InputController.js', 'input/NativeInputController.js'],
+            ['media/Sound.js', 'resources/NativeSound.js'],
+            ['media/SoundChannel.js', 'resources/NativeSound.js'],
+            ['resource/analyzers/SoundAnalyzer.js', 'resources/NativeSoundAnalyzer.js'],
+            ['resource/analyzers/FontAnalyzer.js', 'text/NativeFontAnalyzer.js'],
+            ['utils/FontManager.js', 'text/NativeFontManager.js'],
+            ['display/texture/RenderTexture.js', 'cache/NativeRenderTexture.js'],
+            ['player/canvas/DisplayList.js', 'cache/NativeDisplayList.js'],
         ]) {
             const request = path.relative(path.dirname(origin), path.join(core, 'dist/kurot', module));
             assert.equal(sourceFile(resolve(context(origin, fallback), request, 'android')), path.join(native, port));
         }
         const uiOrigin = path.join(ui, 'dist/kurot/components/Component.js');
-        assert.equal(sourceFile(resolve(context(uiOrigin, fallback), '../core/Theme.js', 'ios')), path.join(native, 'NativeTheme.js'));
-        const nativeOrigin = path.join(native, 'NativeHttpRequest.js');
+        assert.equal(sourceFile(resolve(context(uiOrigin, fallback), '../core/Theme.js', 'ios')), path.join(native, 'resources/NativeTheme.js'));
+        const nativeOrigin = path.join(native, 'resources/NativeHttpRequest.js');
         assert.equal(sourceFile(resolve(context(nativeOrigin, fallback), '@kurot/core/dist/kurot/net/HttpRequest.js', 'android')),
             path.join(core, 'dist/kurot/net/HttpRequest.js'));
         assert.throws(() => resolve(context(nativeOrigin, fallback), '@kurot/core/dist/../../package.json', 'android'), /Invalid native Core module/);

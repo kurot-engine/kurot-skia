@@ -1,6 +1,6 @@
 # Library and Demo development
 
-The library and Expo Demo remain separate projects and repositories. This guide describes source development for `@kurot/skia` 0.1.4 using an installed local file package.
+The library and Expo Demo remain separate projects and repositories. This guide describes source development for `@kurot/skia` 0.1.5 using an installed local file package.
 
 Applications consuming the npm release use the installed `kurot-project` command and package entries without this supervisor. The Demo uses npm `@kurot/skia`; its `pnpm dev` watches project resources and starts Expo. This guide requires an explicit local `file:` dependency. Use a separate Demo installation to validate unpublished fixes while keeping the original registry installation intact.
 
@@ -75,5 +75,13 @@ Only that declared installed local package is synchronized. Registry packages an
 | `src/development/` | Local build/sync/process supervisor |
 
 Editors discover `src/kurot/tsconfig.json` for native sources. It extends `tsconfig.native.json` with `noEmit`, retaining React Native JSX settings and the Core internal-module type paths. The root `tsconfig.json` covers Node tools; `pnpm build` explicitly compiles both targets. Keep the native editor configuration so internal Core imports resolve without suppressing type errors or changing Core exports.
+
+The 0.1.5 [runtime layout](native-runtime.md#runtime-source-layout)
+uses nested folders with the same runtime entry. After adopting this directory
+move in a source checkout, use `pnpm clean` followed by `pnpm build`, or the
+development supervisor's fresh staging build, to remove obsolete compiled files.
+Refresh only the declared local-file host installation and restart Metro with
+`--clear` so it loads the new resolver mappings. Package publication already
+performs a clean build through `prepack`.
 
 The former `@kurot/skia/project` entry has been removed. Update build imports to `/generator`. Earlier private generated output has an older ownership marker; remove only the generator-owned output directory and regenerate when migrating. The Demo has already been migrated.

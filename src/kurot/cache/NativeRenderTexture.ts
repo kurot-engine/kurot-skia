@@ -2,8 +2,8 @@ import { Texture, textureScaleFactor } from '@kurot/core/dist/kurot/display/text
 import type { DisplayObject, Graphics, Rectangle } from '@kurot/core';
 import { AlphaType, ColorType, Skia } from 'react-native-skia';
 
-import { SkiaRenderer } from './SkiaRenderer.js';
-import { createSkiaBitmapData, getSkiaImage } from './textures.js';
+import { SkiaRenderer } from '../rendering/SkiaRenderer.js';
+import { createSkiaBitmapData, getSkiaImage } from '../resources/textures.js';
 
 /**
  * Explicit captures preserve the Core texture's physical sizing contract.

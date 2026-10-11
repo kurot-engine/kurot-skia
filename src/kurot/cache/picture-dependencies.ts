@@ -2,7 +2,7 @@ import { BitmapText, DisplayObjectContainer, Texture } from '@kurot/core';
 import type { BitmapData, DisplayObject, Matrix } from '@kurot/core';
 import type { SkImage } from 'react-native-skia';
 
-import { getSkiaImage } from './textures.js';
+import { getSkiaImage } from '../resources/textures.js';
 
 interface ImageDependency {
 	data: BitmapData;

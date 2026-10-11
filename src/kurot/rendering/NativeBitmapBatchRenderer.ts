@@ -2,10 +2,10 @@ import { Bitmap, BitmapFillMode } from '@kurot/core';
 import type { DisplayObject } from '@kurot/core';
 import { AlphaType, BlendMode, ColorType, FilterMode, Skia } from 'react-native-skia';
 import type { SkCanvas, SkImage, SkRSXform, SkRect } from 'react-native-skia';
-import { getSkiaImage } from './textures.js';
+import { getSkiaImage } from '../resources/textures.js';
 import { NativeNineSliceRenderer } from './nine-slice.js';
 import { NativeImagePaint } from './NativeImagePaint.js';
-import { getNativePictureCache } from './NativePictureCache.js';
+import { getNativePictureCache } from '../cache/NativePictureCache.js';
 
 interface SpriteEntry {
 	transform: SkRSXform;

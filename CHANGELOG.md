@@ -1,12 +1,23 @@
 # Changelog
 
-## Unreleased
+## 0.1.5 — 2026-10-11
 
+Prepared for publication; registry publication is pending.
+
+### Added and changed
+
+- Group native runtime sources into view, rendering, cache, text, input, resources and Spine folders, and arrange both runtime barrels by responsibility. Update relative imports, Metro port mappings, internal test references and the source guide; preserve public entries/exports, implementation bodies and recorded performance identities.
 - Add opt-in native `NativePictureCache` subtree command recordings with explicit invalidation/disposal. Preserve ordinary per-child opacity; root placement normally reuses recordings, while external mask relationships, effective alpha/tint and content changes rebuild them.
 - Observe Core dirty/structure notifications without editing SDK sources; check recorded sorting state, font revision and source identity/content versions. Release owned Pictures on invalidation, disabled/absent caches, budget eviction and renderer disposal; failed recordings are never retained.
 - Keep Picture recordings separate from image captures and Graphite frame transactions. Expose count/draw-operation limits and diagnostic stats without claiming these are GPU bytes or hardware draw calls.
 - Add native GPU pixel/lifetime/failure regressions and separate stationary/transformed UI, text and Graphics comparisons against ordinary and image-cached drawing. Core/UI/Game/Spine requirements and the registry Demo are unchanged.
-- Verify 45 Node tests and the complete iOS 26.5 / Android API 36 Release suites on the recorded Metal / auto-selected llvmpipe backends. Preserve original benchmark/oracle contracts. Record separate comparison distributions, cold timings, source/build identities and the explicit SwiftShader batching-oracle failure in `docs/native-picture-cache-2026-10-11.json`. Retain opt-in behavior: reduced command recording does not ensure lower total frame time.
+- Preserve complete iOS 26.5 / Android API 36 Release suite results from the Picture feature checkout before directory/export organization (`6259254`), on the recorded Metal / auto-selected llvmpipe backends. Preserve original benchmark/oracle contracts, comparison distributions, cold timings, source/build identities and the explicit SwiftShader batching-oracle failure in `docs/native-picture-cache-2026-10-11.json`. Reduced command recording does not ensure lower total frame time.
+
+### Compatibility and adoption
+
+- Existing public package entries/types, Core 2.5.3, UI 3.5.0 and Skia 3.3.0 requirements, and resource/KUI formats are unchanged. Picture caching is explicitly enabled per subtree; ordinary and image-cached drawing retain their existing contracts. No other Kurot SDK release or higher dependency minimum is required.
+- The Demo remains on exact npm 0.1.4. Adopting 0.1.5 requires its explicit declaration/installation/lock update after publication; compatible 0.1.x ranges may adopt through installations/locks. Restart Metro with `--clear` and rebuild embedded Release bundles. Existing development builds with Skia 3.3.0 can be reused.
+- The independent native test host retains its local `file:` dependency. Generator-only adoption is optional; engine packages, templates/examples and other applications are unaffected.
 
 ## 0.1.4 — 2026-10-11
 

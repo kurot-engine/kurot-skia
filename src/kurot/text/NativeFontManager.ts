@@ -2,7 +2,7 @@ import { Base64Util } from '@kurot/core/dist/kurot/utils/Base64Util.js';
 import { Skia } from 'react-native-skia';
 import type { SkTypeface, SkTypefaceFontProvider } from 'react-native-skia';
 
-import { getNativeAsset } from './native-assets.js';
+import { getNativeAsset } from '../resources/native-assets.js';
 
 const buffers = new Map<string, ArrayBuffer>();
 interface FontRecord {

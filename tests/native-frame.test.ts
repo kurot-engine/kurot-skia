@@ -1,9 +1,9 @@
 import { deepEqual, equal, throws } from 'node:assert/strict';
 import { test } from 'node:test';
 
-import { NativeFrameLoop } from '../src/kurot/NativeFrameLoop.js';
-import type { FrameStats } from '../src/kurot/NativeFrameLoop.js';
-import { recordNativeFrame } from '../src/kurot/native-frame.js';
+import { NativeFrameLoop } from '../src/kurot/view/NativeFrameLoop.js';
+import type { FrameStats } from '../src/kurot/view/NativeFrameLoop.js';
+import { recordNativeFrame } from '../src/kurot/view/native-frame.js';
 
 test('recording submits a complete frame and releases local ownership after submission', () => {
 	const events: string[] = [];

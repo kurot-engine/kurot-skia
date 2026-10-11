@@ -1,6 +1,6 @@
 # Native feature assessment
 
-The working tree now adds an opt-in [Picture cache](native-runtime.md#picture-caching-unreleased).
+Version 0.1.5 is prepared with an opt-in [Picture cache](native-runtime.md#picture-caching).
 Its static UI/text/Graphics comparisons use independent fixtures and build
 identities in [native-picture-cache-2026-10-11.json](native-picture-cache-2026-10-11.json). They do not replace the
 historical live-Spine or shared-pose-cache measurements below. Publication and

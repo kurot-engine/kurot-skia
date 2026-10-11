@@ -1,10 +1,13 @@
 # Kurot-Skia
 
+Source version 0.1.5 is prepared for publication with opt-in NativePictureCache,
+runtime directory organization and grouped barrel exports. Publication remains
+pending; a source bump or local commit does not confirm registry availability.
 Version 0.1.4 is published, with registry integrity and compiled output verified
 on 2026-10-11. The separate Demo installs exact npm 0.1.4. Never republish an
 existing version or claim registry adoption from a source version alone.
-The working tree adds unreleased opt-in NativePictureCache commands, separate
-from cacheAsTexture images. Read docs/native-runtime.md#picture-caching-unreleased
+Version 0.1.5 adds opt-in NativePictureCache commands, separate
+from cacheAsTexture images. Read docs/native-runtime.md#picture-caching
 before changing dirty observers, per-child opacity, source dependencies or
 Picture ownership/budgets. Keep original performance workloads unchanged;
 Picture comparisons use separately named fixtures and records.
@@ -35,6 +38,27 @@ scenes, generated inputs and project-owned UI initialization stay in the Demo.
 Native adapters live under `src/kurot`. The root export is RN-only,
 `./metro` is a Node configuration helper, and `./generator` is Node build-time only.
 Read `docs/native-runtime.md` and `docs/PLAN.md` before extending native support.
+
+Runtime sources are grouped by responsibility: `view/` owns RN/view/frame lifecycle;
+`rendering/` owns display-tree dispatch, primitives, batching and effects;
+`cache/` owns image/Picture recordings, DisplayList and RenderTexture;
+`text/` owns shaping, measurement, segmentation and fonts; `input/` owns touches
+and RN editing; `resources/` owns transport, textures, assets, Theme and audio
+ports; `spine/` owns optional sampled-animation caches. `index.ts`, `core-native.ts`
+and the editor `tsconfig.json` remain at the root. Metro mappings use the nested
+compiled paths. Keep imports direct and preserve the public package entries.
+Historical benchmark source manifests retain their original paths and hashes;
+do not relabel them as measurements of this source reorganization.
+Both runtime barrels group re-exports by responsibility. Preserve the exported
+names, types and target modules when arranging them.
+
+Release adoption is explicit: the Demo's exact 0.1.4 declaration must be updated
+after registry 0.1.5 is available if it adopts Picture caching. Compatible 0.1.x
+ranges can adopt through installations/locks; the private native host retains
+its file dependency. Restart Metro with --clear and rebuild embedded Release
+bundles. Core 2.5.3, UI 3.5.0, Skia 3.3.0 and authored formats are unchanged.
+Generator-only adoption is optional. Engine SDKs, templates/examples and other
+applications need no release or incidental dependency update.
 
 Native rendering separates KurotView's RN/session lifecycle, NativeFrameLoop's
 headless timing, NativeFrameRenderer's Graphite viewport/ownership, and

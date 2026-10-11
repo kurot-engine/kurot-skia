@@ -4,7 +4,7 @@ import type { ReactElement } from 'react';
 import { TextInput } from 'react-native';
 
 import { activeNativeInput, nativeInputRevision, subscribeNativeInput } from './NativeInputController.js';
-import { createViewport } from './viewport.js';
+import { createViewport } from '../view/viewport.js';
 
 export interface NativeInputOverlayProps {
 	stage?: Stage;

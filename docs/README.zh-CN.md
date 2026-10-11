@@ -1,6 +1,6 @@
 # Kurot Skia
 
-`@kurot/skia` **0.1.4** — Kurot 的原生 Skia 渲染适配与资源/KUI 入口生成工具。
+`@kurot/skia` **0.1.5** — Kurot 的原生 Skia 渲染适配与资源/KUI 入口生成工具。
 
 [English](../README.md) · [原生运行时指南](native-runtime.md) · [库开发指南](development.md) · [适配与测试计划](PLAN.md) · [变更记录](../CHANGELOG.md)
 
@@ -8,17 +8,17 @@
 
 本包提供 React Native 运行时、Metro resolver、Node CLI 和构建脚本 API。相邻的 `Kurot-Skia-Demo` 已通过库使用渲染适配，并保留场景与项目初始化。应用可以使用 npm 发布包，开发库本身时使用本地依赖。
 
-0.1.4 已发布，包含内部渲染组织调整和保留场景的通知回调更新；2026-10-11 已验证注册表包，Demo 安装精确的 npm 0.1.4。
+0.1.5 已准备发布，包含可选 Picture 缓存、运行时目录整理和导出分组，目前尚未发布；下文的 0.1.5 安装命令在确认注册表可用后执行。0.1.4 已发布并于 2026-10-11 验证注册表包，Demo 仍安装精确的 npm 0.1.4。
 
 0.1.3 增加原生 Mesh、Game/Spine/DragonBones 绘制、更完整的 UI/文字/输入支持和可选的共享 Spine 动画缓存。保留 0.1.2 的原生 `drawImageNine` 和缓存图集子图。同一组 48 项 GPU 用例在 iOS 18.2/26.5 和 Android API 36 模拟环境通过，覆盖分数变换、图集密度/trim、过滤和透明度。首次使用复制源像素并保留原图的 alpha 表示，后续绘制复用缓存。
 
-**迁移：**从 0.1.2 或 0.1.3 升级无需修改源图几何、包入口、resource/KUI 格式或宿主版本。从 0.1.1 或更早版本升级时，源图区域和九宫格分割线必须落在整数物理像素上，中心区域需为正且位于帧内。2× 密度允许 0.5 的逻辑坐标；升级前需对齐任意小数物理分割线。缓存生命周期、首次复制成本及剩余真机测试见[原生验证与限制](native-runtime.md#validation-and-limits)。
+**迁移：**从 0.1.2–0.1.4 升级无需修改源图几何、包入口、resource/KUI 格式或宿主版本。从 0.1.1 或更早版本升级时，源图区域和九宫格分割线必须落在整数物理像素上，中心区域需为正且位于帧内。2× 密度允许 0.5 的逻辑坐标；升级前需对齐任意小数物理分割线。缓存生命周期、首次复制成本及剩余真机测试见[原生验证与限制](native-runtime.md#validation-and-limits)。
 
 接入原生渲染请先看[原生运行时指南](native-runtime.md)：把库放入运行时依赖，配置 `@kurot/skia/metro` 的 `createKurotResolver()`，再从 `@kurot/skia` 导入 `KurotView`。下文主要介绍资源/KUI 生成；只使用生成器的项目可以放入开发依赖。
 
 ## 原生特性
 
-工作树新增**尚未发布**的可选 `NativePictureCache`：用显示对象创建缓存句柄，直接修改可变绘制数据后调用 `invalidate()`，结束使用时调用 `dispose()` 关闭并释放。根节点移动、旋转和缩放通常复用命令；外部遮罩关系、内容、有效 alpha/tint、字体及资源变化触发重录，保留普通绘制的子项透明度合成。所有权、预算和对比测量见 [Picture 缓存](native-runtime.md#picture-caching-unreleased)。npm 0.1.4 不包含此功能。
+0.1.5 新增可选 `NativePictureCache`：用显示对象创建缓存句柄，直接修改可变绘制数据后调用 `invalidate()`，结束使用时调用 `dispose()` 关闭并释放。根节点移动、旋转和缩放通常复用命令；外部遮罩关系、内容、有效 alpha/tint、字体及资源变化触发重录，保留普通绘制的子项透明度合成。所有权、预算和对比测量见 [Picture 缓存](native-runtime.md#picture-caching)。npm 0.1.4 不包含此功能。
 
 0.1.4 将原生宿主、帧循环、Graphite 录制和图元资源拆分为各自管理职责的内部模块。保持 `createScene` 稳定；更新 `onStats`、`onError` 会替换通知回调，保留已有场景实例。内部模块分工见[渲染职责](native-runtime.md#internal-rendering-responsibilities)。
 
@@ -42,20 +42,20 @@ Mesh 按原始顺序合批，几何数据完全相同的角色共享原生顶点
 
 ```sh
 # 在应用项目中
-pnpm add --save-dev '@kurot/skia@0.1.4'
+pnpm add --save-dev '@kurot/skia@0.1.5'
 ```
 
 Expo 应用在这一步使用 [Expo 安装命令](https://docs.expo.dev/more/expo-cli/#install-dependencies)：
 
 ```sh
-pnpm exec expo install '@kurot/skia@0.1.4' --dev --pnpm
+pnpm exec expo install '@kurot/skia@0.1.5' --dev --pnpm
 ```
 
 接入原生渲染时去掉 `--dev`，将库作为运行时依赖，再按[原生运行时指南](native-runtime.md)配置。使用 npm 包的应用不需要库源码，直接使用下文的安装包资源监听命令。
 
 Demo 使用 npm `@kurot/skia@0.1.4`；它的 `pnpm dev --ios` 或 `pnpm dev --android` 监听项目资源并启动 Expo。验证尚未发布的库改动时，使用明确声明本地 `file:` 依赖的应用安装，再运行库的开发工具。需要已有原生 development build。初次安装、同步与退出清理详见[库开发指南](development.md)。
 
-使用 `pnpm exec expo install '@kurot/skia@0.1.4' --pnpm` 更新应用安装和 lockfile，再加 `--clear` 重启 Metro。此版本只改变 JavaScript 适配代码，已有包含 Skia 3.3.0 的 development build 可以复用；内嵌代码的 Release 应用需要重新构建。Core 2.5.3、UI 3.5.0、Skia 3.3.0 要求不变，resource/KUI 格式和生成入口不变。精确依赖旧版本的应用需显式更新声明，兼容的 0.1.x 范围可以更新安装和 lockfile 来采用。只用生成器的项目可独立选择更新，没有原生迁移要求。
+发布后，使用 `pnpm exec expo install '@kurot/skia@0.1.5' --pnpm` 更新应用安装和 lockfile，再加 `--clear` 重启 Metro。此版本只改变 JavaScript 适配代码，已有包含 Skia 3.3.0 的 development build 可以复用；内嵌代码的 Release 应用需要重新构建。Core 2.5.3、UI 3.5.0、Skia 3.3.0 要求不变，resource/KUI 格式和生成入口不变。精确依赖旧版本的应用需显式更新声明，兼容的 0.1.x 范围可以更新安装和 lockfile 来采用。只用生成器的项目可独立选择更新，没有原生迁移要求。
 
 ## 生成项目入口
 
@@ -283,6 +283,9 @@ pnpm test
 ```
 
 运行时适配位于 `src/kurot/`，生成器位于 `src/generator/`，Metro 集成位于 `src/metro.cts`，本地开发工具位于 `src/development/`。测试覆盖生成、资源 watch、Metro 映射、成功构建后的同步、模块新增/删除、错误恢复和退出清理。原 `/project` API 已改为 `/generator`；更新构建脚本导入，并重新生成此前本地生成器产生的输出。
+
+0.1.5 的源码按视图/帧生命周期、绘制、缓存、文字/字体、输入、资源和 Spine 分目录。
+`src/kurot/index.ts` 仍是公开运行时入口；职责见[源码布局](native-runtime.md#runtime-source-layout)。
 
 验证未发布的原生改动需运行独立的 `tests/native/app`。它保留 Demo 中未修改的 GPU 九宫格像素用例，并增加 Game、Spine、DragonBones、UI、资源和生命周期检查及性能诊断。详见[测试说明](../tests/native/README.md)和[验收记录](native-feature-assessment.md)；Node 测试不会执行原生 JSI。
 

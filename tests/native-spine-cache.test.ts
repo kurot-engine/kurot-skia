@@ -2,9 +2,9 @@ import { deepEqual, equal, notEqual, throws } from 'node:assert/strict';
 import { test } from 'node:test';
 import type { Mesh } from '@kurot/core';
 import type { SkVertices } from 'react-native-skia';
-import { NativeMeshGeometryPool } from '../src/kurot/NativeMeshGeometryPool.js';
-import { bindSpinePose, captureSpinePose, sharedSpineGeometryKey, spineFrameCount, spineFrameIndex } from '../src/kurot/spine-cache-data.js';
-import type { SpineCacheScope, SpinePoseSnapshot } from '../src/kurot/spine-cache-data.js';
+import { NativeMeshGeometryPool } from '../src/kurot/rendering/NativeMeshGeometryPool.js';
+import { bindSpinePose, captureSpinePose, sharedSpineGeometryKey, spineFrameCount, spineFrameIndex } from '../src/kurot/spine/spine-cache-data.js';
+import type { SpineCacheScope, SpinePoseSnapshot } from '../src/kurot/spine/spine-cache-data.js';
 
 function mesh(zIndex = 0): Mesh {
     return { vertices: [0, 0, 8, 0, 8, 4], uvs: [0, 0, 1, 0, 1, 1], indices: [0, 1, 2],

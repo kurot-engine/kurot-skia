@@ -9,10 +9,10 @@ import type { SkiaGraphiteViewRef } from 'react-native-skia';
 import { NativeFrameLoop } from './NativeFrameLoop.js';
 import type { FrameStats, NativeScene } from './NativeFrameLoop.js';
 import { NativeFrameRenderer } from './NativeFrameRenderer.js';
-import { NativeTouch } from './NativeTouch.js';
+import { NativeTouch } from '../input/NativeTouch.js';
 import { createViewport } from './viewport.js';
-import { NativeInputOverlay } from './NativeInputOverlay.js';
-import { blurNativeInput, updateNativeInput } from './NativeInputController.js';
+import { NativeInputOverlay } from '../input/NativeInputOverlay.js';
+import { blurNativeInput, updateNativeInput } from '../input/NativeInputController.js';
 
 export type { FrameStats, NativeScene } from './NativeFrameLoop.js';
 

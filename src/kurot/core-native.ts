@@ -1,64 +1,97 @@
 // Metro selects modules from the host Core 2.5.3 installation, preserving object identity.
+
+// ── Display objects and Graphics ──
+
 export { DisplayObject } from '@kurot/core/dist/kurot/display/DisplayObject.js';
 export type { CacheAsTextureOptions, RenderObjectType } from '@kurot/core/dist/kurot/display/DisplayObject.js';
+export type { DisplayObjectEvents } from '@kurot/core/dist/kurot/display/DisplayObject.js';
 export { DisplayObjectContainer } from '@kurot/core/dist/kurot/display/DisplayObjectContainer.js';
 export { Stage } from '@kurot/core/dist/kurot/display/Stage.js';
 export { Sprite } from '@kurot/core/dist/kurot/display/Sprite.js';
 export { Shape } from '@kurot/core/dist/kurot/display/Shape.js';
 export { Bitmap } from '@kurot/core/dist/kurot/display/Bitmap.js';
 export { Mesh } from '@kurot/core/dist/kurot/display/Mesh.js';
-export { BitmapData } from '@kurot/core/dist/kurot/display/texture/BitmapData.js';
-export { Texture } from '@kurot/core/dist/kurot/display/texture/Texture.js';
-export { RenderTexture } from './NativeRenderTexture.js';
-export { SpriteSheet } from '@kurot/core/dist/kurot/display/texture/SpriteSheet.js';
 export { Graphics, setGraphicsHitTest } from '@kurot/core/dist/kurot/display/Graphics.js';
 export type { GraphicsCommand, PathCommandType } from '@kurot/core/dist/kurot/display/GraphicsPath.js';
 export { BitmapFillMode } from '@kurot/core/dist/kurot/display/enums/BitmapFillMode.js';
 export { BlendMode } from '@kurot/core/dist/kurot/display/enums/BlendMode.js';
+
+// ── Textures ──
+
+export { BitmapData } from '@kurot/core/dist/kurot/display/texture/BitmapData.js';
+export { Texture } from '@kurot/core/dist/kurot/display/texture/Texture.js';
+export { RenderTexture } from './cache/NativeRenderTexture.js';
+export { SpriteSheet } from '@kurot/core/dist/kurot/display/texture/SpriteSheet.js';
+
+// ── Text and fonts ──
+
+export { TextField } from '@kurot/core/dist/kurot/text/TextField.js';
+export { BitmapText } from '@kurot/core/dist/kurot/text/BitmapText.js';
+export { BitmapFont } from '@kurot/core/dist/kurot/text/BitmapFont.js';
+export type { ITextElement, ITextStyle, ILineElement } from '@kurot/core/dist/kurot/text/types/ITextElement.js';
+export { HorizontalAlign } from '@kurot/core/dist/kurot/text/enums/HorizontalAlign.js';
+export { VerticalAlign } from '@kurot/core/dist/kurot/text/enums/VerticalAlign.js';
+export { TextFieldType } from '@kurot/core/dist/kurot/text/enums/TextFieldType.js';
+export { TextFieldInputType } from '@kurot/core/dist/kurot/text/enums/TextFieldInputType.js';
+export { cacheFontResource, registerFontMapping } from './text/NativeFontManager.js';
+
+// ── Events ──
+
 export { Event } from '@kurot/core/dist/kurot/events/Event.js';
-export { TouchEvent } from '@kurot/core/dist/kurot/events/TouchEvent.js';
+export type { EventMap } from '@kurot/core/dist/kurot/events/Event.js';
+export { EventPhase } from '@kurot/core/dist/kurot/events/EventPhase.js';
 export { EventDispatcher } from '@kurot/core/dist/kurot/events/EventDispatcher.js';
+export type { IEventDispatcher } from '@kurot/core/dist/kurot/events/IEventDispatcher.js';
+export { TouchEvent } from '@kurot/core/dist/kurot/events/TouchEvent.js';
+export { TextEvent } from '@kurot/core/dist/kurot/events/TextEvent.js';
 export { IOErrorEvent } from '@kurot/core/dist/kurot/events/IOErrorEvent.js';
 export { FocusEvent } from '@kurot/core/dist/kurot/events/FocusEvent.js';
 export { HTTPStatusEvent } from '@kurot/core/dist/kurot/events/HTTPStatusEvent.js';
 export { ProgressEvent } from '@kurot/core/dist/kurot/events/ProgressEvent.js';
 export { TimerEvent } from '@kurot/core/dist/kurot/events/TimerEvent.js';
-export { EventPhase } from '@kurot/core/dist/kurot/events/EventPhase.js';
-export type { EventMap } from '@kurot/core/dist/kurot/events/Event.js';
-export type { IEventDispatcher } from '@kurot/core/dist/kurot/events/IEventDispatcher.js';
-export type { DisplayObjectEvents } from '@kurot/core/dist/kurot/display/DisplayObject.js';
-export { ImageLoader } from './NativeImageLoader.js';
-export { HttpRequest } from './NativeHttpRequest.js';
-export { HttpMethod } from '@kurot/core/dist/kurot/net/HttpMethod.js';
-export { HttpResponseType } from '@kurot/core/dist/kurot/net/HttpResponseType.js';
-export { Sound, SoundType } from './NativeSound.js';
+
+// ── Geometry ──
+
 export { Matrix } from '@kurot/core/dist/kurot/geom/Matrix.js';
 export { Point } from '@kurot/core/dist/kurot/geom/Point.js';
 export { Rectangle } from '@kurot/core/dist/kurot/geom/Rectangle.js';
-export { ticker, getTimer } from '@kurot/core/dist/kurot/player/SystemTicker.js';
-export { Timer } from '@kurot/core/dist/kurot/utils/Timer.js';
-export { NumberUtils } from '@kurot/core/dist/kurot/utils/NumberUtils.js';
-export { ByteArray, Endian } from '@kurot/core/dist/kurot/utils/ByteArray.js';
-export { Base64Util } from '@kurot/core/dist/kurot/utils/Base64Util.js';
-export { toColorString } from '@kurot/core/dist/kurot/utils/toColorString.js';
-export { Logger, LogLevel } from '@kurot/core/dist/kurot/utils/Logger.js';
-export { cacheFontResource, registerFontMapping } from './NativeFontManager.js';
+
+// ── Filters ──
+
 export { Filter } from '@kurot/core/dist/kurot/filters/Filter.js';
 export { BlurFilter } from '@kurot/core/dist/kurot/filters/BlurFilter.js';
 export { GlowFilter } from '@kurot/core/dist/kurot/filters/GlowFilter.js';
 export { DropShadowFilter } from '@kurot/core/dist/kurot/filters/DropShadowFilter.js';
 export { ColorMatrixFilter } from '@kurot/core/dist/kurot/filters/ColorMatrixFilter.js';
+
+// ── Resources ──
+
 export { Resource, resource } from '@kurot/core/dist/kurot/resource/Resource.js';
 export type { ProgressCallback, ResourceEventListener } from '@kurot/core/dist/kurot/resource/Resource.js';
 export { ResourceItem, ResourceType } from '@kurot/core/dist/kurot/resource/ResourceItem.js';
 export { ResourceEventType } from '@kurot/core/dist/kurot/resource/ResourceEvent.js';
 export type { ResourceEvent } from '@kurot/core/dist/kurot/resource/ResourceEvent.js';
-export { TextField } from '@kurot/core/dist/kurot/text/TextField.js';
-export { HorizontalAlign } from '@kurot/core/dist/kurot/text/enums/HorizontalAlign.js';
-export { VerticalAlign } from '@kurot/core/dist/kurot/text/enums/VerticalAlign.js';
-export { TextFieldType } from '@kurot/core/dist/kurot/text/enums/TextFieldType.js';
-export { TextFieldInputType } from '@kurot/core/dist/kurot/text/enums/TextFieldInputType.js';
-export { BitmapText } from '@kurot/core/dist/kurot/text/BitmapText.js';
-export { BitmapFont } from '@kurot/core/dist/kurot/text/BitmapFont.js';
-export { TextEvent } from '@kurot/core/dist/kurot/events/TextEvent.js';
-export type { ITextElement, ITextStyle, ILineElement } from '@kurot/core/dist/kurot/text/types/ITextElement.js';
+
+// ── Networking ──
+
+export { ImageLoader } from './resources/NativeImageLoader.js';
+export { HttpRequest } from './resources/NativeHttpRequest.js';
+export { HttpMethod } from '@kurot/core/dist/kurot/net/HttpMethod.js';
+export { HttpResponseType } from '@kurot/core/dist/kurot/net/HttpResponseType.js';
+
+// ── Audio ──
+
+export { Sound, SoundType } from './resources/NativeSound.js';
+
+// ── Timing ──
+
+export { ticker, getTimer } from '@kurot/core/dist/kurot/player/SystemTicker.js';
+export { Timer } from '@kurot/core/dist/kurot/utils/Timer.js';
+
+// ── Utilities ──
+
+export { NumberUtils } from '@kurot/core/dist/kurot/utils/NumberUtils.js';
+export { ByteArray, Endian } from '@kurot/core/dist/kurot/utils/ByteArray.js';
+export { Base64Util } from '@kurot/core/dist/kurot/utils/Base64Util.js';
+export { toColorString } from '@kurot/core/dist/kurot/utils/toColorString.js';
+export { Logger, LogLevel } from '@kurot/core/dist/kurot/utils/Logger.js';

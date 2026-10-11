@@ -1,7 +1,7 @@
 import { deepEqual, equal, throws, ok } from 'node:assert/strict';
 import { test } from 'node:test';
-import { buildMeshBatches, MeshBatchBuilder } from '../src/kurot/mesh-geometry.js';
-import { frameProfile, timingDistribution } from '../src/kurot/frame-stats.js';
+import { buildMeshBatches, MeshBatchBuilder } from '../src/kurot/rendering/mesh-geometry.js';
+import { frameProfile, timingDistribution } from '../src/kurot/view/frame-stats.js';
 
 const source = { x: 10, y: 20, width: 8, height: 4, rotated: false };
 test('mesh UVs use physical atlas coordinates including clockwise frames', () => {

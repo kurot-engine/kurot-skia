@@ -6,7 +6,7 @@ import type { SkCanvas, SkColor, SkRect, SkRSXform } from 'react-native-skia';
 import { nativeBlendMode } from './blend.js';
 import { skColor } from './graphics.js';
 import { NativeNineSliceRenderer } from './nine-slice.js';
-import { getSkiaImage } from './textures.js';
+import { getSkiaImage } from '../resources/textures.js';
 
 interface Particle {
 	alpha: number;

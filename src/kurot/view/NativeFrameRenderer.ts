@@ -4,7 +4,7 @@ import type { SkGraphiteContext } from 'react-native-skia';
 
 import { recordNativeFrame } from './native-frame.js';
 import type { NativeFrameResult } from './native-frame.js';
-import { SkiaRenderer } from './SkiaRenderer.js';
+import { SkiaRenderer } from '../rendering/SkiaRenderer.js';
 import { createViewport } from './viewport.js';
 import type { Viewport } from './viewport.js';
 
