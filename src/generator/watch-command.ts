@@ -42,7 +42,8 @@ export async function runWatchCommand(options: ProjectOptions, command: readonly
 				logGenerated(result);
 				if (!child && command.length && !controller.signal.aborted) {
 					child = spawn(command[0], command.slice(1), {
-						stdio: 'inherit', cwd: path.resolve(options.projectRoot),
+						stdio: 'inherit',
+						cwd: path.resolve(options.projectRoot),
 						shell: process.platform === 'win32',
 					});
 					childDone = new Promise<void>(resolve => {

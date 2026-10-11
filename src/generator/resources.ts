@@ -55,7 +55,13 @@ export async function collectResources(
 			throw new Error(`Resource is not a file: ${url}`);
 		}
 		const value =
-			kind === 'json' ? await readJSON(physical) : kind === 'text' ? await readFile(physical, 'utf8') : undefined;
+			kind === 'json'
+				? await readJSON(physical)
+				: kind === 'text'
+					? await readFile(physical, 'utf8')
+					: kind === 'binary'
+						? (await readFile(physical)).toString('base64')
+						: undefined;
 		const asset: CollectedAsset = { url, path: physical, kind, value };
 		assets.set(url, asset);
 		return asset;
@@ -67,7 +73,10 @@ export async function collectResources(
 			throw new Error(`Resource URL is empty: ${entry.name}`);
 		}
 		const url = isRemoteURL(entry.url) ? entry.url : resourceRoot + entry.url;
-		const kind = resourceKind(entry.type);
+		const kind =
+			entry.type === 'text' && /\.(?:skel|dbbin|bin|ttf|otf|woff2?)(?:$|[?#])/i.test(url)
+				? 'binary'
+				: resourceKind(entry.type);
 		const asset = await add(url, kind);
 		if (asset && (entry.type === 'sheet' || entry.type === 'font')) {
 			const file = entry.type === 'font' ? parseBitmapFont(asset.value).file : sheetFile(asset.value, url);
@@ -76,6 +85,17 @@ export async function collectResources(
 			}
 			const imageURL = isRemoteURL(file) ? file : url.slice(0, url.lastIndexOf('/') + 1) + file;
 			await add(imageURL, 'image');
+		}
+		if (asset?.kind === 'text' && /\.atlas$/i.test(url)) {
+			// A Spine atlas starts each page block with its image filename. Region
+			// blocks stay within that page; blank lines separate pages in 4.0–4.3.
+			for (const block of String(asset.value)
+				.trim()
+				.split(/\r?\n\s*\r?\n/)) {
+				const file = block.split(/\r?\n/, 1)[0].trim();
+				if (!file || file.includes(':')) throw new Error(`Invalid Spine atlas page: ${url}`);
+				await add(url.slice(0, url.lastIndexOf('/') + 1) + file, 'image');
+			}
 		}
 	}
 	return {
@@ -93,7 +113,8 @@ export function emitAssets(resources: ProjectResources, output: string, mode: 'm
 		'export type BundledAsset =',
 		'    | { readonly kind: "json"; readonly value: unknown }',
 		'    | { readonly kind: "text"; readonly value: string }',
-		`    | { readonly kind: "image" | "file"; readonly source: ${mode === 'metro' ? 'number' : 'string'} };`,
+		`    | { readonly kind: "image" | "file"; readonly source: ${mode === 'metro' ? 'number' : 'string'} }`,
+		'    | { readonly kind: "binary"; readonly base64: string };',
 		'',
 		`export const resourceConfigURL = ${JSON.stringify(resources.manifestURL)};`,
 		`export const resourceRoot = ${JSON.stringify(resources.resourceRoot)};`,
@@ -111,6 +132,8 @@ export function emitAssets(resources: ProjectResources, output: string, mode: 'm
 			payload = `value: json${index}`;
 		} else if (asset.kind === 'text') {
 			payload = `value: ${JSON.stringify(asset.value)}`;
+		} else if (asset.kind === 'binary') {
+			payload = `base64: ${JSON.stringify(asset.value)}`;
 		} else {
 			const specifier = JSON.stringify(modulePath(output, asset.path));
 			payload =

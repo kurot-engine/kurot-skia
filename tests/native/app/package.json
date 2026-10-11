@@ -1,0 +1,42 @@
+{
+  "name": "kurot-skia-native-tests",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "dependencies": {
+    "@kurot/core": "2.5.3",
+    "@kurot/dragonbones": "0.1.0",
+    "@kurot/game": "2.0.0",
+    "@kurot/skia": "file:../../..",
+    "@kurot/spine-4.0": "0.2.1",
+    "@kurot/spine-4.1": "0.2.1",
+    "@kurot/spine-4.2": "0.2.1",
+    "@kurot/spine-4.3": "0.3.1",
+    "@kurot/ui": "3.5.0",
+    "expo": "~57.0.27",
+    "expo-build-properties": "~57.0.22",
+    "expo-dev-client": "~57.0.19",
+    "expo-status-bar": "~57.0.1",
+    "react": "19.2.3",
+    "react-native": "0.86.3",
+    "react-native-reanimated": "4.5.1",
+    "react-native-skia": "3.3.0",
+    "react-native-worklets": "0.10.1"
+  },
+  "devDependencies": {
+    "@esotericsoftware/spine-core": "4.2.120",
+    "@kurot/cli": "3.6.0",
+    "@kurot/ui-document": "0.13.1",
+    "@types/node": "^22.20.5",
+    "@types/react": "~19.2.2",
+    "eslint": "^9.39.5",
+    "eslint-config-expo": "~57.0.2",
+    "typescript": "~6.0.3"
+  },
+  "scripts": {
+    "generate:project": "kurot-project --project .",
+    "start": "kurot-project --project . --watch -- expo start --dev-client",
+    "typecheck": "tsc --noEmit",
+    "lint": "expo lint"
+  },
+  "private": true
+}

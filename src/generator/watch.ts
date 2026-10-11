@@ -9,14 +9,14 @@ import type { ProjectOptions, ProjectResult } from './types.js';
 
 // Watch scans and events may use different aliases, such as /var and /private/var.
 function fingerprintPath(file: string): string {
-    try {
-        return path.join(realpathSync(path.dirname(file)), path.basename(file));
-    } catch (error) {
-        if (['ENOENT', 'ENOTDIR'].includes((error as NodeJS.ErrnoException).code ?? '')) {
-            return path.resolve(file);
-        }
-        throw error;
-    }
+	try {
+		return path.join(realpathSync(path.dirname(file)), path.basename(file));
+	} catch (error) {
+		if (['ENOENT', 'ENOTDIR'].includes((error as NodeJS.ErrnoException).code ?? '')) {
+			return path.resolve(file);
+		}
+		throw error;
+	}
 }
 
 export interface WatchProjectOptions {
@@ -94,13 +94,17 @@ export async function watchProject(
 	}
 
 	function onChange(event: string, file: string, stats?: Stats): void {
-		if (event === 'addDir' || event === 'unlinkDir') { return; }
+		if (event === 'addDir' || event === 'unlinkDir') {
+			return;
+		}
 		const absolute = fingerprintPath(file);
 		if (event === 'unlink') {
 			fingerprints.delete(absolute);
 		} else if (stats) {
 			const fingerprint = `${stats.ino}:${stats.size}:${stats.mtimeMs}`;
-			if (fingerprints.get(absolute) === fingerprint) { return; }
+			if (fingerprints.get(absolute) === fingerprint) {
+				return;
+			}
 			fingerprints.set(absolute, fingerprint);
 		}
 		schedule();
@@ -109,8 +113,9 @@ export async function watchProject(
 	async function generate(): Promise<void> {
 		try {
 			const result = await generateWithInputs(options, file => {
-				const covered = [resourceDir, skinsDir].some(directory =>
-					file === directory || file.startsWith(directory + path.sep));
+				const covered = [resourceDir, skinsDir].some(
+					directory => file === directory || file.startsWith(directory + path.sep),
+				);
 				if (!closed && !covered && !tracked.has(file)) {
 					tracked.add(file);
 					let target = file;
@@ -160,7 +165,9 @@ export async function watchProject(
 
 	watcher.on('all', onChange);
 	discovered.on('all', (event, file, stats) => {
-		if (tracked.has(path.resolve(file))) { onChange(event, file, stats); }
+		if (tracked.has(path.resolve(file))) {
+			onChange(event, file, stats);
+		}
 	});
 	discovered.on('error', error => {
 		reportError(error instanceof Error ? error : new Error(String(error)));
@@ -179,9 +186,13 @@ export async function watchProject(
 				const file = path.join(directory, entry);
 				try {
 					const stats = await stat(file);
-					if (stats.isFile()) { fingerprints.set(fingerprintPath(file), `${stats.ino}:${stats.size}:${stats.mtimeMs}`); }
+					if (stats.isFile()) {
+						fingerprints.set(fingerprintPath(file), `${stats.ino}:${stats.size}:${stats.mtimeMs}`);
+					}
 				} catch (error) {
-					if ((error as NodeJS.ErrnoException).code !== 'ENOENT') { throw error; }
+					if ((error as NodeJS.ErrnoException).code !== 'ENOENT') {
+						throw error;
+					}
 				}
 			}
 		}

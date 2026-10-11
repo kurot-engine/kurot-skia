@@ -1,5 +1,35 @@
 # Changelog
 
+## 0.1.3 — 2026-10-11
+
+Native feature completion and opt-in shared Spine animation caching.
+
+- Add opt-in shared Spine looping-action/skin caches, independent sampled clocks and bounded cross-frame native geometry reuse. Preserve live SDK playback and Core sources; cache mode does not expose live skeletons, mixing or timeline events. Add ownership/budget tests, four-version sample-time GPU oracles and separate cached 20-actor Release benchmarks.
+
+- Add native rotated/repeated/clipped/tinted images, ordered opaque sprite batches with strict source-frame crops, Mesh with uint16 batch remapping, BitmapText/BitmapLabel, batched Game particles and explicit RenderTexture captures. Particle source crops prevent atlas bleeding during fractional scaling and retain rotation/trim/density.
+- Add compositing, display masks, native color matrix/blur/glow/drop-shadow, texture caching with density/dirty propagation and bounded retained captures, gradient matrices and dashed strokes.
+- Add bundled binary/Spine atlas-page collection and watch, binary HTTP transport, custom typefaces, bounded short-text metric caching and the RN TextInput focus/editing bridge.
+- Remount the RN editing view when switching Core fields and explicitly clear Fabric focus after unregistering, with mounted focus/switch/unmount regressions on native clients.
+- Expand native Core glue for published Game, Spine 4.0–4.3 and DragonBones without changing SDK sources or Web workflows. Add an optional media-backend contract; no audio/video host is included.
+- Merge consecutive compatible identity-local Mesh objects into ordered native vertex draws. Share immutable buffers only for exactly matching positions/UVs/triangles/source frames, with independent actor transforms, paint and reference-counted disposal. Bound the per-frame content memo; retain every actor's pose update.
+- Preserve nested cache dirty propagation and local capture semantics for anchored, hidden and singular roots. Independent RenderTexture captures retain the main renderer's pending Graphics, cached subtree and Mesh changes. Load manifest bitmap-font pages without browser globals; verify font disposal and reload.
+- Add frame timing distributions and an isolated native GPU/UI/performance test host. Document measured limitations and remaining physical-device gates in the feature assessment.
+- Add a manual screen-keyboard fixture and recorded iOS simulator checks for Pinyin candidates, password limits, selection replacement, multiline Return and emoji deletion. Android actual IME and physical-device acceptance remain pending.
+- Validate complete native/GPU suites and 18 performance fixtures in independent iOS/Android Release simulation builds. Preserve the original live workloads and add separately named cached 20-Spineboy scenes. At 60 Hz sampling, different-phase cached playback measures p95 7.369 ms on iOS 26.5, 7.847 ms on iOS 18.2 and 10.137 ms on software-Vulkan Android, with 0/360 measured frames over 16.67 ms. Record original build hashes and sampling/bake costs; these are simulator diagnostics, not presented phone FPS.
+- Pass all 40 Node tests, covering generation/watch/process cleanup, native geometry ownership and shared-cache budgets/lifecycle. Native JSI/GPU tests run in the separate host, not Node.
+
+### Compatibility and adoption
+
+- Core 2.5.3, UI 3.5.0 and Skia 3.3.0 requirements, package entries and resource/KUI formats remain unchanged. The 0.1.2 integer physical-pixel source-frame/nine-slice rule still applies. No Core/UI/Game/Spine SDK changes or releases are required.
+- Native applications update their Skia installation/lockfile and restart Metro with `--clear`. Existing development builds containing Skia 3.3.0 can be reused; embedded Release bundles must be rebuilt. Exact 0.1.2 dependencies require an explicit declaration update. Compatible 0.1.x ranges can adopt through their installation/lockfile.
+- Shared Spine playback is opt-in and uses existing skeletons/atlases. It caches one fixed looping action/skin, defaults to 60 Hz and retains independent actor clocks/transforms. Live skeleton edits, mixing, queues and timeline events continue to use the original SDK player. Dispose caches before their caller-owned atlases.
+- Generator-only adoption is optional. Other SDK development locks, templates, examples and applications are unaffected. Actual audio/video requires a project-owned backend; physical-device performance, Android actual IME and custom shaders remain pending.
+
+### Release verification
+
+- `pnpm build`, all 40 Node tests with `FORCE_COLOR=1`, and `git diff --check` pass. The cleanly rebuilt tarball includes all runtime/Metro/generator targets, declarations and English/Chinese documentation; private test hosts, sources and native build outputs are excluded.
+- Complete pre-release native GPU suites pass on iOS 18.2, iOS 26.5 and Android API 36, including the unchanged 48 nine-slice cases, four-version cached-pose pixel checks and native buffer disposal/reuse. Historical raw data retains its original tested package/source identity.
+
 ## 0.1.2 — 2026-10-11
 
 Native nine-slice rendering and source-frame caching, prepared for npm publication.

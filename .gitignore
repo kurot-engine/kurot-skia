@@ -5,3 +5,9 @@ dist/
 *.tsbuildinfo
 .kurot-build-*/
 .wu/
+.expo/
+tests/native/app/src/generated/
+tests/native/app/ios/
+tests/native/app/android/
+tests/native/results/
+/.native-tools/

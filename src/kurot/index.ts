@@ -13,3 +13,14 @@ export type { Viewport } from './viewport.js';
 export { measureText, measureTextMetrics } from './NativeTextMeasurer.js';
 export type { NativeTextMetrics } from './NativeTextMeasurer.js';
 export { createParagraph, nativeFontStyle } from './paragraph.js';
+export { registerNativeAudioBackend } from './NativeSound.js';
+export type { NativeAudioBackend, NativeAudioAsset, NativeAudioPlayback } from './NativeSound.js';
+export { NativeInputOverlay } from './NativeInputOverlay.js';
+export type { NativeInputOverlayProps } from './NativeInputOverlay.js';
+export { activeNativeInput, blurNativeInput, updateNativeInput } from './NativeInputController.js';
+export { clearNativeFonts } from './NativeFontManager.js';
+
+export type { FrameTiming, FrameProfile, TimingDistribution } from './frame-stats.js';
+export { NativeSpineAnimationCache } from './NativeSpineAnimationCache.js';
+export type { NativeSpineAnimationCacheOptions, NativeSpineCacheSource } from './NativeSpineAnimationCache.js';
+export { NativeSpineCachedAnimation } from './NativeSpineCachedAnimation.js';

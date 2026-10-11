@@ -19,8 +19,11 @@ function launch(root: string, command: string[] = []): {
     child.stdout.on('data', (data: Buffer) => { output += data.toString(); });
     child.stderr.on('data', (data: Buffer) => { output += data.toString(); });
     const done = new Promise<number>((resolve, reject) => {
-        child.once('error', reject);
-        child.once('close', code => { ended = true; resolve(code ?? -1); });
+        const timeout = setTimeout(() => {
+            child.kill('SIGKILL'); reject(new Error(`CLI did not terminate within 30 seconds:\n${output}`));
+        }, 30000);
+        child.once('error', error => { clearTimeout(timeout); reject(error); });
+        child.once('close', code => { clearTimeout(timeout); ended = true; resolve(code ?? -1); });
     });
     return {
         output: (): string => output, done,

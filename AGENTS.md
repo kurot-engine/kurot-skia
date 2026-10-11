@@ -1,19 +1,34 @@
 # Kurot-Skia
 
-Version 0.1.2 is prepared for publication with native drawImageNine and cached
-pixel crops, validated by the same 48 iOS GPU cases and native cache lifecycle checks.
-Source frames and nine-slice boundaries must be integer physical pixels; read the
-runtime guide before adopting fractional grids. Published 0.1.1 retains its shader
-implementation. Never republish an existing version with changed contents.
+Version 0.1.3 is prepared for publication with native feature completion and
+opt-in shared Spine caches. Version 0.1.2 is published and the separate Demo
+uses it until 0.1.3 registry availability is verified. Never republish an existing
+version or claim registry adoption from a source version alone.
+Read docs/native-feature-assessment.md for coverage, measurements and remaining
+physical-device/media/custom-effect gates. Native device tests and performance
+fixtures live in tests/native/app with an explicit file dependency. They never
+synchronize into the registry Demo. Source changes keep Core/UI/Game/Spine SDKs
+and their Web workflows untouched.
+
+Spine optimization details and the synchronized/different-phase scene limits
+are in docs/native-spine-optimization.md; preserve the pre-optimization hashes
+and measurements in docs/native-spine-baseline-2026-10-11.json.
+The proposed C++ Spine backend is assessed in docs/native-spine-backend-assessment.md;
+it is not implemented. Preserve its Core/API/resource and Skia linkage gates.
+The opt-in sampled cache player is separate from that proposal. Read
+docs/native-spine-shared-cache.md for phase, memory, disposal and API limits.
+Keep original live-pose workloads/data unchanged and compare separately named
+cache workloads at the explicit sampling rate; never weaken GPU pixel oracles.
+
 The native Skia adapter and Node resource/KUI toolkit retain the 0.1.0 entries,
-host versions and authored formats. Publishing 0.1.2 remains a separate user action.
+host versions and authored formats. Future publication remains a separate user action.
 The Expo application in `../Kurot-Skia-Demo` consumes the installed package;
 scenes, generated inputs and project-owned UI initialization stay in the Demo.
 Native adapters live under `src/kurot`. The root export is RN-only,
 `./metro` is a Node configuration helper, and `./generator` is Node build-time only.
 Read `docs/native-runtime.md` and `docs/PLAN.md` before extending native support.
 
-The Demo consumes npm `@kurot/skia@0.1.0` and calls its installed
+The Demo consumes npm `@kurot/skia@0.1.2` and calls its installed
 `kurot-project` binary. Keep compiled output in the package's `files` list.
 The npm release is public. `prepack` cleans and rebuilds shipped output, and
 `prepublishOnly` runs tests. Verify registry availability before changing the

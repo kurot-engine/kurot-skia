@@ -52,6 +52,12 @@ test('Metro uses one host Core and redirects its browser ports to installed nati
             ['text/TextMeasurer.js', 'NativeTextMeasurer.js'],
             ['text/TextSegmentation.js', 'NativeTextSegmentation.js'],
             ['text/InputController.js', 'NativeInputController.js'],
+            ['media/Sound.js', 'NativeSound.js'],
+            ['media/SoundChannel.js', 'NativeSound.js'],
+            ['resource/analyzers/SoundAnalyzer.js', 'NativeSoundAnalyzer.js'],
+            ['resource/analyzers/FontAnalyzer.js', 'NativeFontAnalyzer.js'],
+            ['utils/FontManager.js', 'NativeFontManager.js'],
+            ['display/texture/RenderTexture.js', 'NativeRenderTexture.js'],
             ['player/canvas/DisplayList.js', 'NativeDisplayList.js'],
         ]) {
             const request = path.relative(path.dirname(origin), path.join(core, 'dist/kurot', module));

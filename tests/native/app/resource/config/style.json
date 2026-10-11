@@ -1,0 +1,38 @@
+{
+	"schemaVersion": 1,
+	"fonts": {
+		"default": "primary",
+		"families": {
+			"primary": {
+				"fallback": [
+					"Arial",
+					"sans-serif"
+				],
+				"faces": [
+					{
+						"url": "assets/fonts/ChakraPetch-Regular.ttf",
+						"weight": 400
+					},
+					{
+						"url": "assets/fonts/ChakraPetch-Bold.ttf",
+						"weight": 700
+					}
+				]
+			}
+		}
+	},
+	"colors": {
+		"disabled-text": "#7C8799",
+		"brand": "#1487E8",
+		"brand-pressed": "#0874CF",
+		"on-brand": "#071D30",
+		"canvas": "#EDF3FC",
+		"surface": "#FFFFFF",
+		"soft": "#F1F5FC",
+		"edge": "#DBE5F2",
+		"text": "#18273E",
+		"muted-text": "#64748B",
+		"disabled": "#EEF1F6",
+		"selected": "#E4F2FF"
+	}
+}

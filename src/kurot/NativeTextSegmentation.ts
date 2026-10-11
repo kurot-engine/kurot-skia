@@ -6,13 +6,13 @@ const words = new Segmenter(undefined, { granularity: 'word' });
 const graphemes = new Segmenter(undefined, { granularity: 'grapheme' });
 
 export function getWordSegments(text: string): Segments {
-    return words.segment(text);
+	return words.segment(text);
 }
 
 export function getGraphemeSegments(text: string): Segments {
-    return graphemes.segment(text);
+	return graphemes.segment(text);
 }
 
 export function getGraphemeEndPositions(text: string): number[] {
-    return Array.from(getGraphemeSegments(text), (segment) => segment.index + segment.segment.length);
+	return Array.from(getGraphemeSegments(text), segment => segment.index + segment.segment.length);
 }

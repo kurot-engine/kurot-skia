@@ -1,0 +1,4838 @@
+{
+  "assessmentDate": "2026-10-11",
+  "timezone": "Asia/Shanghai",
+  "libraryVersion": "0.1.2 + unreleased shared cache",
+  "baseCommit": "904a64e56766781e80868f0597ed30df659fea2e",
+  "sourceFingerprintSHA256": "0f8a3d6c96f6620dce636c85c07fd8c60645fc7a23633dc5886dd09ded81e858",
+  "sourceFingerprintScope": "git listed src/tests and root package/lock/tsconfig files, excluding Markdown and ignored generated/build outputs; SHA256 of canonical JSON manifest",
+  "sourceManifest": [
+    {
+      "path": "package.json",
+      "sha256": "6936f29e563187be94fca93ffa76d2ab91a2fd67009408a948dcf2722b5b06be"
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "sha256": "01727b2466acbe7bdb3f14222eed086ab95818128e395b7596efe208a545035b"
+    },
+    {
+      "path": "src/development/build.ts",
+      "sha256": "9d8a0d1c443bf4e967b942e3b77072c6872590eadcf9caf98373303aab821553"
+    },
+    {
+      "path": "src/development/cli.ts",
+      "sha256": "18114066701a0256fddcb0dda9691fe8ccb9196ef9a36a343d1d2a06f5cc5f30"
+    },
+    {
+      "path": "src/development/files.ts",
+      "sha256": "542eea8f7c32e78bbb13669812ba5c9ecf692f4e63323ade2115c52fa5ffeaea"
+    },
+    {
+      "path": "src/development/package.ts",
+      "sha256": "58f1711a35cbf5182106b0ded1924a9e5759e828ab7d10275b601857e0f00820"
+    },
+    {
+      "path": "src/development/process.ts",
+      "sha256": "2c19ba108b805f5b59af2b15d43e30ef55e111ac413a28c493c7ac8c90499110"
+    },
+    {
+      "path": "src/development/runner.ts",
+      "sha256": "18af2ce41579d4ae9ca4536c9e17557a5e9a0d08868b2a6632478b83aaabdf5a"
+    },
+    {
+      "path": "src/generator/cli.ts",
+      "sha256": "e867c58ec120d4aaf6619c9fe16730b1f46fee6f9dde4fecf97142721ca73d1e"
+    },
+    {
+      "path": "src/generator/compiler.ts",
+      "sha256": "e0abd529b3ca6a2a5118ba061e8dcc0db1fde3ba56886daf2d13f71583d3bf4a"
+    },
+    {
+      "path": "src/generator/config.ts",
+      "sha256": "4647645f948cc327d2e5f16f56d1296d59fb5c6df7b5207842c6200faa924ed7"
+    },
+    {
+      "path": "src/generator/generate.ts",
+      "sha256": "a19983e4e4d655d2d8188790c6e8d8e67b93c54799330bfd6539485596c9d8f2"
+    },
+    {
+      "path": "src/generator/index.ts",
+      "sha256": "88ed1da8e955864ef7742507f8b80a20431190ba38281d4d269bbc92660c9336"
+    },
+    {
+      "path": "src/generator/output.ts",
+      "sha256": "63d8e7d7afd50ee199a23bff30638f448930e163fe2b1bb874f7a477153fc523"
+    },
+    {
+      "path": "src/generator/paths.ts",
+      "sha256": "46792c5b951ddb26441569e0acceb77df4d20424831b31b9bfe4d0f628268d8c"
+    },
+    {
+      "path": "src/generator/resources.ts",
+      "sha256": "1edd9db00ba2289294337d6bd93ab64f0fa23452e32d4562fe7f082a21a011c9"
+    },
+    {
+      "path": "src/generator/skins.ts",
+      "sha256": "e2dca8de4f0fc47fb03c86ba15023bb90752793f131d603b227de3ee657e0910"
+    },
+    {
+      "path": "src/generator/types.ts",
+      "sha256": "fc42eb71df377314c2f8ccb6019df582274faf21e0611310bbfb02acb72a5fff"
+    },
+    {
+      "path": "src/generator/watch-command.ts",
+      "sha256": "f81c7be97c8ffe0d909b543268c6e48fd825de3e0d33f3c6293d212d22a5aaab"
+    },
+    {
+      "path": "src/generator/watch.ts",
+      "sha256": "a6d299708c1dba33417c9cab800348b3b5c468ab3b99ff87960f6e9dbca3f065"
+    },
+    {
+      "path": "src/kurot/KurotView.tsx",
+      "sha256": "e49432cd41c9ede9f697e67c03c74f5926c57d0aaed38c5f1121757c75bdbf84"
+    },
+    {
+      "path": "src/kurot/NativeBitmapBatchRenderer.ts",
+      "sha256": "a74d60e1368cf5485ede3e4a663ee618ac0840bce220e251c21b7f295c4e0af8"
+    },
+    {
+      "path": "src/kurot/NativeBitmapRenderer.ts",
+      "sha256": "17ccc626d5f5f9398519fe52f0529735b9ab90a1cb6543b5ff9edba84d7b9c8a"
+    },
+    {
+      "path": "src/kurot/NativeCacheRenderer.ts",
+      "sha256": "7dab072fadf9fd3b228c77c07e2ac27724e9caaf07640197307811a81c108d4d"
+    },
+    {
+      "path": "src/kurot/NativeDisplayList.ts",
+      "sha256": "def06de4fe953439c44f35ac25112fe49ed10c8f517e326cb102f3ebc47e55bc"
+    },
+    {
+      "path": "src/kurot/NativeEffects.ts",
+      "sha256": "4704fe4a7b690fd9fc532f4bf03064d58f0bd91c3230f6b9191a836a8e7115d6"
+    },
+    {
+      "path": "src/kurot/NativeFontAnalyzer.ts",
+      "sha256": "e8acac4698c0b5e1d115454a923098537a937d43ade1a51c3b4f53b06adb8b8b"
+    },
+    {
+      "path": "src/kurot/NativeFontManager.ts",
+      "sha256": "06b30b10b7e1391d229eafb71e866306eeedbdf429d83cfdc50bb57b5a7b6e39"
+    },
+    {
+      "path": "src/kurot/NativeHttpRequest.ts",
+      "sha256": "6a9603969cec9e5018a4c6aa6071797ae9c019682dddcfe9c275b9fe2f1b4b03"
+    },
+    {
+      "path": "src/kurot/NativeImageLoader.ts",
+      "sha256": "ed7180c1d72154981bab369eb3e0543150ef556101825e08247e4ee8a70b2873"
+    },
+    {
+      "path": "src/kurot/NativeImagePaint.ts",
+      "sha256": "a26163e1eb5522dc4f8d9396fcdb8416961626622a4ad0116f34124f76acfd77"
+    },
+    {
+      "path": "src/kurot/NativeInputController.ts",
+      "sha256": "2b628a35e904612b26aac2544dad4621769786cd713942cb66dd84be01bec72b"
+    },
+    {
+      "path": "src/kurot/NativeInputOverlay.tsx",
+      "sha256": "013252e06968c7b1d419bc42f0ccdc22d73b0b46324bfd5ec3c790a3b580ec90"
+    },
+    {
+      "path": "src/kurot/NativeMeshGeometryPool.ts",
+      "sha256": "5b2c1fa4b9ca462b20215da1bf3aafffb09c28714e98e577402ab841b1ac9a99"
+    },
+    {
+      "path": "src/kurot/NativeMeshRenderer.ts",
+      "sha256": "3f3aba2b3c3ffb82c804d31b48a4f95cbe1a6b7c1b8d22c9a0237a6e1310dec2"
+    },
+    {
+      "path": "src/kurot/NativeParticleRenderer.ts",
+      "sha256": "4f66701ee2e7ece1eaaa3e4eb76c7a7aaa81999f7f443aa118999980f0fbcdff"
+    },
+    {
+      "path": "src/kurot/NativeRenderTexture.ts",
+      "sha256": "1fe04550de11d62691011eafab725cab717019a4c13fd3d6109287d5784ab2f3"
+    },
+    {
+      "path": "src/kurot/NativeSound.ts",
+      "sha256": "46993cce16d39f710af0687363a3e8d09fbdc442f35a20cd3ccfc6c12036facd"
+    },
+    {
+      "path": "src/kurot/NativeSoundAnalyzer.ts",
+      "sha256": "c9067ddec5d1238c8a18cff895fd72f5ef2c2c076cb699c850a264c3b04ff9be"
+    },
+    {
+      "path": "src/kurot/NativeSpineAnimationCache.ts",
+      "sha256": "c5e1db12a5025e9747926600fb63c45a97bc3044e25875bf5c825a90c52d0fbc"
+    },
+    {
+      "path": "src/kurot/NativeSpineCachedAnimation.ts",
+      "sha256": "b975be4fcc94f7825bba927647713a7c37277efcfa64dec90567934c53f256c7"
+    },
+    {
+      "path": "src/kurot/NativeTextMeasurer.ts",
+      "sha256": "34207343155eebf96d747f9c14ee71a2a4510898ea02ea58486afface5ec6c5e"
+    },
+    {
+      "path": "src/kurot/NativeTextRenderer.ts",
+      "sha256": "84b496621a8cca6b6388884f6f5b0efc8e7a6ea0c27451f15791d64ef84ef4b2"
+    },
+    {
+      "path": "src/kurot/NativeTextSegmentation.ts",
+      "sha256": "c3f8c7fe7b8070fe72365014819f0b053a826efd1318b0a52ccf51dd45863719"
+    },
+    {
+      "path": "src/kurot/NativeTheme.ts",
+      "sha256": "df2c7dd57da2b76ef23cb48967da13600678536866cba4731f0189f693d0a288"
+    },
+    {
+      "path": "src/kurot/NativeTouch.ts",
+      "sha256": "fe5454d563fb0a81b009f237dbb02f6990f2372e046f80836ce512abc5ddcb07"
+    },
+    {
+      "path": "src/kurot/SkiaRenderer.ts",
+      "sha256": "f2fb5669f5d0f154e2c6ec7c658096c49861f28a42b116c887c208300be867e9"
+    },
+    {
+      "path": "src/kurot/blend.ts",
+      "sha256": "7fb2e954d461b0af42f049e45fc2631cdb7bc9990de1c14ee5c177f8710264e4"
+    },
+    {
+      "path": "src/kurot/core-native.ts",
+      "sha256": "c5d83b0bd87b2f0547e2a15fc9eeef3bf740a4fcf21a3e4e1a9ac823a11f20e3"
+    },
+    {
+      "path": "src/kurot/frame-stats.ts",
+      "sha256": "7eff8df53f127524d42522db03d7b399f3aabab598b1f934fe19c5a71e6fc15f"
+    },
+    {
+      "path": "src/kurot/graphics.ts",
+      "sha256": "2f68c6fe4b8cdd9855f4412424f3de74a454e21275597e172432eed03a49f9b6"
+    },
+    {
+      "path": "src/kurot/index.ts",
+      "sha256": "b8697ce550685d7089dcc686f10bb4e440e0a223344af73dd3deb7b4c51deacd"
+    },
+    {
+      "path": "src/kurot/mesh-geometry.ts",
+      "sha256": "73c667ca4bf69254eb92b955e55aa0e8f39f63d8538cf52c81eb80e2786da7da"
+    },
+    {
+      "path": "src/kurot/native-assets.ts",
+      "sha256": "6f3050ae2c92f2f175f82a96bb1e5ba969fe441e59602e136a521d2a87abc242"
+    },
+    {
+      "path": "src/kurot/nine-slice.ts",
+      "sha256": "bb82af39bc0bb8b3ef0ee77acf34337b7aa68d9559af73b3a98ce0c1090a51e2"
+    },
+    {
+      "path": "src/kurot/paragraph.ts",
+      "sha256": "e31d6847c59dafbd6d8f3479a5e366395315fd37231bc5bfbca9ad46e1cd32a1"
+    },
+    {
+      "path": "src/kurot/spine-cache-data.ts",
+      "sha256": "4b9ca1c993c2379a8cc52a48b4ab28ccd1781c4207bc7f1781547326299ad135"
+    },
+    {
+      "path": "src/kurot/textures.ts",
+      "sha256": "30d4df39825667581881c78895ddf1f852ca795cd7c45b774c0836b0b11bd0ef"
+    },
+    {
+      "path": "src/kurot/tsconfig.json",
+      "sha256": "4739f46e302b547bcbbb7450287b78ae1ec2d83e6da990cbdfeb7bfdf5154b78"
+    },
+    {
+      "path": "src/kurot/viewport.ts",
+      "sha256": "32989b6be1cc041c57e806dff798f2e994f5e7ed31ffe2acabc1e06a2ab113a7"
+    },
+    {
+      "path": "src/metro.cts",
+      "sha256": "2f21db9e5b16e6c2930adf29936d04bd357761b9d379373f0614f1af9b16cfc7"
+    },
+    {
+      "path": "tests/development-build.test.ts",
+      "sha256": "e7e5d7a21ad2ac10b5937712f24abf918186e9b077b3a4b2d1f0b92a67af99bc"
+    },
+    {
+      "path": "tests/development-fixture.ts",
+      "sha256": "44fa518053111ad79941581fe2b162f48dbaefce88bb9b7edfcdb0f1cf97069f"
+    },
+    {
+      "path": "tests/development-process.test.ts",
+      "sha256": "69a4af6c965168cec024734bc3054c18483ad2a5f85e27d594c083941833f780"
+    },
+    {
+      "path": "tests/development.test.ts",
+      "sha256": "f0f4718451614c6b5bc7322b043b6ea22e8f9ef0c91d0055bc689fa13a48c8a7"
+    },
+    {
+      "path": "tests/metro.test.ts",
+      "sha256": "b645a88abbffe7feb29c8a9f23b42f37dd9bbc397657cbd51a0fd48ada2802be"
+    },
+    {
+      "path": "tests/native-mesh-pool.test.ts",
+      "sha256": "5f3077f8547f122e8b294f8a1a89c4ff7bb809e9f31cf4b627948fad38667c38"
+    },
+    {
+      "path": "tests/native-primitives.test.ts",
+      "sha256": "58767ce5900131b98d6113c689a1ece2adebb40b1a149c4b314962fc60d3238c"
+    },
+    {
+      "path": "tests/native-spine-cache.test.ts",
+      "sha256": "00e055d7456ca1d47341a26b3a4ca8ca6eaf19454caae825cc654acbdc33c086"
+    },
+    {
+      "path": "tests/native/app/App.tsx",
+      "sha256": "fdbf90f22367268eab95cf6ad6dc663d6d391bf50ead6a4949e8e2633632c345"
+    },
+    {
+      "path": "tests/native/app/app.json",
+      "sha256": "83ff029164558ffb09f004098d0bb333627754cc78adc6b7ad7f6995811982aa"
+    },
+    {
+      "path": "tests/native/app/assets/android-icon-background.png",
+      "sha256": "fb139c2dee362ebf2070e23b96da6fc0d43f8492de38b8af1fd7223e19b5861d"
+    },
+    {
+      "path": "tests/native/app/assets/android-icon-foreground.png",
+      "sha256": "9e3d0315a33c6799de601dd34cd8bf8cc3a8d16f3bf75592baec2ceb7240b391"
+    },
+    {
+      "path": "tests/native/app/assets/android-icon-monochrome.png",
+      "sha256": "6371fc2c12e33ad2215a86c281db3d682a81bebe7c957a842c13b8bf00cceb83"
+    },
+    {
+      "path": "tests/native/app/assets/favicon.png",
+      "sha256": "a4e030697a7571b3e95d31860e4da55d2f98e5e861e2b55e414f45a8556828ba"
+    },
+    {
+      "path": "tests/native/app/assets/icon.png",
+      "sha256": "119462bb78eb240a65c869fc067ee599639b3cb5a41953f25c07b17d2a8c7e0f"
+    },
+    {
+      "path": "tests/native/app/assets/splash-icon.png",
+      "sha256": "5f4c0a732b6325bf4071d9124d2ae67e037cb24fcc9c482ef82bea742109a3b8"
+    },
+    {
+      "path": "tests/native/app/eslint.config.js",
+      "sha256": "e32bfb22f86dd21c31b33bdea3596c20e2b3e52520752f310d2836451b2d29df"
+    },
+    {
+      "path": "tests/native/app/index.ts",
+      "sha256": "9b0cd67c5d1fb7a4e32650e470e9821f3a6e4191650464f1fd9ebb1f5c2d2409"
+    },
+    {
+      "path": "tests/native/app/metro.config.js",
+      "sha256": "9713ab931540b479c76f3af79a258bac6a19852d9459a2ddbd87a1879a4bcb85"
+    },
+    {
+      "path": "tests/native/app/package.json",
+      "sha256": "bd62d52875c9752ad791cfa86307dc07d5dab0f0826fd5f2452df9e6e7d18912"
+    },
+    {
+      "path": "tests/native/app/pnpm-lock.yaml",
+      "sha256": "6c3bf8a5ff4f8b72718a2ea6938fbe710b14e52bba4668707c3ee672db1541ee"
+    },
+    {
+      "path": "tests/native/app/pnpm-workspace.yaml",
+      "sha256": "861ad022d0af38136844f9aef72d8486e8e069cd213ef05233a0b7a10a495dfc"
+    },
+    {
+      "path": "tests/native/app/resource/assets/fonts/ChakraPetch-Bold.ttf",
+      "sha256": "65fbf76d95651697275e19db4d717c0e95a789ddd3476478b05292104db278a0"
+    },
+    {
+      "path": "tests/native/app/resource/assets/fonts/ChakraPetch-Regular.ttf",
+      "sha256": "98fcd638baa5c81ff0316b7538ce330ee3b23b1302726de3526d5933a8ecf986"
+    },
+    {
+      "path": "tests/native/app/resource/assets/fonts/OFL.txt",
+      "sha256": "4a1d840eb0b2df8553804d844960a15773ca5af5d5c9803745307db8c617540b"
+    },
+    {
+      "path": "tests/native/app/resource/assets/fonts/native-test-font.json",
+      "sha256": "f6fe8d0a67be7b72d396b615335ad5846b363213158700ef83379b39be78141b"
+    },
+    {
+      "path": "tests/native/app/resource/assets/kurot-logo.png",
+      "sha256": "a6254f7242bbd9e4626ba7974e83352e92c9b2366721d1f3955a40c315c52f17"
+    },
+    {
+      "path": "tests/native/app/resource/assets/ui/kui/kui.json",
+      "sha256": "f01ef4f07e9bd6fc02832f59874949a49b7d07447a9b2d8ac8eeacd393ef4121"
+    },
+    {
+      "path": "tests/native/app/resource/assets/ui/kui/kui.png",
+      "sha256": "2284fa4ce2d832b71e475088053bdb65c9c282abaa29b2a227d5fce7a0881894"
+    },
+    {
+      "path": "tests/native/app/resource/config/style.json",
+      "sha256": "d50fa4267787b1b05c62fd58419052228e827d238f84a2c62d5ad95ae1af352d"
+    },
+    {
+      "path": "tests/native/app/resource/default.res.json",
+      "sha256": "deb0f7b0f5e9dc91531fdac350d928b1885f2a8f774862f7cb2f71dd300c4b99"
+    },
+    {
+      "path": "tests/native/app/resource/resource.json",
+      "sha256": "95db62a37e0bad3759cf5baf8e6c9fe310986cabe449a99476f0f5dcba4fa434"
+    },
+    {
+      "path": "tests/native/app/resource/spine/4.0/spineboy-pro.skel",
+      "sha256": "3347eeac9858b9eee5415cd36435d9b529c30793e66a04edb20c0a57b427e918"
+    },
+    {
+      "path": "tests/native/app/resource/spine/4.0/spineboy.atlas",
+      "sha256": "fdc4bbc4be5f1a638fa0ff384271007b1f2df72855dd80b4b239bcfe8a4ac31e"
+    },
+    {
+      "path": "tests/native/app/resource/spine/4.0/spineboy.png",
+      "sha256": "0d9b45a631079e08973ef39799e5fffc6a57c8dae12421120bac1d559e564b96"
+    },
+    {
+      "path": "tests/native/app/resource/spine/4.1/spineboy-pro.skel",
+      "sha256": "7104c7e8f45d3ce9af8fdcb7d50d95ab8cbbdddfda9e273e893845f6a234245c"
+    },
+    {
+      "path": "tests/native/app/resource/spine/4.1/spineboy.atlas",
+      "sha256": "fdc4bbc4be5f1a638fa0ff384271007b1f2df72855dd80b4b239bcfe8a4ac31e"
+    },
+    {
+      "path": "tests/native/app/resource/spine/4.1/spineboy.png",
+      "sha256": "96c55a06237f1b7475cd1287a26ebc71644324f42984ac0ccd2d112c43bd135a"
+    },
+    {
+      "path": "tests/native/app/resource/spine/4.2/spineboy-pro.skel",
+      "sha256": "1345de0e8e4729559f39060ed614429b21ab39bfc09ed2e1f58fcf054a8b5925"
+    },
+    {
+      "path": "tests/native/app/resource/spine/4.2/spineboy.atlas",
+      "sha256": "fc90c2a604c14bb3ae1a81f9c950660863a41654cb29c869423a86e127fa75ae"
+    },
+    {
+      "path": "tests/native/app/resource/spine/4.2/spineboy.png",
+      "sha256": "071a6adec73378eebd802a047d274deefe11abee3ce689a1e71acb4cb41e331e"
+    },
+    {
+      "path": "tests/native/app/resource/spine/4.3/spineboy-pro.skel",
+      "sha256": "e10de3f2473a37139c3ad1fda14e84b29ef401475ec9fa2129e7d2a311088845"
+    },
+    {
+      "path": "tests/native/app/resource/spine/4.3/spineboy.atlas",
+      "sha256": "fbd452640df513d637e0a34d21c1d3ea4edb27f57bd1856ffd5530b16ee83d00"
+    },
+    {
+      "path": "tests/native/app/resource/spine/4.3/spineboy.png",
+      "sha256": "ab874448a224f8a92188e133735062c86e5f93eb7286b0fc37c5d39864e6569f"
+    },
+    {
+      "path": "tests/native/app/resource/spine/LICENSE",
+      "sha256": "435774fb793b0f67892899fc934f98009e64fd90ad3ab964117274e279a0f50e"
+    },
+    {
+      "path": "tests/native/app/resource/ui/DefaultUISkin.kui.xml",
+      "sha256": "1393571eac33c6972cecba4a384a2221ada6eb9d29eb9fef09c0fd5902f6d998"
+    },
+    {
+      "path": "tests/native/app/resource/ui/skins/ButtonSkin.kui.xml",
+      "sha256": "4905aac7abdbcf7c055da83bbf0f7035b1e8b9268f6770d225c7b492b898db77"
+    },
+    {
+      "path": "tests/native/app/resource/ui/skins/CheckBoxSkin.kui.xml",
+      "sha256": "06007a1442b6a4176987a4e1abf1d2408ffe9144bc7b6c681b9318eac4b535bd"
+    },
+    {
+      "path": "tests/native/app/resource/ui/skins/CloseButtonSkin.kui.xml",
+      "sha256": "6b70f9053486a9abcee32d7979002b8a29be3df72e4509621f419feca22294bd"
+    },
+    {
+      "path": "tests/native/app/resource/ui/skins/ComboBoxSkin.kui.xml",
+      "sha256": "48a2ce66278d32ced4b86f41ba43e437dfb78318778e90b4da38d1731d09e23a"
+    },
+    {
+      "path": "tests/native/app/resource/ui/skins/HScrollBarSkin.kui.xml",
+      "sha256": "c5187ce77b30f6046026f2f1ebe6ca9415c5b87a3bc969bdcfcb8be680250846"
+    },
+    {
+      "path": "tests/native/app/resource/ui/skins/HSliderSkin.kui.xml",
+      "sha256": "5009d923cd74c2522c5e0bb5119761e9f2308493144653bbdbb5c131addd90ea"
+    },
+    {
+      "path": "tests/native/app/resource/ui/skins/ItemRendererSkin.kui.xml",
+      "sha256": "a15e0fe3c9ccd5d1e577e2021e64682316386633c3c63edf964f9f1d6bb97a84"
+    },
+    {
+      "path": "tests/native/app/resource/ui/skins/PanelSkin.kui.xml",
+      "sha256": "d18e276ec60fdb11bc4b1ea847399e13bf2191ac771147319290b460d75b5c4d"
+    },
+    {
+      "path": "tests/native/app/resource/ui/skins/ProgressBarSkin.kui.xml",
+      "sha256": "f5a46e8c12d59a16732445b00751db6a2b2c15e6034efab0164b2296c9955778"
+    },
+    {
+      "path": "tests/native/app/resource/ui/skins/RadioButtonSkin.kui.xml",
+      "sha256": "7cf7e7a9c4f9471bb20a6541fecfa1ac13ade66d8ef3df5c59b2c4cdf5157866"
+    },
+    {
+      "path": "tests/native/app/resource/ui/skins/ScrollerSkin.kui.xml",
+      "sha256": "a32e8656a1a38b83915951c6a42b2dd9e164c4bc3aa75c65e661b830b20192b2"
+    },
+    {
+      "path": "tests/native/app/resource/ui/skins/TextInputSkin.kui.xml",
+      "sha256": "5820e21f7a777f09127d20596b67194b97c60fecb5131ac04b94f595e198f9a6"
+    },
+    {
+      "path": "tests/native/app/resource/ui/skins/ToggleButtonSkin.kui.xml",
+      "sha256": "5366679126339d3c06fa1f1d6c9b71afc8f474f679b818a2f2e65e66cccf1fca"
+    },
+    {
+      "path": "tests/native/app/resource/ui/skins/ToggleSwitchSkin.kui.xml",
+      "sha256": "b4bd545e79f170956ef1cec1ec66c2944bcc64dfb039c58fbb78fb625a51dce9"
+    },
+    {
+      "path": "tests/native/app/resource/ui/skins/VScrollBarSkin.kui.xml",
+      "sha256": "997d60c4e564c9a2d83302e92d0ed01a9bd20a05997e09778769c4e93f79d3e8"
+    },
+    {
+      "path": "tests/native/app/resource/ui/skins/VSliderSkin.kui.xml",
+      "sha256": "614a41671eb2456000ae3f60f3b1640ffaf04493b6236bc0dbee8aa4883c3ed3"
+    },
+    {
+      "path": "tests/native/app/src/resources/bundled.ts",
+      "sha256": "423d9e20df73850c1fc78b07b090edc1274e2d8d6c9b252bbd5b91bd21679d2e"
+    },
+    {
+      "path": "tests/native/app/src/ui/native-ui.ts",
+      "sha256": "a2db255ce873a4ae1de69176d588b87f176739ca4ffe543c515965b75b2c555a"
+    },
+    {
+      "path": "tests/native/app/tests/App.tsx",
+      "sha256": "14b3af8ea2b8d6ce8b57c15682c95b85dfa5fdef957b086d1869d0cc51e2c1f1"
+    },
+    {
+      "path": "tests/native/app/tests/ManualInput.tsx",
+      "sha256": "f18745f5dee8343bc6e98249663e8954e0633a3c9813246300f4a228dcb6dafd"
+    },
+    {
+      "path": "tests/native/app/tests/NativeViewProbe.tsx",
+      "sha256": "bba819245642e5d46de8cdf7887feba64b0a70cf67d73e53bea4cdd1088cdeff"
+    },
+    {
+      "path": "tests/native/app/tests/SpineDemo.tsx",
+      "sha256": "5f7ec96e78e604f356225f3020fb2c26e661577be17721da9a415db86f30aa07"
+    },
+    {
+      "path": "tests/native/app/tests/adapter.test.ts",
+      "sha256": "1e7f7adab05a1de02df62e72ce7af0676c9c6cdf70ace08764f560ce108115ac"
+    },
+    {
+      "path": "tests/native/app/tests/audio-contract.test.ts",
+      "sha256": "c3c40b0c6f480825875c4a797a56a1210551c12f5aa34bce0b96084f4cba4c2c"
+    },
+    {
+      "path": "tests/native/app/tests/bitmap-batch.test.ts",
+      "sha256": "36659560a2cd731f6a5e500c01d1c555dd65cb0fefbdd0d79d19bff3e4b2c334"
+    },
+    {
+      "path": "tests/native/app/tests/bitmap-font.test.ts",
+      "sha256": "1efc87b229898001698b8a83a2854525f8853020d5212761b9b866e70bdd9777"
+    },
+    {
+      "path": "tests/native/app/tests/bitmap.test.ts",
+      "sha256": "1f709c4ee44317f1508e59aa10eac26ac977002a35a7a30e45d0524739806c53"
+    },
+    {
+      "path": "tests/native/app/tests/dragonbones-fixture.ts",
+      "sha256": "0e100620f11e940e5b3bdcdd676720a3ef72ee39be88a8a29ae03d23fccc1387"
+    },
+    {
+      "path": "tests/native/app/tests/dragonbones.test.ts",
+      "sha256": "1ea510a0e16d64fed7c7a7d2a506ebced3b0c8e4a7e4fa8bc0e6f89c4886be30"
+    },
+    {
+      "path": "tests/native/app/tests/effects.test.ts",
+      "sha256": "273423c94ee1a7802de82e3e484cd631c4b61574b955ed75f7c15beac4673081"
+    },
+    {
+      "path": "tests/native/app/tests/fonts.test.ts",
+      "sha256": "6660dd8f0b2124b2ec310cf247dc1962a74129e4ce1ede846a64c605670b9cb7"
+    },
+    {
+      "path": "tests/native/app/tests/gallery.ts",
+      "sha256": "6eace17efdf90fbc1dfd2bb56b5a36a241620f799de165192139daf53876ea47"
+    },
+    {
+      "path": "tests/native/app/tests/game.test.ts",
+      "sha256": "1033027bca93616ad4cd36da967a85017628274270d9886805a2c0d72d7a37b2"
+    },
+    {
+      "path": "tests/native/app/tests/gpu-nine-slice.test.ts",
+      "sha256": "5303c08f75e97974500fa93d928099b27ee1b5bd0882961e61a538e2aa548f70"
+    },
+    {
+      "path": "tests/native/app/tests/gpu.ts",
+      "sha256": "1cbf0b42c8b2cdd78b2598d72b84f0a32ff6ec8ed037617254de540e5af1fd20"
+    },
+    {
+      "path": "tests/native/app/tests/mesh-batch.test.ts",
+      "sha256": "721351f43d1f3b1b5e16246ca42bffc3c07101d130b3818699d69deb1229a2d6"
+    },
+    {
+      "path": "tests/native/app/tests/mesh.test.ts",
+      "sha256": "86a7162de5de01ead7c99201fd9eb6d4586b1cc75fd335b755f9bdde03335ba8"
+    },
+    {
+      "path": "tests/native/app/tests/nine-slice-cache.test.ts",
+      "sha256": "eb41a0493c74fa12b9854523de8ceddbfbeedb39dc1aa390cf73a106d5c9d8b1"
+    },
+    {
+      "path": "tests/native/app/tests/particles.test.ts",
+      "sha256": "d5f6313254fe95ef23b790de85a6bcee47ce53bfef17dac0bcee7ad47a9eee33"
+    },
+    {
+      "path": "tests/native/app/tests/performance.ts",
+      "sha256": "ccf99b6c919ace7453093f247c78f2e57af32ffbe5e379515444dfb35bf93d50"
+    },
+    {
+      "path": "tests/native/app/tests/render-texture.test.ts",
+      "sha256": "48509bfb43115a609dd80e88fa34acdb3804e5e14674efabe5c6bc528aaf8ab6"
+    },
+    {
+      "path": "tests/native/app/tests/report.ts",
+      "sha256": "fbb02b51bedd94aece7dc8609eb64c5a1f1660879c96e72ae58a0c5f5fccb911"
+    },
+    {
+      "path": "tests/native/app/tests/resources.test.ts",
+      "sha256": "1127451b89eb70e48fda7db038e07a2ea71f5c590b9bd7f70fa98845f6ec3443"
+    },
+    {
+      "path": "tests/native/app/tests/scroll-view.test.ts",
+      "sha256": "d9252bb36537670ad0e235089ea87753aac1c14b8e6e9090fb62133f5ca9c362"
+    },
+    {
+      "path": "tests/native/app/tests/spine-cache.test.ts",
+      "sha256": "5cab7d5df394c4496b4ff0e878f01b415c685e1e306b86f070f8f58d580a6357"
+    },
+    {
+      "path": "tests/native/app/tests/spine-clipping.test.ts",
+      "sha256": "2f4d234249585e00f9227a2e67347370a4051dfb50d447b383951c0c95e89ebf"
+    },
+    {
+      "path": "tests/native/app/tests/spine-demo-scene.ts",
+      "sha256": "932466284ae5009ee44abfd8209625a58994b990f649d7edbea04b72d8f73468"
+    },
+    {
+      "path": "tests/native/app/tests/spine.test.ts",
+      "sha256": "18a9bd6fb4e4c71679fdbb096990e343f7b011fb2d68ef057893deca9b5862bb"
+    },
+    {
+      "path": "tests/native/app/tests/text.test.ts",
+      "sha256": "924cb856877400512aa7791b81e44172f64600b170fdbbe1ca648cd0faf39911"
+    },
+    {
+      "path": "tests/native/app/tests/ui-gallery.test.ts",
+      "sha256": "59f86f7e43016ba5f570ab397a52a5702916ecb4e879af339916596358de00e4"
+    },
+    {
+      "path": "tests/native/app/tests/ui.test.ts",
+      "sha256": "5442145490cdd69df7109467e547abf16746242ee81118967d49902b481b1043"
+    },
+    {
+      "path": "tests/native/app/tsconfig.json",
+      "sha256": "4c23647f634e300d8e1d38456e7ac3dd3b487b866a23aa09fc7ddf49eaa4cc62"
+    },
+    {
+      "path": "tests/native/collector.ts",
+      "sha256": "74fb7e9b343d30970f485df4d40301e5020ae7cb511ee5faa444b2eacbc333ed"
+    },
+    {
+      "path": "tests/native/tsconfig.collector.json",
+      "sha256": "89aeae0671f4ec68c488b09894f49b634645ba61cf04de9f4893818680f8bf20"
+    },
+    {
+      "path": "tests/project.test.ts",
+      "sha256": "147fc0368cfd9294ee8b58802c5989056bdcd7e36404e16a97d731e94cb7a73e"
+    },
+    {
+      "path": "tests/spine-resources.test.ts",
+      "sha256": "d68d8cf57891c96082ff4e300a6eb4599b2961875e77e9d2c4c43135d1e6b831"
+    },
+    {
+      "path": "tests/watch-command.test.ts",
+      "sha256": "8c15d17e8871c447d9fa954955669c4a6ebbb319ac9f6737fe46396eb7d1d53e"
+    },
+    {
+      "path": "tests/watch-fixture.ts",
+      "sha256": "99523990da4f38694e87ce478bcf85dabc01d560bdacb4a9aad0af7866137cc5"
+    },
+    {
+      "path": "tests/watch.test.ts",
+      "sha256": "e6cadb3881a87640319876c4868805dc52448e8082407a2b990436f55288b95d"
+    },
+    {
+      "path": "tsconfig.development.json",
+      "sha256": "f3a3618201e3dc7f2a093460248d3d47756bdf5f1bfc5661b448622fd968b3dc"
+    },
+    {
+      "path": "tsconfig.json",
+      "sha256": "43c3cb14d746e401d7d8cfac8d3c21141cc6ccd128c0ea12f577fedb3b58c3ea"
+    },
+    {
+      "path": "tsconfig.native.json",
+      "sha256": "500e82946b6ef7d52f3d8525d18f26d5b61911250cf5b4772ec32f30a468c77b"
+    },
+    {
+      "path": "tsconfig.test.json",
+      "sha256": "7f4e3c59bd27debff1f8b6d8e76f65f9474337bde52c4a221aac873483f3767d"
+    }
+  ],
+  "buildArtifacts": {
+    "ios": {
+      "applicationId": "com.irwinmc.KurotSkia.NativeTests",
+      "configuration": "Release-iphonesimulator",
+      "codeSigning": false,
+      "nativeExecutable": {
+        "bytes": 60079336,
+        "sha256": "7bce2e02f98a7dc69955e3aa02f3a7b3fefd76f2c1df1fd9ce5eca9a6953eb03"
+      },
+      "hermesBytecode": {
+        "bytes": 6060071,
+        "sha256": "4d6cdc5acb6e67e4ca7092763e2cc2e6b3d6c7002645f250dd37f47ebe9bf59e"
+      }
+    },
+    "android": {
+      "applicationId": "com.irwinmc.KurotSkia.nativetests",
+      "configuration": "assembleRelease / arm64-v8a",
+      "signing": "local Expo debug keystore; not a publishing identity",
+      "apk": {
+        "bytes": 63380722,
+        "sha256": "eacee9fcd2a3778d4b2ae9f98aa63569173d88363aa4ec622261bff8384180ae"
+      },
+      "hermesBytecode": {
+        "bytes": 4892768,
+        "sha256": "96af49ff92cb33ad768e9a839d7ff13989e914431b8a8be2fe9cf8d80d01f7ac"
+      }
+    }
+  },
+  "host": "Apple M1 Max; one active test client; no concurrent build/Metro jobs; desktop workload not controlled",
+  "versions": {
+    "core": "2.5.3",
+    "ui": "3.5.0",
+    "game": "2.0.0",
+    "dragonbones": "0.1.0",
+    "spine40to42": "0.2.1",
+    "spine43": "0.3.1",
+    "skia": "3.3.0",
+    "reactNative": "0.86.3",
+    "expo": "57.0.27",
+    "node": "26.11.1"
+  },
+  "baseline": "native-benchmarks-2026-10-11.json and native-spine-baseline-2026-10-11.json retain previous live-pose hashes/results; primary comparison is live/cache within each new run",
+  "benchmark": {
+    "actors": 20,
+    "action": "Spineboy 4.2 walk",
+    "phaseOffsetMs": 61,
+    "stepMs": 16.666666666666668,
+    "cacheSampleRate": 60,
+    "cacheFrames": 60,
+    "cacheDurationMs": 1000,
+    "cachedDistinctSampledPhases": 20,
+    "phaseValidation": "Derived from one-second duration, 60 Hz samples and the 20 offsets; closest offset separation modulo duration is 24 ms, larger than one sample interval",
+    "phaseSemantics": "Legacy live SDK Track resets on loop completion and may discard overshoot; cache wraps independent clocks. Playback-mode comparison, not continuous-pose pixel equivalence.",
+    "scale": 0.16,
+    "physicalSurface": [
+      720,
+      1280
+    ],
+    "logicalStage": [
+      360,
+      640
+    ],
+    "warmupFrames": 30,
+    "samples": 120,
+    "budgetMs": 16.666666666666668,
+    "total": "update + recording + synchronous GPU flush(true); offscreen diagnostic, not presented FPS",
+    "nativeMemoBudget": "128 entries / 16 MiB estimated vertex+index payload per renderer; live runs/native overhead excluded",
+    "cpuCacheBudget": "600 frames / 32 MiB numeric payload per cache; JS objects, temporary source, native buffers and atlas excluded"
+  },
+  "verification": {
+    "build": "pnpm build passed",
+    "node": "40/40 passed",
+    "hostTypecheck": "passed",
+    "hostLint": "passed without warnings",
+    "gpu": "Full suites in three Release environments, including unchanged 48 nine-slice cases and Spine 4.0-4.3 cache sample-time oracles; per-channel tolerance remains 2",
+    "unchangedSDKs": "Core/UI/Game/Spine/DragonBones sources and registry Demo not modified",
+    "physicalDevices": "deferred by user; simulator only",
+    "presentedFPSMemoryThermal": "not tested",
+    "androidReleaseSourceMap": {
+      "sources": 1676,
+      "cacheModules": [
+        "/node_modules/.pnpm/@kurot+skia@file+..+..+.._@kurot+core@2.5.3_@kurot+ui@3.5.0_@kurot+core@2.5.3__react-na_097da0a402c91fc174cdd0aba3d18b8a/node_modules/@kurot/skia/dist/kurot/spine-cache-data.js",
+        "/node_modules/.pnpm/@kurot+skia@file+..+..+.._@kurot+core@2.5.3_@kurot+ui@3.5.0_@kurot+core@2.5.3__react-na_097da0a402c91fc174cdd0aba3d18b8a/node_modules/@kurot/skia/dist/kurot/NativeSpineAnimationCache.js",
+        "/node_modules/.pnpm/@kurot+skia@file+..+..+.._@kurot+core@2.5.3_@kurot+ui@3.5.0_@kurot+core@2.5.3__react-na_097da0a402c91fc174cdd0aba3d18b8a/node_modules/@kurot/skia/dist/kurot/NativeSpineCachedAnimation.js"
+      ],
+      "excludedNodeTools": [
+        "/dist/generator/",
+        "/src/generator/",
+        "/dist/development/",
+        "/src/development/",
+        "dist/metro.cjs",
+        "@kurot/cli",
+        "@kurot/ui-document",
+        "node_modules/typescript/",
+        "node_modules/chokidar/"
+      ]
+    }
+  },
+  "comparisons": [
+    {
+      "platform": "ios",
+      "os": "26.5",
+      "liveP95Ms": 16.352,
+      "cacheP95Ms": 7.369,
+      "reductionPercent": 54.9,
+      "cacheP99Ms": 9.709,
+      "cacheMaxMs": 12.235541939735413,
+      "cacheOverBudgetPercent": 0,
+      "bakeMs": 31.666249990463257,
+      "geometryBytes": 1023840
+    },
+    {
+      "platform": "ios",
+      "os": "18.2",
+      "liveP95Ms": 17.696,
+      "cacheP95Ms": 7.847,
+      "reductionPercent": 55.7,
+      "cacheP99Ms": 8.258,
+      "cacheMaxMs": 9.785207986831665,
+      "cacheOverBudgetPercent": 0,
+      "bakeMs": 32.63179099559784,
+      "geometryBytes": 1023840
+    },
+    {
+      "platform": "android",
+      "os": 36,
+      "liveP95Ms": 21.836,
+      "cacheP95Ms": 10.137,
+      "reductionPercent": 53.6,
+      "cacheP99Ms": 11.246,
+      "cacheMaxMs": 11.371542000008048,
+      "cacheOverBudgetPercent": 0,
+      "bakeMs": 35.376167000009445,
+      "geometryBytes": 1023840
+    }
+  ],
+  "runs": [
+    {
+      "platform": "ios",
+      "os": "26.5",
+      "device": "iPhone 17 Pro simulator",
+      "backend": "Mac Metal / Apple M1 Max",
+      "functional": {
+        "collectedAt": "2026-10-11T05:33:46.574Z",
+        "platform": "ios",
+        "os": "26.5",
+        "development": false,
+        "type": "functional",
+        "result": "pass"
+      },
+      "cacheBuild": {
+        "collectedAt": "2026-10-11T05:34:21.798Z",
+        "platform": "ios",
+        "os": "26.5",
+        "development": false,
+        "type": "spine-cache-build",
+        "animation": "walk",
+        "sampleRate": 60,
+        "frames": 60,
+        "durationMs": 1000,
+        "geometryBytes": 1023840,
+        "bakeMs": 31.666249990463257,
+        "geometry": "frozen JS numeric payload; excludes objects/native buffers/atlas"
+      },
+      "benchmarks": [
+        {
+          "collectedAt": "2026-10-11T05:33:49.081Z",
+          "platform": "ios",
+          "os": "26.5",
+          "development": false,
+          "type": "benchmark",
+          "name": "sprites-100",
+          "draws": 1,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.181,
+            "p95": 0.261,
+            "p99": 0.329,
+            "max": 0.5629580020904541
+          },
+          "record": {
+            "p50": 1.828,
+            "p95": 2.197,
+            "p99": 3.478,
+            "max": 3.624541997909546
+          },
+          "gpuWait": {
+            "p50": 1.694,
+            "p95": 2.713,
+            "p99": 3.911,
+            "max": 3.963791012763977
+          },
+          "total": {
+            "p50": 3.67,
+            "p95": 4.88,
+            "p99": 6.139,
+            "max": 7.465207934379578
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:33:51.582Z",
+          "platform": "ios",
+          "os": "26.5",
+          "development": false,
+          "type": "benchmark",
+          "name": "sprites-500",
+          "draws": 1,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.365,
+            "p95": 0.462,
+            "p99": 0.525,
+            "max": 0.5279169082641602
+          },
+          "record": {
+            "p50": 3.496,
+            "p95": 4.686,
+            "p99": 4.953,
+            "max": 6.983042001724243
+          },
+          "gpuWait": {
+            "p50": 1.43,
+            "p95": 1.985,
+            "p99": 2.672,
+            "max": 3.4167920351028442
+          },
+          "total": {
+            "p50": 5.382,
+            "p95": 6.622,
+            "p99": 7.033,
+            "max": 9.416000008583069
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:33:54.086Z",
+          "platform": "ios",
+          "os": "26.5",
+          "development": false,
+          "type": "benchmark",
+          "name": "sprites-1000",
+          "draws": 1,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.582,
+            "p95": 0.616,
+            "p99": 0.648,
+            "max": 0.6509170532226562
+          },
+          "record": {
+            "p50": 5.63,
+            "p95": 5.86,
+            "p99": 6.029,
+            "max": 6.100208044052124
+          },
+          "gpuWait": {
+            "p50": 1.456,
+            "p95": 1.901,
+            "p99": 2.177,
+            "max": 2.754707932472229
+          },
+          "total": {
+            "p50": 7.597,
+            "p95": 8.144,
+            "p99": 8.47,
+            "max": 9.190500020980835
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:33:56.581Z",
+          "platform": "ios",
+          "os": "26.5",
+          "development": false,
+          "type": "benchmark",
+          "name": "particles-1000",
+          "draws": 1,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.206,
+            "p95": 0.327,
+            "p99": 0.458,
+            "max": 0.7204170227050781
+          },
+          "record": {
+            "p50": 3.63,
+            "p95": 6.08,
+            "p99": 6.839,
+            "max": 7.026749968528748
+          },
+          "gpuWait": {
+            "p50": 1.486,
+            "p95": 2.191,
+            "p99": 2.822,
+            "max": 2.8327499628067017
+          },
+          "total": {
+            "p50": 5.457,
+            "p95": 7.965,
+            "p99": 8.46,
+            "max": 9.511583089828491
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:33:59.089Z",
+          "platform": "ios",
+          "os": "26.5",
+          "development": false,
+          "type": "benchmark",
+          "name": "particles-5000",
+          "draws": 1,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.514,
+            "p95": 0.519,
+            "p99": 0.535,
+            "max": 0.5349169969558716
+          },
+          "record": {
+            "p50": 8.87,
+            "p95": 9.144,
+            "p99": 9.343,
+            "max": 9.930583953857422
+          },
+          "gpuWait": {
+            "p50": 1.549,
+            "p95": 2.078,
+            "p99": 2.39,
+            "max": 2.920292019844055
+          },
+          "total": {
+            "p50": 10.939,
+            "p95": 11.572,
+            "p99": 12.456,
+            "max": 12.546666979789734
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:34:01.615Z",
+          "platform": "ios",
+          "os": "26.5",
+          "development": false,
+          "type": "benchmark",
+          "name": "movieclips-100",
+          "draws": 1,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.283,
+            "p95": 1.23,
+            "p99": 1.493,
+            "max": 2.8331249952316284
+          },
+          "record": {
+            "p50": 0.795,
+            "p95": 2.746,
+            "p99": 3.939,
+            "max": 4.896041989326477
+          },
+          "gpuWait": {
+            "p50": 1.392,
+            "p95": 2.409,
+            "p99": 2.833,
+            "max": 5.4216248989105225
+          },
+          "total": {
+            "p50": 2.544,
+            "p95": 5.97,
+            "p99": 8.245,
+            "max": 8.599124908447266
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:34:04.151Z",
+          "platform": "ios",
+          "os": "26.5",
+          "development": false,
+          "type": "benchmark",
+          "name": "text-static-100",
+          "draws": 100,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.001,
+            "p95": 0.001,
+            "p99": 0.003,
+            "max": 0.005583047866821289
+          },
+          "record": {
+            "p50": 4.608,
+            "p95": 5.62,
+            "p99": 6.762,
+            "max": 7.854750037193298
+          },
+          "gpuWait": {
+            "p50": 1.684,
+            "p95": 2.512,
+            "p99": 3.551,
+            "max": 4.2589579820632935
+          },
+          "total": {
+            "p50": 6.205,
+            "p95": 7.429,
+            "p99": 8.844,
+            "max": 9.753999948501587
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:34:06.661Z",
+          "platform": "ios",
+          "os": "26.5",
+          "development": false,
+          "type": "benchmark",
+          "name": "text-changing-100",
+          "draws": 100,
+          "samples": 120,
+          "overBudgetPercent": 0.8,
+          "update": {
+            "p50": 0.14,
+            "p95": 0.159,
+            "p99": 0.166,
+            "max": 0.16762495040893555
+          },
+          "record": {
+            "p50": 10.723,
+            "p95": 11.615,
+            "p99": 13.703,
+            "max": 14.158500075340271
+          },
+          "gpuWait": {
+            "p50": 1.628,
+            "p95": 2.703,
+            "p99": 3.962,
+            "max": 5.605167031288147
+          },
+          "total": {
+            "p50": 12.604,
+            "p95": 14.024,
+            "p99": 16.368,
+            "max": 17.227916955947876
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:34:09.168Z",
+          "platform": "ios",
+          "os": "26.5",
+          "development": false,
+          "type": "benchmark",
+          "name": "text-cached-100",
+          "draws": 1,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.001,
+            "p95": 0.001,
+            "p99": 0.001,
+            "max": 0.0012500286102294922
+          },
+          "record": {
+            "p50": 0.209,
+            "p95": 0.307,
+            "p99": 0.468,
+            "max": 0.6312919855117798
+          },
+          "gpuWait": {
+            "p50": 1.974,
+            "p95": 3.721,
+            "p99": 3.879,
+            "max": 3.9004169702529907
+          },
+          "total": {
+            "p50": 2.209,
+            "p95": 3.972,
+            "p99": 4.1,
+            "max": 4.158291935920715
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:34:11.664Z",
+          "platform": "ios",
+          "os": "26.5",
+          "development": false,
+          "type": "benchmark",
+          "name": "bitmaptext-changing-100",
+          "draws": 300,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.143,
+            "p95": 0.365,
+            "p99": 0.606,
+            "max": 0.6338750123977661
+          },
+          "record": {
+            "p50": 4.615,
+            "p95": 6.79,
+            "p99": 7.954,
+            "max": 7.990666031837463
+          },
+          "gpuWait": {
+            "p50": 1.33,
+            "p95": 2.028,
+            "p99": 3.506,
+            "max": 3.676332950592041
+          },
+          "total": {
+            "p50": 6.06,
+            "p95": 8.336,
+            "p99": 9.566,
+            "max": 9.715582966804504
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:34:14.166Z",
+          "platform": "ios",
+          "os": "26.5",
+          "development": false,
+          "type": "benchmark",
+          "name": "spine-4.2-1",
+          "draws": 1,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 1.337,
+            "p95": 1.776,
+            "p99": 2.987,
+            "max": 3.628999948501587
+          },
+          "record": {
+            "p50": 1.574,
+            "p95": 2.317,
+            "p99": 2.668,
+            "max": 2.967167019844055
+          },
+          "gpuWait": {
+            "p50": 1.701,
+            "p95": 2.52,
+            "p99": 2.969,
+            "max": 3.011291027069092
+          },
+          "total": {
+            "p50": 4.717,
+            "p95": 5.748,
+            "p99": 6.815,
+            "max": 8.000750064849854
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:34:16.670Z",
+          "platform": "ios",
+          "os": "26.5",
+          "development": false,
+          "type": "benchmark",
+          "name": "spine-4.2-5",
+          "draws": 5,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 2.819,
+            "p95": 3.343,
+            "p99": 5.427,
+            "max": 5.841165900230408
+          },
+          "record": {
+            "p50": 1.937,
+            "p95": 2.093,
+            "p99": 2.207,
+            "max": 2.5457500219345093
+          },
+          "gpuWait": {
+            "p50": 1.224,
+            "p95": 1.687,
+            "p99": 1.947,
+            "max": 1.995458960533142
+          },
+          "total": {
+            "p50": 6.021,
+            "p95": 6.672,
+            "p99": 7.991,
+            "max": 8.743374943733215
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:34:19.257Z",
+          "platform": "ios",
+          "os": "26.5",
+          "development": false,
+          "type": "benchmark",
+          "name": "spine-4.2-20",
+          "draws": 20,
+          "samples": 120,
+          "overBudgetPercent": 1.7,
+          "update": {
+            "p50": 6.76,
+            "p95": 7.228,
+            "p99": 14.402,
+            "max": 14.683499932289124
+          },
+          "record": {
+            "p50": 3.697,
+            "p95": 4.036,
+            "p99": 4.289,
+            "max": 4.740625023841858
+          },
+          "gpuWait": {
+            "p50": 1.392,
+            "p95": 1.933,
+            "p99": 4.333,
+            "max": 5.82908296585083
+          },
+          "total": {
+            "p50": 11.858,
+            "p95": 13.102,
+            "p99": 19.49,
+            "max": 19.97937500476837
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:34:21.759Z",
+          "platform": "ios",
+          "os": "26.5",
+          "development": false,
+          "type": "benchmark",
+          "name": "spine-4.2-20-staggered",
+          "draws": 20,
+          "samples": 120,
+          "overBudgetPercent": 5,
+          "update": {
+            "p50": 6.847,
+            "p95": 7.516,
+            "p99": 10.841,
+            "max": 11.596832990646362
+          },
+          "record": {
+            "p50": 5.839,
+            "p95": 6.732,
+            "p99": 9.288,
+            "max": 9.949874997138977
+          },
+          "gpuWait": {
+            "p50": 1.344,
+            "p95": 2.018,
+            "p99": 2.942,
+            "max": 2.990749955177307
+          },
+          "total": {
+            "p50": 14.119,
+            "p95": 16.352,
+            "p99": 19.003,
+            "max": 19.390542030334473
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:34:24.319Z",
+          "platform": "ios",
+          "os": "26.5",
+          "development": false,
+          "type": "benchmark",
+          "name": "spine-4.2-cache60-20",
+          "draws": 20,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 2.336,
+            "p95": 2.595,
+            "p99": 3.013,
+            "max": 3.1012920141220093
+          },
+          "record": {
+            "p50": 3.045,
+            "p95": 3.477,
+            "p99": 3.814,
+            "max": 4.193083047866821
+          },
+          "gpuWait": {
+            "p50": 1.266,
+            "p95": 1.643,
+            "p99": 2.054,
+            "max": 2.0861250162124634
+          },
+          "total": {
+            "p50": 6.749,
+            "p95": 7.321,
+            "p99": 7.721,
+            "max": 7.931791067123413
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:34:26.819Z",
+          "platform": "ios",
+          "os": "26.5",
+          "development": false,
+          "type": "benchmark",
+          "name": "spine-4.2-cache60-20-staggered",
+          "draws": 20,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 2.352,
+            "p95": 2.606,
+            "p99": 2.914,
+            "max": 3.02666699886322
+          },
+          "record": {
+            "p50": 3.051,
+            "p95": 3.211,
+            "p99": 3.673,
+            "max": 5.803291916847229
+          },
+          "gpuWait": {
+            "p50": 1.323,
+            "p95": 1.665,
+            "p99": 3.205,
+            "max": 6.607999920845032
+          },
+          "total": {
+            "p50": 6.765,
+            "p95": 7.369,
+            "p99": 9.709,
+            "max": 12.235541939735413
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:34:29.336Z",
+          "platform": "ios",
+          "os": "26.5",
+          "development": false,
+          "type": "benchmark",
+          "name": "ui-gallery-16",
+          "draws": 29,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.015,
+            "p95": 0.021,
+            "p99": 0.033,
+            "max": 0.11029207706451416
+          },
+          "record": {
+            "p50": 2.639,
+            "p95": 3.534,
+            "p99": 4.443,
+            "max": 5.5625410079956055
+          },
+          "gpuWait": {
+            "p50": 2.216,
+            "p95": 3.349,
+            "p99": 3.773,
+            "max": 5.304291009902954
+          },
+          "total": {
+            "p50": 4.924,
+            "p95": 6.41,
+            "p99": 8.299,
+            "max": 8.60795795917511
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:34:31.832Z",
+          "platform": "ios",
+          "os": "26.5",
+          "development": false,
+          "type": "benchmark",
+          "name": "ui-virtual-list-5000",
+          "draws": 12,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 4.088,
+            "p95": 4.957,
+            "p99": 5.545,
+            "max": 6.435582995414734
+          },
+          "record": {
+            "p50": 0.737,
+            "p95": 1.505,
+            "p99": 2.148,
+            "max": 2.8028329610824585
+          },
+          "gpuWait": {
+            "p50": 1.543,
+            "p95": 2.502,
+            "p99": 4.105,
+            "max": 4.276958107948303
+          },
+          "total": {
+            "p50": 6.484,
+            "p95": 7.953,
+            "p99": 8.748,
+            "max": 9.742041945457458
+          }
+        }
+      ],
+      "nativeViews": [
+        {
+          "collectedAt": "2026-10-11T05:34:32.859Z",
+          "platform": "ios",
+          "os": "26.5",
+          "development": false,
+          "type": "native-view",
+          "step": 0,
+          "inputFocused": true,
+          "inputSwitched": true,
+          "scenesCreated": 1,
+          "scenesDisposed": 0,
+          "fps": 61,
+          "draws": 2,
+          "frames": 61,
+          "profile": {
+            "samples": 61,
+            "updateMs": {
+              "p50": 0.0274580717086792,
+              "p95": 0.031082987785339355,
+              "p99": 0.08858299255371094,
+              "max": 0.08858299255371094
+            },
+            "recordMs": {
+              "p50": 0.2560000419616699,
+              "p95": 2.6102089881896973,
+              "p99": 5.041916012763977,
+              "max": 5.041916012763977
+            },
+            "submitMs": {
+              "p50": 0.004791975021362305,
+              "p95": 0.0065000057220458984,
+              "p99": 0.009916067123413086,
+              "max": 0.009916067123413086
+            },
+            "totalMs": {
+              "p50": 0.28995800018310547,
+              "p95": 2.6455410718917847,
+              "p99": 5.0758750438690186,
+              "max": 5.0758750438690186
+            }
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:34:33.879Z",
+          "platform": "ios",
+          "os": "26.5",
+          "development": false,
+          "type": "native-view",
+          "step": 1,
+          "inputFocused": true,
+          "inputSwitched": true,
+          "scenesCreated": 2,
+          "scenesDisposed": 1,
+          "fps": 61,
+          "draws": 2,
+          "frames": 61,
+          "profile": {
+            "samples": 61,
+            "updateMs": {
+              "p50": 0.028999924659729004,
+              "p95": 0.04662501811981201,
+              "p99": 0.12299990653991699,
+              "max": 0.12299990653991699
+            },
+            "recordMs": {
+              "p50": 0.2763329744338989,
+              "p95": 0.9057090282440186,
+              "p99": 3.475208044052124,
+              "max": 3.475208044052124
+            },
+            "submitMs": {
+              "p50": 0.005666971206665039,
+              "p95": 0.008791923522949219,
+              "p99": 0.010583043098449707,
+              "max": 0.010583043098449707
+            },
+            "totalMs": {
+              "p50": 0.3144580125808716,
+              "p95": 0.9629169702529907,
+              "p99": 3.51104199886322,
+              "max": 3.51104199886322
+            }
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:34:34.914Z",
+          "platform": "ios",
+          "os": "26.5",
+          "development": false,
+          "type": "native-view",
+          "step": 2,
+          "inputFocused": true,
+          "inputSwitched": true,
+          "scenesCreated": 3,
+          "scenesDisposed": 2,
+          "fps": 60,
+          "draws": 2,
+          "frames": 61,
+          "profile": {
+            "samples": 61,
+            "updateMs": {
+              "p50": 0.030707955360412598,
+              "p95": 0.056874990463256836,
+              "p99": 0.1224590539932251,
+              "max": 0.1224590539932251
+            },
+            "recordMs": {
+              "p50": 0.2996249198913574,
+              "p95": 1.4958750009536743,
+              "p99": 5.583374977111816,
+              "max": 5.583374977111816
+            },
+            "submitMs": {
+              "p50": 0.005707979202270508,
+              "p95": 0.011291980743408203,
+              "p99": 0.016374945640563965,
+              "max": 0.016374945640563965
+            },
+            "totalMs": {
+              "p50": 0.33979201316833496,
+              "p95": 1.5224169492721558,
+              "p99": 5.6160420179367065,
+              "max": 5.6160420179367065
+            }
+          }
+        }
+      ],
+      "complete": {
+        "collectedAt": "2026-10-11T05:34:34.931Z",
+        "platform": "ios",
+        "os": "26.5",
+        "development": false,
+        "type": "complete",
+        "result": "pass"
+      }
+    },
+    {
+      "platform": "ios",
+      "os": "18.2",
+      "device": "iPhone SE (3rd generation) simulator",
+      "backend": "Mac Metal / Apple M1 Max",
+      "functional": {
+        "collectedAt": "2026-10-11T05:35:37.640Z",
+        "platform": "ios",
+        "os": "18.2",
+        "development": false,
+        "type": "functional",
+        "result": "pass"
+      },
+      "cacheBuild": {
+        "collectedAt": "2026-10-11T05:36:12.828Z",
+        "platform": "ios",
+        "os": "18.2",
+        "development": false,
+        "type": "spine-cache-build",
+        "animation": "walk",
+        "sampleRate": 60,
+        "frames": 60,
+        "durationMs": 1000,
+        "geometryBytes": 1023840,
+        "bakeMs": 32.63179099559784,
+        "geometry": "frozen JS numeric payload; excludes objects/native buffers/atlas"
+      },
+      "benchmarks": [
+        {
+          "collectedAt": "2026-10-11T05:35:40.154Z",
+          "platform": "ios",
+          "os": "18.2",
+          "development": false,
+          "type": "benchmark",
+          "name": "sprites-100",
+          "draws": 1,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.131,
+            "p95": 0.252,
+            "p99": 0.472,
+            "max": 1.3280410766601562
+          },
+          "record": {
+            "p50": 1.257,
+            "p95": 2.389,
+            "p99": 2.682,
+            "max": 4.304457902908325
+          },
+          "gpuWait": {
+            "p50": 1.809,
+            "p95": 3.517,
+            "p99": 5.444,
+            "max": 9.0708749294281
+          },
+          "total": {
+            "p50": 3.374,
+            "p95": 5.719,
+            "p99": 7.458,
+            "max": 11.665832996368408
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:35:42.652Z",
+          "platform": "ios",
+          "os": "18.2",
+          "development": false,
+          "type": "benchmark",
+          "name": "sprites-500",
+          "draws": 1,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.398,
+            "p95": 0.455,
+            "p99": 0.464,
+            "max": 0.46445798873901367
+          },
+          "record": {
+            "p50": 3.889,
+            "p95": 4.383,
+            "p99": 5.126,
+            "max": 6.60966694355011
+          },
+          "gpuWait": {
+            "p50": 1.385,
+            "p95": 1.958,
+            "p99": 3.561,
+            "max": 3.8552500009536743
+          },
+          "total": {
+            "p50": 5.707,
+            "p95": 6.469,
+            "p99": 7.943,
+            "max": 8.58191704750061
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:35:45.152Z",
+          "platform": "ios",
+          "os": "18.2",
+          "development": false,
+          "type": "benchmark",
+          "name": "sprites-1000",
+          "draws": 1,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.583,
+            "p95": 0.632,
+            "p99": 0.654,
+            "max": 0.6593329906463623
+          },
+          "record": {
+            "p50": 5.671,
+            "p95": 6.063,
+            "p99": 6.16,
+            "max": 6.30095899105072
+          },
+          "gpuWait": {
+            "p50": 1.385,
+            "p95": 1.793,
+            "p99": 1.969,
+            "max": 1.988084077835083
+          },
+          "total": {
+            "p50": 7.659,
+            "p95": 8.2,
+            "p99": 8.288,
+            "max": 8.404375076293945
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:35:47.648Z",
+          "platform": "ios",
+          "os": "18.2",
+          "development": false,
+          "type": "benchmark",
+          "name": "particles-1000",
+          "draws": 1,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.176,
+            "p95": 0.378,
+            "p99": 1.245,
+            "max": 1.8023749589920044
+          },
+          "record": {
+            "p50": 3.425,
+            "p95": 5.681,
+            "p99": 6.686,
+            "max": 6.705624938011169
+          },
+          "gpuWait": {
+            "p50": 1.507,
+            "p95": 2.347,
+            "p99": 2.904,
+            "max": 3.0979589223861694
+          },
+          "total": {
+            "p50": 5.395,
+            "p95": 7.556,
+            "p99": 8.544,
+            "max": 9.176832914352417
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:35:50.154Z",
+          "platform": "ios",
+          "os": "18.2",
+          "development": false,
+          "type": "benchmark",
+          "name": "particles-5000",
+          "draws": 1,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.497,
+            "p95": 0.516,
+            "p99": 0.517,
+            "max": 0.5271250009536743
+          },
+          "record": {
+            "p50": 8.911,
+            "p95": 9.193,
+            "p99": 9.369,
+            "max": 9.789999961853027
+          },
+          "gpuWait": {
+            "p50": 1.514,
+            "p95": 2.19,
+            "p99": 3.021,
+            "max": 4.399667024612427
+          },
+          "total": {
+            "p50": 10.969,
+            "p95": 11.768,
+            "p99": 12.595,
+            "max": 13.788750052452087
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:35:52.680Z",
+          "platform": "ios",
+          "os": "18.2",
+          "development": false,
+          "type": "benchmark",
+          "name": "movieclips-100",
+          "draws": 1,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.83,
+            "p95": 1.285,
+            "p99": 2.091,
+            "max": 2.346166968345642
+          },
+          "record": {
+            "p50": 1.946,
+            "p95": 2.619,
+            "p99": 3.891,
+            "max": 3.901916980743408
+          },
+          "gpuWait": {
+            "p50": 1.629,
+            "p95": 2.732,
+            "p99": 4.323,
+            "max": 5.2696250677108765
+          },
+          "total": {
+            "p50": 4.547,
+            "p95": 6.205,
+            "p99": 6.965,
+            "max": 7.961166024208069
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:35:55.213Z",
+          "platform": "ios",
+          "os": "18.2",
+          "development": false,
+          "type": "benchmark",
+          "name": "text-static-100",
+          "draws": 100,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.001,
+            "p95": 0.001,
+            "p99": 0.003,
+            "max": 0.0032500028610229492
+          },
+          "record": {
+            "p50": 1.511,
+            "p95": 5.173,
+            "p99": 5.895,
+            "max": 7.008833050727844
+          },
+          "gpuWait": {
+            "p50": 1.553,
+            "p95": 2.646,
+            "p99": 4.734,
+            "max": 6.389083027839661
+          },
+          "total": {
+            "p50": 3.445,
+            "p95": 7.23,
+            "p99": 8.74,
+            "max": 9.18137502670288
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:35:57.724Z",
+          "platform": "ios",
+          "os": "18.2",
+          "development": false,
+          "type": "benchmark",
+          "name": "text-changing-100",
+          "draws": 100,
+          "samples": 120,
+          "overBudgetPercent": 1.7,
+          "update": {
+            "p50": 0.143,
+            "p95": 0.165,
+            "p99": 0.167,
+            "max": 0.17079102993011475
+          },
+          "record": {
+            "p50": 10.978,
+            "p95": 12.588,
+            "p99": 13.138,
+            "max": 13.74258291721344
+          },
+          "gpuWait": {
+            "p50": 1.387,
+            "p95": 2.529,
+            "p99": 8.013,
+            "max": 8.999750018119812
+          },
+          "total": {
+            "p50": 12.627,
+            "p95": 14.691,
+            "p99": 19.068,
+            "max": 19.732249975204468
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:36:00.218Z",
+          "platform": "ios",
+          "os": "18.2",
+          "development": false,
+          "type": "benchmark",
+          "name": "text-cached-100",
+          "draws": 1,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.001,
+            "p95": 0.001,
+            "p99": 0.001,
+            "max": 0.015166997909545898
+          },
+          "record": {
+            "p50": 0.229,
+            "p95": 0.344,
+            "p99": 0.498,
+            "max": 0.6125839948654175
+          },
+          "gpuWait": {
+            "p50": 1.567,
+            "p95": 2.433,
+            "p99": 3.459,
+            "max": 3.6701250076293945
+          },
+          "total": {
+            "p50": 1.776,
+            "p95": 2.675,
+            "p99": 3.658,
+            "max": 4.169582962989807
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:36:02.715Z",
+          "platform": "ios",
+          "os": "18.2",
+          "development": false,
+          "type": "benchmark",
+          "name": "bitmaptext-changing-100",
+          "draws": 300,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.127,
+            "p95": 1.268,
+            "p99": 1.617,
+            "max": 2.0074169635772705
+          },
+          "record": {
+            "p50": 4.233,
+            "p95": 6.768,
+            "p99": 7.441,
+            "max": 7.491124987602234
+          },
+          "gpuWait": {
+            "p50": 1.377,
+            "p95": 2.076,
+            "p99": 3.024,
+            "max": 3.6834590435028076
+          },
+          "total": {
+            "p50": 5.945,
+            "p95": 8.505,
+            "p99": 9.05,
+            "max": 9.612083911895752
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:36:05.217Z",
+          "platform": "ios",
+          "os": "18.2",
+          "development": false,
+          "type": "benchmark",
+          "name": "spine-4.2-1",
+          "draws": 1,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 1.347,
+            "p95": 2.634,
+            "p99": 3.243,
+            "max": 3.2948750257492065
+          },
+          "record": {
+            "p50": 1.459,
+            "p95": 2.463,
+            "p99": 3.692,
+            "max": 4.000666975975037
+          },
+          "gpuWait": {
+            "p50": 1.623,
+            "p95": 2.461,
+            "p99": 2.819,
+            "max": 4.02762496471405
+          },
+          "total": {
+            "p50": 4.693,
+            "p95": 6.357,
+            "p99": 6.779,
+            "max": 6.984207987785339
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:36:07.717Z",
+          "platform": "ios",
+          "os": "18.2",
+          "development": false,
+          "type": "benchmark",
+          "name": "spine-4.2-5",
+          "draws": 5,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 2.873,
+            "p95": 3.776,
+            "p99": 4.433,
+            "max": 6.91966700553894
+          },
+          "record": {
+            "p50": 1.93,
+            "p95": 2.274,
+            "p99": 2.383,
+            "max": 2.6700409650802612
+          },
+          "gpuWait": {
+            "p50": 1.302,
+            "p95": 2.165,
+            "p99": 3.774,
+            "max": 3.861042022705078
+          },
+          "total": {
+            "p50": 6.2,
+            "p95": 7.537,
+            "p99": 8.646,
+            "max": 10.060041904449463
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:36:10.290Z",
+          "platform": "ios",
+          "os": "18.2",
+          "development": false,
+          "type": "benchmark",
+          "name": "spine-4.2-20",
+          "draws": 20,
+          "samples": 120,
+          "overBudgetPercent": 1.7,
+          "update": {
+            "p50": 6.844,
+            "p95": 7.547,
+            "p99": 14.922,
+            "max": 15.370790958404541
+          },
+          "record": {
+            "p50": 3.704,
+            "p95": 4.111,
+            "p99": 4.653,
+            "max": 4.862125039100647
+          },
+          "gpuWait": {
+            "p50": 1.419,
+            "p95": 2.705,
+            "p99": 3.451,
+            "max": 3.8653329610824585
+          },
+          "total": {
+            "p50": 12.015,
+            "p95": 13.609,
+            "p99": 20.576,
+            "max": 20.794665932655334
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:36:12.792Z",
+          "platform": "ios",
+          "os": "18.2",
+          "development": false,
+          "type": "benchmark",
+          "name": "spine-4.2-20-staggered",
+          "draws": 20,
+          "samples": 120,
+          "overBudgetPercent": 6.7,
+          "update": {
+            "p50": 6.952,
+            "p95": 7.892,
+            "p99": 10.944,
+            "max": 11.3680419921875
+          },
+          "record": {
+            "p50": 5.874,
+            "p95": 6.857,
+            "p99": 9.74,
+            "max": 10.034332990646362
+          },
+          "gpuWait": {
+            "p50": 1.514,
+            "p95": 2.313,
+            "p99": 4.23,
+            "max": 6.82954204082489
+          },
+          "total": {
+            "p50": 14.432,
+            "p95": 17.696,
+            "p99": 19.271,
+            "max": 19.570459008216858
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:36:15.335Z",
+          "platform": "ios",
+          "os": "18.2",
+          "development": false,
+          "type": "benchmark",
+          "name": "spine-4.2-cache60-20",
+          "draws": 20,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 2.355,
+            "p95": 2.623,
+            "p99": 3.271,
+            "max": 3.281125068664551
+          },
+          "record": {
+            "p50": 3.167,
+            "p95": 3.469,
+            "p99": 4.217,
+            "max": 4.353249907493591
+          },
+          "gpuWait": {
+            "p50": 1.35,
+            "p95": 1.744,
+            "p99": 3.015,
+            "max": 3.580417037010193
+          },
+          "total": {
+            "p50": 6.934,
+            "p95": 7.632,
+            "p99": 8.194,
+            "max": 8.391833066940308
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:36:17.835Z",
+          "platform": "ios",
+          "os": "18.2",
+          "development": false,
+          "type": "benchmark",
+          "name": "spine-4.2-cache60-20-staggered",
+          "draws": 20,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 2.365,
+            "p95": 2.62,
+            "p99": 3.205,
+            "max": 3.2796249389648438
+          },
+          "record": {
+            "p50": 3.078,
+            "p95": 3.282,
+            "p99": 3.802,
+            "max": 6.065667033195496
+          },
+          "gpuWait": {
+            "p50": 1.411,
+            "p95": 2.057,
+            "p99": 2.443,
+            "max": 2.481916069984436
+          },
+          "total": {
+            "p50": 6.878,
+            "p95": 7.847,
+            "p99": 8.258,
+            "max": 9.785207986831665
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:36:20.351Z",
+          "platform": "ios",
+          "os": "18.2",
+          "development": false,
+          "type": "benchmark",
+          "name": "ui-gallery-16",
+          "draws": 29,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.015,
+            "p95": 0.022,
+            "p99": 0.029,
+            "max": 0.02895796298980713
+          },
+          "record": {
+            "p50": 2.488,
+            "p95": 4.049,
+            "p99": 5.292,
+            "max": 6.21541702747345
+          },
+          "gpuWait": {
+            "p50": 2.293,
+            "p95": 3.95,
+            "p99": 6.146,
+            "max": 7.643749952316284
+          },
+          "total": {
+            "p50": 4.924,
+            "p95": 7.279,
+            "p99": 8.387,
+            "max": 8.86270797252655
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:36:22.853Z",
+          "platform": "ios",
+          "os": "18.2",
+          "development": false,
+          "type": "benchmark",
+          "name": "ui-virtual-list-5000",
+          "draws": 12,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 4.359,
+            "p95": 5.713,
+            "p99": 6.468,
+            "max": 6.646749973297119
+          },
+          "record": {
+            "p50": 0.777,
+            "p95": 1.508,
+            "p99": 2.886,
+            "max": 3.0140841007232666
+          },
+          "gpuWait": {
+            "p50": 1.614,
+            "p95": 2.322,
+            "p99": 2.892,
+            "max": 3.6022919416427612
+          },
+          "total": {
+            "p50": 6.904,
+            "p95": 8.482,
+            "p99": 9.193,
+            "max": 9.554832935333252
+          }
+        }
+      ],
+      "nativeViews": [
+        {
+          "collectedAt": "2026-10-11T05:36:23.878Z",
+          "platform": "ios",
+          "os": "18.2",
+          "development": false,
+          "type": "native-view",
+          "step": 0,
+          "inputFocused": true,
+          "inputSwitched": true,
+          "scenesCreated": 1,
+          "scenesDisposed": 0,
+          "fps": 61,
+          "draws": 2,
+          "frames": 62,
+          "profile": {
+            "samples": 62,
+            "updateMs": {
+              "p50": 0.027125000953674316,
+              "p95": 0.032334089279174805,
+              "p99": 0.08924996852874756,
+              "max": 0.08924996852874756
+            },
+            "recordMs": {
+              "p50": 0.2330409288406372,
+              "p95": 0.8454999923706055,
+              "p99": 20.990957975387573,
+              "max": 20.990957975387573
+            },
+            "submitMs": {
+              "p50": 0.00475001335144043,
+              "p95": 0.00945901870727539,
+              "p99": 0.010249972343444824,
+              "max": 0.010249972343444824
+            },
+            "totalMs": {
+              "p50": 0.2677919864654541,
+              "p95": 0.8767080307006836,
+              "p99": 21.037875056266785,
+              "max": 21.037875056266785
+            }
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:36:24.913Z",
+          "platform": "ios",
+          "os": "18.2",
+          "development": false,
+          "type": "native-view",
+          "step": 1,
+          "inputFocused": true,
+          "inputSwitched": true,
+          "scenesCreated": 2,
+          "scenesDisposed": 1,
+          "fps": 60,
+          "draws": 2,
+          "frames": 61,
+          "profile": {
+            "samples": 61,
+            "updateMs": {
+              "p50": 0.029124975204467773,
+              "p95": 0.07087504863739014,
+              "p99": 0.420166015625,
+              "max": 0.420166015625
+            },
+            "recordMs": {
+              "p50": 0.21287500858306885,
+              "p95": 1.2586669921875,
+              "p99": 3.8837499618530273,
+              "max": 3.8837499618530273
+            },
+            "submitMs": {
+              "p50": 0.005874991416931152,
+              "p95": 0.012791991233825684,
+              "p99": 0.13579201698303223,
+              "max": 0.13579201698303223
+            },
+            "totalMs": {
+              "p50": 0.24662494659423828,
+              "p95": 1.316249966621399,
+              "p99": 3.916916012763977,
+              "max": 3.916916012763977
+            }
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:36:25.946Z",
+          "platform": "ios",
+          "os": "18.2",
+          "development": false,
+          "type": "native-view",
+          "step": 2,
+          "inputFocused": true,
+          "inputSwitched": true,
+          "scenesCreated": 3,
+          "scenesDisposed": 2,
+          "fps": 60,
+          "draws": 2,
+          "frames": 61,
+          "profile": {
+            "samples": 61,
+            "updateMs": {
+              "p50": 0.030083060264587402,
+              "p95": 0.07108306884765625,
+              "p99": 0.16100001335144043,
+              "max": 0.16100001335144043
+            },
+            "recordMs": {
+              "p50": 0.24229192733764648,
+              "p95": 1.8897920846939087,
+              "p99": 4.6443339586257935,
+              "max": 4.6443339586257935
+            },
+            "submitMs": {
+              "p50": 0.006582975387573242,
+              "p95": 0.011832952499389648,
+              "p99": 0.06695902347564697,
+              "max": 0.06695902347564697
+            },
+            "totalMs": {
+              "p50": 0.27558398246765137,
+              "p95": 1.9354580640792847,
+              "p99": 4.681416034698486,
+              "max": 4.681416034698486
+            }
+          }
+        }
+      ],
+      "complete": {
+        "collectedAt": "2026-10-11T05:36:25.961Z",
+        "platform": "ios",
+        "os": "18.2",
+        "development": false,
+        "type": "complete",
+        "result": "pass"
+      }
+    },
+    {
+      "platform": "android",
+      "os": 36,
+      "device": "Small_Phone API 36 emulator",
+      "backend": "Dawn Vulkan / llvmpipe LLVM 21.1.4, driver 25.99.99; GLES ANGLE/SwiftShader; -gpu auto",
+      "functional": {
+        "collectedAt": "2026-10-11T05:32:08.292Z",
+        "platform": "android",
+        "os": 36,
+        "development": false,
+        "type": "functional",
+        "result": "pass"
+      },
+      "cacheBuild": {
+        "collectedAt": "2026-10-11T05:32:54.495Z",
+        "platform": "android",
+        "os": 36,
+        "development": false,
+        "type": "spine-cache-build",
+        "animation": "walk",
+        "sampleRate": 60,
+        "frames": 60,
+        "durationMs": 1000,
+        "geometryBytes": 1023840,
+        "bakeMs": 35.376167000009445,
+        "geometry": "frozen JS numeric payload; excludes objects/native buffers/atlas"
+      },
+      "benchmarks": [
+        {
+          "collectedAt": "2026-10-11T05:32:10.807Z",
+          "platform": "android",
+          "os": 36,
+          "development": false,
+          "type": "benchmark",
+          "name": "sprites-100",
+          "draws": 1,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.068,
+            "p95": 0.081,
+            "p99": 0.174,
+            "max": 1.186333999998169
+          },
+          "record": {
+            "p50": 0.823,
+            "p95": 1.128,
+            "p99": 1.488,
+            "max": 1.5340420000138693
+          },
+          "gpuWait": {
+            "p50": 2.324,
+            "p95": 2.74,
+            "p99": 3.595,
+            "max": 4.158416000020225
+          },
+          "total": {
+            "p50": 3.251,
+            "p95": 3.898,
+            "p99": 4.522,
+            "max": 5.29154100001324
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:32:13.315Z",
+          "platform": "android",
+          "os": 36,
+          "development": false,
+          "type": "benchmark",
+          "name": "sprites-500",
+          "draws": 1,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.241,
+            "p95": 0.31,
+            "p99": 0.685,
+            "max": 0.7911249999888241
+          },
+          "record": {
+            "p50": 2.938,
+            "p95": 3.516,
+            "p99": 3.986,
+            "max": 4.098584000021219
+          },
+          "gpuWait": {
+            "p50": 7.361,
+            "p95": 8.079,
+            "p99": 8.366,
+            "max": 8.691541000007419
+          },
+          "total": {
+            "p50": 10.583,
+            "p95": 11.415,
+            "p99": 12.345,
+            "max": 12.447666000021854
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:32:18.491Z",
+          "platform": "android",
+          "os": 36,
+          "development": false,
+          "type": "benchmark",
+          "name": "sprites-1000",
+          "draws": 1,
+          "samples": 120,
+          "overBudgetPercent": 100,
+          "update": {
+            "p50": 0.482,
+            "p95": 0.663,
+            "p99": 1.103,
+            "max": 2.6666670000122394
+          },
+          "record": {
+            "p50": 5.758,
+            "p95": 6.594,
+            "p99": 25.984,
+            "max": 40.875874999997905
+          },
+          "gpuWait": {
+            "p50": 14.059,
+            "p95": 16.576,
+            "p99": 30.494,
+            "max": 88.73245800001314
+          },
+          "total": {
+            "p50": 20.237,
+            "p95": 23.67,
+            "p99": 74.036,
+            "max": 95.17983300000196
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:32:21.009Z",
+          "platform": "android",
+          "os": 36,
+          "development": false,
+          "type": "benchmark",
+          "name": "particles-1000",
+          "draws": 1,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.128,
+            "p95": 0.202,
+            "p99": 0.294,
+            "max": 0.3249999999825377
+          },
+          "record": {
+            "p50": 2.486,
+            "p95": 2.832,
+            "p99": 4.108,
+            "max": 4.131917000020621
+          },
+          "gpuWait": {
+            "p50": 3.427,
+            "p95": 3.91,
+            "p99": 5.754,
+            "max": 5.8231659999873955
+          },
+          "total": {
+            "p50": 6.11,
+            "p95": 6.849,
+            "p99": 8.341,
+            "max": 8.437540999992052
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:32:26.245Z",
+          "platform": "android",
+          "os": 36,
+          "development": false,
+          "type": "benchmark",
+          "name": "particles-5000",
+          "draws": 1,
+          "samples": 120,
+          "overBudgetPercent": 100,
+          "update": {
+            "p50": 0.663,
+            "p95": 0.803,
+            "p99": 0.999,
+            "max": 1.485541000001831
+          },
+          "record": {
+            "p50": 10.934,
+            "p95": 12.486,
+            "p99": 17.085,
+            "max": 21.33687500000815
+          },
+          "gpuWait": {
+            "p50": 12.602,
+            "p95": 14.929,
+            "p99": 33.586,
+            "max": 165.99687500001164
+          },
+          "total": {
+            "p50": 24.246,
+            "p95": 27.6,
+            "p99": 50.52,
+            "max": 188.08545800001593
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:32:28.838Z",
+          "platform": "android",
+          "os": 36,
+          "development": false,
+          "type": "benchmark",
+          "name": "movieclips-100",
+          "draws": 1,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.257,
+            "p95": 0.376,
+            "p99": 0.75,
+            "max": 0.9276669999817386
+          },
+          "record": {
+            "p50": 0.911,
+            "p95": 1.266,
+            "p99": 1.437,
+            "max": 1.6590410000062548
+          },
+          "gpuWait": {
+            "p50": 1.329,
+            "p95": 1.645,
+            "p99": 2.023,
+            "max": 3.3035840000084136
+          },
+          "total": {
+            "p50": 2.565,
+            "p95": 3.072,
+            "p99": 3.354,
+            "max": 4.548167000000831
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:32:31.373Z",
+          "platform": "android",
+          "os": 36,
+          "development": false,
+          "type": "benchmark",
+          "name": "text-static-100",
+          "draws": 100,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.001,
+            "p95": 0.001,
+            "p99": 0.001,
+            "max": 0.004499999980907887
+          },
+          "record": {
+            "p50": 1.672,
+            "p95": 2.089,
+            "p99": 2.778,
+            "max": 2.8235419999982696
+          },
+          "gpuWait": {
+            "p50": 2.54,
+            "p95": 2.977,
+            "p99": 4.465,
+            "max": 5.023665999993682
+          },
+          "total": {
+            "p50": 4.271,
+            "p95": 4.819,
+            "p99": 6.089,
+            "max": 7.003708000003826
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:32:34.786Z",
+          "platform": "android",
+          "os": 36,
+          "development": false,
+          "type": "benchmark",
+          "name": "text-changing-100",
+          "draws": 100,
+          "samples": 120,
+          "overBudgetPercent": 3.3,
+          "update": {
+            "p50": 0.14,
+            "p95": 0.192,
+            "p99": 0.209,
+            "max": 0.29075000001466833
+          },
+          "record": {
+            "p50": 12.147,
+            "p95": 13.634,
+            "p99": 16.04,
+            "max": 18.76745800001663
+          },
+          "gpuWait": {
+            "p50": 2.025,
+            "p95": 2.59,
+            "p99": 3.035,
+            "max": 3.853499999997439
+          },
+          "total": {
+            "p50": 14.24,
+            "p95": 16.447,
+            "p99": 18.933,
+            "max": 21.121500000008382
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:32:37.290Z",
+          "platform": "android",
+          "os": 36,
+          "development": false,
+          "type": "benchmark",
+          "name": "text-cached-100",
+          "draws": 1,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.001,
+            "p95": 0.001,
+            "p99": 0.004,
+            "max": 0.009749999997438863
+          },
+          "record": {
+            "p50": 0.147,
+            "p95": 0.292,
+            "p99": 0.393,
+            "max": 0.4582079999963753
+          },
+          "gpuWait": {
+            "p50": 1.664,
+            "p95": 2.224,
+            "p99": 2.714,
+            "max": 3.301999999996042
+          },
+          "total": {
+            "p50": 1.81,
+            "p95": 2.378,
+            "p99": 2.99,
+            "max": 3.4396669999987353
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:32:39.793Z",
+          "platform": "android",
+          "os": 36,
+          "development": false,
+          "type": "benchmark",
+          "name": "bitmaptext-changing-100",
+          "draws": 300,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.06,
+            "p95": 0.073,
+            "p99": 0.138,
+            "max": 0.1400419999845326
+          },
+          "record": {
+            "p50": 2.54,
+            "p95": 3.445,
+            "p99": 3.791,
+            "max": 3.7995829999854323
+          },
+          "gpuWait": {
+            "p50": 1.303,
+            "p95": 1.59,
+            "p99": 2.304,
+            "max": 3.5902079999796115
+          },
+          "total": {
+            "p50": 3.9,
+            "p95": 4.941,
+            "p99": 5.295,
+            "max": 6.609582999983104
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:32:42.307Z",
+          "platform": "android",
+          "os": 36,
+          "development": false,
+          "type": "benchmark",
+          "name": "spine-4.2-1",
+          "draws": 1,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.564,
+            "p95": 1.173,
+            "p99": 1.446,
+            "max": 1.472542000003159
+          },
+          "record": {
+            "p50": 0.844,
+            "p95": 1.215,
+            "p99": 1.618,
+            "max": 1.692250000021886
+          },
+          "gpuWait": {
+            "p50": 1.345,
+            "p95": 1.683,
+            "p99": 2.049,
+            "max": 2.184665999986464
+          },
+          "total": {
+            "p50": 2.839,
+            "p95": 3.576,
+            "p99": 3.731,
+            "max": 3.782042000006186
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:32:44.825Z",
+          "platform": "android",
+          "os": 36,
+          "development": false,
+          "type": "benchmark",
+          "name": "spine-4.2-5",
+          "draws": 5,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 2.018,
+            "p95": 2.977,
+            "p99": 4.079,
+            "max": 4.090250000008382
+          },
+          "record": {
+            "p50": 1.452,
+            "p95": 1.781,
+            "p99": 2.997,
+            "max": 5.075916000001598
+          },
+          "gpuWait": {
+            "p50": 1.561,
+            "p95": 1.776,
+            "p99": 2.309,
+            "max": 2.412125000002561
+          },
+          "total": {
+            "p50": 5.101,
+            "p95": 6.192,
+            "p99": 7.673,
+            "max": 10.353667000017595
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:32:49.439Z",
+          "platform": "android",
+          "os": 36,
+          "development": false,
+          "type": "benchmark",
+          "name": "spine-4.2-20",
+          "draws": 20,
+          "samples": 120,
+          "overBudgetPercent": 13.3,
+          "update": {
+            "p50": 7.605,
+            "p95": 8.873,
+            "p99": 15.48,
+            "max": 15.979874999989988
+          },
+          "record": {
+            "p50": 4.143,
+            "p95": 4.998,
+            "p99": 5.894,
+            "max": 6.5427919999929145
+          },
+          "gpuWait": {
+            "p50": 3.559,
+            "p95": 4.087,
+            "p99": 4.513,
+            "max": 6.031083999987459
+          },
+          "total": {
+            "p50": 15.306,
+            "p95": 17.654,
+            "p99": 23.362,
+            "max": 23.485458999988623
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:32:54.455Z",
+          "platform": "android",
+          "os": 36,
+          "development": false,
+          "type": "benchmark",
+          "name": "spine-4.2-20-staggered",
+          "draws": 20,
+          "samples": 120,
+          "overBudgetPercent": 99.2,
+          "update": {
+            "p50": 8.015,
+            "p95": 9.712,
+            "p99": 12.015,
+            "max": 13.722915999998804
+          },
+          "record": {
+            "p50": 7.406,
+            "p95": 9.364,
+            "p99": 10.335,
+            "max": 12.071750000002794
+          },
+          "gpuWait": {
+            "p50": 3.546,
+            "p95": 4.059,
+            "p99": 4.927,
+            "max": 5.781749999994645
+          },
+          "total": {
+            "p50": 19.179,
+            "p95": 21.836,
+            "p99": 23.361,
+            "max": 24.271707999985665
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:32:57.011Z",
+          "platform": "android",
+          "os": 36,
+          "development": false,
+          "type": "benchmark",
+          "name": "spine-4.2-cache60-20",
+          "draws": 20,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 1.973,
+            "p95": 2.286,
+            "p99": 2.754,
+            "max": 2.897709000011673
+          },
+          "record": {
+            "p50": 2.899,
+            "p95": 3.524,
+            "p99": 4.061,
+            "max": 4.528292000002693
+          },
+          "gpuWait": {
+            "p50": 3.465,
+            "p95": 3.854,
+            "p99": 4.018,
+            "max": 4.04024999999092
+          },
+          "total": {
+            "p50": 8.435,
+            "p95": 9.395,
+            "p99": 9.768,
+            "max": 10.143750000017462
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:32:59.562Z",
+          "platform": "android",
+          "os": 36,
+          "development": false,
+          "type": "benchmark",
+          "name": "spine-4.2-cache60-20-staggered",
+          "draws": 20,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 2.077,
+            "p95": 2.521,
+            "p99": 2.861,
+            "max": 3.1927920000161976
+          },
+          "record": {
+            "p50": 2.922,
+            "p95": 3.563,
+            "p99": 4.666,
+            "max": 4.66679099999601
+          },
+          "gpuWait": {
+            "p50": 3.439,
+            "p95": 4.542,
+            "p99": 5.302,
+            "max": 5.7781250000116415
+          },
+          "total": {
+            "p50": 8.524,
+            "p95": 10.137,
+            "p99": 11.246,
+            "max": 11.371542000008048
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:33:02.090Z",
+          "platform": "android",
+          "os": 36,
+          "development": false,
+          "type": "benchmark",
+          "name": "ui-gallery-16",
+          "draws": 29,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.013,
+            "p95": 0.019,
+            "p99": 0.028,
+            "max": 0.057083000021521
+          },
+          "record": {
+            "p50": 1.085,
+            "p95": 1.531,
+            "p99": 1.946,
+            "max": 2.4880840000114404
+          },
+          "gpuWait": {
+            "p50": 2.263,
+            "p95": 2.753,
+            "p99": 3.221,
+            "max": 3.24770899998839
+          },
+          "total": {
+            "p50": 3.432,
+            "p95": 4.14,
+            "p99": 4.384,
+            "max": 4.6996670000080485
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:33:04.607Z",
+          "platform": "android",
+          "os": 36,
+          "development": false,
+          "type": "benchmark",
+          "name": "ui-virtual-list-5000",
+          "draws": 12,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 1.588,
+            "p95": 1.939,
+            "p99": 2.695,
+            "max": 3.218166000006022
+          },
+          "record": {
+            "p50": 0.526,
+            "p95": 0.836,
+            "p99": 0.989,
+            "max": 1.7564169999968726
+          },
+          "gpuWait": {
+            "p50": 1.372,
+            "p95": 1.651,
+            "p99": 1.973,
+            "max": 3.194833000015933
+          },
+          "total": {
+            "p50": 3.568,
+            "p95": 4.216,
+            "p99": 5.245,
+            "max": 5.737374999996973
+          }
+        }
+      ],
+      "nativeViews": [
+        {
+          "collectedAt": "2026-10-11T05:33:05.650Z",
+          "platform": "android",
+          "os": 36,
+          "development": false,
+          "type": "native-view",
+          "step": 0,
+          "inputFocused": true,
+          "inputSwitched": true,
+          "scenesCreated": 1,
+          "scenesDisposed": 0,
+          "fps": 52,
+          "draws": 2,
+          "frames": 53,
+          "profile": {
+            "samples": 53,
+            "updateMs": {
+              "p50": 0.03766699999687262,
+              "p95": 0.07437499999650754,
+              "p99": 0.7053749999904539,
+              "max": 0.7053749999904539
+            },
+            "recordMs": {
+              "p50": 0.2981660000223201,
+              "p95": 5.834208000014769,
+              "p99": 13.989916999998968,
+              "max": 13.989916999998968
+            },
+            "submitMs": {
+              "p50": 0.01545899998745881,
+              "p95": 0.17479200000525452,
+              "p99": 7.075415999977849,
+              "max": 7.075415999977849
+            },
+            "totalMs": {
+              "p50": 0.37125000002561137,
+              "p95": 6.108333999989554,
+              "p99": 14.104083999991417,
+              "max": 14.104083999991417
+            }
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:33:06.709Z",
+          "platform": "android",
+          "os": 36,
+          "development": false,
+          "type": "native-view",
+          "step": 1,
+          "inputFocused": true,
+          "inputSwitched": true,
+          "scenesCreated": 2,
+          "scenesDisposed": 1,
+          "fps": 55,
+          "draws": 2,
+          "frames": 56,
+          "profile": {
+            "samples": 56,
+            "updateMs": {
+              "p50": 0.0392920000012964,
+              "p95": 0.07575000001816079,
+              "p99": 3.2735000000102445,
+              "max": 3.2735000000102445
+            },
+            "recordMs": {
+              "p50": 0.2792910000134725,
+              "p95": 7.577958000008948,
+              "p99": 19.417874999984633,
+              "max": 19.417874999984633
+            },
+            "submitMs": {
+              "p50": 0.013833999983035028,
+              "p95": 0.054124999995110556,
+              "p99": 0.15220900002168491,
+              "max": 0.15220900002168491
+            },
+            "totalMs": {
+              "p50": 0.33412500002305023,
+              "p95": 7.633042000001296,
+              "p99": 19.487457999988692,
+              "max": 19.487457999988692
+            }
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T05:33:07.757Z",
+          "platform": "android",
+          "os": 36,
+          "development": false,
+          "type": "native-view",
+          "step": 2,
+          "inputFocused": true,
+          "inputSwitched": true,
+          "scenesCreated": 3,
+          "scenesDisposed": 2,
+          "fps": 54,
+          "draws": 2,
+          "frames": 55,
+          "profile": {
+            "samples": 55,
+            "updateMs": {
+              "p50": 0.03812499999185093,
+              "p95": 0.14079199999105185,
+              "p99": 0.15783399998326786,
+              "max": 0.15783399998326786
+            },
+            "recordMs": {
+              "p50": 0.3350839999911841,
+              "p95": 6.162165999994613,
+              "p99": 8.893332999985432,
+              "max": 8.893332999985432
+            },
+            "submitMs": {
+              "p50": 0.014291999978013337,
+              "p95": 0.050290999992284924,
+              "p99": 0.06670799999847077,
+              "max": 0.06670799999847077
+            },
+            "totalMs": {
+              "p50": 0.4305420000164304,
+              "p95": 6.21974999998929,
+              "p99": 8.963208000001032,
+              "max": 8.963208000001032
+            }
+          }
+        }
+      ],
+      "complete": {
+        "collectedAt": "2026-10-11T05:33:07.780Z",
+        "platform": "android",
+        "os": 36,
+        "development": false,
+        "type": "complete",
+        "result": "pass"
+      }
+    }
+  ],
+  "preliminary": {
+    "source": "f566cc1e47039bb098319155c88cbd4332d2811430e9c653d93bf4cd0b577a3c",
+    "buildArtifacts": {
+      "ios": {
+        "applicationId": "com.irwinmc.KurotSkia.NativeTests",
+        "configuration": "Release-iphonesimulator",
+        "codeSigning": false,
+        "nativeExecutable": {
+          "bytes": 60079336,
+          "sha256": "7bce2e02f98a7dc69955e3aa02f3a7b3fefd76f2c1df1fd9ce5eca9a6953eb03"
+        },
+        "hermesBytecode": {
+          "bytes": 6059097,
+          "sha256": "47d6e6b36864914e42718fc80f35bfb9f6bc74990a41f4b40a8d77d6793e96c3"
+        }
+      },
+      "android": {
+        "applicationId": "com.irwinmc.KurotSkia.nativetests",
+        "configuration": "assembleRelease / arm64-v8a",
+        "signing": "local Expo debug keystore; not a publishing identity",
+        "apk": {
+          "bytes": 63380098,
+          "sha256": "0921d39183b0739792d0d725a635cd7369778b78039ba6bc852a93ca66cc097b"
+        },
+        "hermesBytecode": {
+          "bytes": 4892144,
+          "sha256": "f4cbc822a5a3e0f72a99411993e16093e6ea125fe6cb5cb91908055aae75f120"
+        }
+      }
+    },
+    "note": "Earlier iOS candidate passes retained separately; final candidate adds source-state rejection and member ordering. Failure records are excluded from acceptance: first JSI allocation-count wrapper lost this (fixed); SwiftShader alternate Android backend failed unchanged sprite oracle (restored prior llvmpipe path). First wrapper failure predates these preliminary build hashes.",
+    "records": [
+      {
+        "collectedAt": "2026-10-11T05:21:20.824Z",
+        "platform": "ios",
+        "os": "26.5",
+        "development": false,
+        "type": "failure",
+        "message": "Expected Api but got non-object"
+      },
+      {
+        "collectedAt": "2026-10-11T05:24:08.344Z",
+        "platform": "ios",
+        "os": "26.5",
+        "development": false,
+        "type": "functional",
+        "result": "pass"
+      },
+      {
+        "collectedAt": "2026-10-11T05:24:10.852Z",
+        "platform": "ios",
+        "os": "26.5",
+        "development": false,
+        "type": "benchmark",
+        "name": "sprites-100",
+        "draws": 1,
+        "samples": 120,
+        "overBudgetPercent": 0,
+        "update": {
+          "p50": 0.232,
+          "p95": 0.439,
+          "p99": 0.594,
+          "max": 0.7460840940475464
+        },
+        "record": {
+          "p50": 2.205,
+          "p95": 3.513,
+          "p99": 3.939,
+          "max": 7.723042011260986
+        },
+        "gpuWait": {
+          "p50": 1.641,
+          "p95": 3.071,
+          "p99": 4.542,
+          "max": 5.110167026519775
+        },
+        "total": {
+          "p50": 4.326,
+          "p95": 5.713,
+          "p99": 6.959,
+          "max": 10.632209062576294
+        }
+      },
+      {
+        "collectedAt": "2026-10-11T05:24:13.354Z",
+        "platform": "ios",
+        "os": "26.5",
+        "development": false,
+        "type": "benchmark",
+        "name": "sprites-500",
+        "draws": 1,
+        "samples": 120,
+        "overBudgetPercent": 0,
+        "update": {
+          "p50": 0.804,
+          "p95": 1.467,
+          "p99": 2.363,
+          "max": 6.318583965301514
+        },
+        "record": {
+          "p50": 4.406,
+          "p95": 6.017,
+          "p99": 6.306,
+          "max": 6.37720799446106
+        },
+        "gpuWait": {
+          "p50": 1.447,
+          "p95": 2.575,
+          "p99": 5.095,
+          "max": 6.272915959358215
+        },
+        "total": {
+          "p50": 6.829,
+          "p95": 8.937,
+          "p99": 10.336,
+          "max": 14.192708969116211
+        }
+      },
+      {
+        "collectedAt": "2026-10-11T05:24:15.870Z",
+        "platform": "ios",
+        "os": "26.5",
+        "development": false,
+        "type": "benchmark",
+        "name": "sprites-1000",
+        "draws": 1,
+        "samples": 120,
+        "overBudgetPercent": 0,
+        "update": {
+          "p50": 0.612,
+          "p95": 0.662,
+          "p99": 0.696,
+          "max": 0.7035419940948486
+        },
+        "record": {
+          "p50": 5.937,
+          "p95": 6.463,
+          "p99": 6.559,
+          "max": 6.752958059310913
+        },
+        "gpuWait": {
+          "p50": 1.623,
+          "p95": 2.627,
+          "p99": 4.146,
+          "max": 4.246042013168335
+        },
+        "total": {
+          "p50": 8.187,
+          "p95": 9.734,
+          "p99": 10.894,
+          "max": 11.18500006198883
+        }
+      },
+      {
+        "collectedAt": "2026-10-11T05:24:18.369Z",
+        "platform": "ios",
+        "os": "26.5",
+        "development": false,
+        "type": "benchmark",
+        "name": "particles-1000",
+        "draws": 1,
+        "samples": 120,
+        "overBudgetPercent": 0,
+        "update": {
+          "p50": 0.267,
+          "p95": 0.622,
+          "p99": 0.86,
+          "max": 1.1347500085830688
+        },
+        "record": {
+          "p50": 4.599,
+          "p95": 6.184,
+          "p99": 6.431,
+          "max": 6.995917081832886
+        },
+        "gpuWait": {
+          "p50": 1.502,
+          "p95": 2.342,
+          "p99": 3.3,
+          "max": 4.091125011444092
+        },
+        "total": {
+          "p50": 6.481,
+          "p95": 8.341,
+          "p99": 9.097,
+          "max": 10.175374984741211
+        }
+      },
+      {
+        "collectedAt": "2026-10-11T05:24:20.873Z",
+        "platform": "ios",
+        "os": "26.5",
+        "development": false,
+        "type": "benchmark",
+        "name": "particles-5000",
+        "draws": 1,
+        "samples": 120,
+        "overBudgetPercent": 0,
+        "update": {
+          "p50": 0.503,
+          "p95": 0.531,
+          "p99": 0.544,
+          "max": 0.5822920799255371
+        },
+        "record": {
+          "p50": 9.249,
+          "p95": 9.627,
+          "p99": 10.004,
+          "max": 10.161707997322083
+        },
+        "gpuWait": {
+          "p50": 1.741,
+          "p95": 2.653,
+          "p99": 4.067,
+          "max": 4.153791069984436
+        },
+        "total": {
+          "p50": 11.527,
+          "p95": 12.582,
+          "p99": 13.95,
+          "max": 13.988999962806702
+        }
+      },
+      {
+        "collectedAt": "2026-10-11T05:24:23.403Z",
+        "platform": "ios",
+        "os": "26.5",
+        "development": false,
+        "type": "benchmark",
+        "name": "movieclips-100",
+        "draws": 1,
+        "samples": 120,
+        "overBudgetPercent": 0,
+        "update": {
+          "p50": 1.405,
+          "p95": 2.154,
+          "p99": 2.561,
+          "max": 3.617583990097046
+        },
+        "record": {
+          "p50": 2.635,
+          "p95": 3.546,
+          "p99": 4.752,
+          "max": 4.9523749351501465
+        },
+        "gpuWait": {
+          "p50": 1.407,
+          "p95": 2.039,
+          "p99": 2.264,
+          "max": 2.443624973297119
+        },
+        "total": {
+          "p50": 5.467,
+          "p95": 6.774,
+          "p99": 7.864,
+          "max": 8.110791087150574
+        }
+      },
+      {
+        "collectedAt": "2026-10-11T05:24:25.937Z",
+        "platform": "ios",
+        "os": "26.5",
+        "development": false,
+        "type": "benchmark",
+        "name": "text-static-100",
+        "draws": 100,
+        "samples": 120,
+        "overBudgetPercent": 0,
+        "update": {
+          "p50": 0.001,
+          "p95": 0.001,
+          "p99": 0.004,
+          "max": 0.004124999046325684
+        },
+        "record": {
+          "p50": 4.567,
+          "p95": 5.934,
+          "p99": 6.28,
+          "max": 6.905041933059692
+        },
+        "gpuWait": {
+          "p50": 1.523,
+          "p95": 2.115,
+          "p99": 2.518,
+          "max": 2.76466703414917
+        },
+        "total": {
+          "p50": 6.139,
+          "p95": 7.503,
+          "p99": 7.869,
+          "max": 8.15683400630951
+        }
+      },
+      {
+        "collectedAt": "2026-10-11T05:24:28.462Z",
+        "platform": "ios",
+        "os": "26.5",
+        "development": false,
+        "type": "benchmark",
+        "name": "text-changing-100",
+        "draws": 100,
+        "samples": 120,
+        "overBudgetPercent": 0,
+        "update": {
+          "p50": 0.139,
+          "p95": 0.165,
+          "p99": 0.174,
+          "max": 0.2180420160293579
+        },
+        "record": {
+          "p50": 11.546,
+          "p95": 13.152,
+          "p99": 13.648,
+          "max": 14.095041990280151
+        },
+        "gpuWait": {
+          "p50": 1.839,
+          "p95": 3.159,
+          "p99": 3.664,
+          "max": 3.89883291721344
+        },
+        "total": {
+          "p50": 13.793,
+          "p95": 15.407,
+          "p99": 15.985,
+          "max": 16.11033296585083
+        }
+      },
+      {
+        "collectedAt": "2026-10-11T05:24:30.969Z",
+        "platform": "ios",
+        "os": "26.5",
+        "development": false,
+        "type": "benchmark",
+        "name": "text-cached-100",
+        "draws": 1,
+        "samples": 120,
+        "overBudgetPercent": 0,
+        "update": {
+          "p50": 0.001,
+          "p95": 0.001,
+          "p99": 0.002,
+          "max": 0.00162506103515625
+        },
+        "record": {
+          "p50": 0.215,
+          "p95": 0.405,
+          "p99": 0.454,
+          "max": 0.514875054359436
+        },
+        "gpuWait": {
+          "p50": 1.739,
+          "p95": 2.664,
+          "p99": 2.835,
+          "max": 3.604209065437317
+        },
+        "total": {
+          "p50": 1.924,
+          "p95": 3.052,
+          "p99": 3.176,
+          "max": 4.04354202747345
+        }
+      },
+      {
+        "collectedAt": "2026-10-11T05:24:33.473Z",
+        "platform": "ios",
+        "os": "26.5",
+        "development": false,
+        "type": "benchmark",
+        "name": "bitmaptext-changing-100",
+        "draws": 300,
+        "samples": 120,
+        "overBudgetPercent": 0,
+        "update": {
+          "p50": 0.169,
+          "p95": 0.276,
+          "p99": 0.365,
+          "max": 0.38920795917510986
+        },
+        "record": {
+          "p50": 5.615,
+          "p95": 7.636,
+          "p99": 8.444,
+          "max": 9.683500051498413
+        },
+        "gpuWait": {
+          "p50": 1.402,
+          "p95": 2.504,
+          "p99": 4.188,
+          "max": 4.689041972160339
+        },
+        "total": {
+          "p50": 7.311,
+          "p95": 9.767,
+          "p99": 10.311,
+          "max": 11.17199993133545
+        }
+      },
+      {
+        "collectedAt": "2026-10-11T05:24:35.983Z",
+        "platform": "ios",
+        "os": "26.5",
+        "development": false,
+        "type": "benchmark",
+        "name": "spine-4.2-1",
+        "draws": 1,
+        "samples": 120,
+        "overBudgetPercent": 0,
+        "update": {
+          "p50": 1.328,
+          "p95": 2.72,
+          "p99": 4.153,
+          "max": 5.4151670932769775
+        },
+        "record": {
+          "p50": 1.434,
+          "p95": 2.602,
+          "p99": 3.971,
+          "max": 4.056416988372803
+        },
+        "gpuWait": {
+          "p50": 1.567,
+          "p95": 2.959,
+          "p99": 3.564,
+          "max": 4.546208024024963
+        },
+        "total": {
+          "p50": 4.692,
+          "p95": 6.621,
+          "p99": 7.496,
+          "max": 8.437625050544739
+        }
+      },
+      {
+        "collectedAt": "2026-10-11T05:24:38.484Z",
+        "platform": "ios",
+        "os": "26.5",
+        "development": false,
+        "type": "benchmark",
+        "name": "spine-4.2-5",
+        "draws": 5,
+        "samples": 120,
+        "overBudgetPercent": 0,
+        "update": {
+          "p50": 2.718,
+          "p95": 4.504,
+          "p99": 6.175,
+          "max": 8.586459040641785
+        },
+        "record": {
+          "p50": 1.668,
+          "p95": 2.238,
+          "p99": 2.461,
+          "max": 2.7223329544067383
+        },
+        "gpuWait": {
+          "p50": 1.368,
+          "p95": 2.18,
+          "p99": 2.632,
+          "max": 2.9281660318374634
+        },
+        "total": {
+          "p50": 6.05,
+          "p95": 7.637,
+          "p99": 9.002,
+          "max": 12.275500059127808
+        }
+      },
+      {
+        "collectedAt": "2026-10-11T05:24:41.058Z",
+        "platform": "ios",
+        "os": "26.5",
+        "development": false,
+        "type": "benchmark",
+        "name": "spine-4.2-20",
+        "draws": 20,
+        "samples": 120,
+        "overBudgetPercent": 2.5,
+        "update": {
+          "p50": 6.996,
+          "p95": 8.012,
+          "p99": 15.171,
+          "max": 15.360834002494812
+        },
+        "record": {
+          "p50": 3.839,
+          "p95": 4.456,
+          "p99": 4.796,
+          "max": 5.011291980743408
+        },
+        "gpuWait": {
+          "p50": 1.598,
+          "p95": 3.114,
+          "p99": 4.124,
+          "max": 7.345708966255188
+        },
+        "total": {
+          "p50": 12.661,
+          "p95": 14.441,
+          "p99": 20.623,
+          "max": 20.861791968345642
+        }
+      },
+      {
+        "collectedAt": "2026-10-11T05:24:43.561Z",
+        "platform": "ios",
+        "os": "26.5",
+        "development": false,
+        "type": "benchmark",
+        "name": "spine-4.2-20-staggered",
+        "draws": 20,
+        "samples": 120,
+        "overBudgetPercent": 10,
+        "update": {
+          "p50": 7.3,
+          "p95": 8.011,
+          "p99": 11.694,
+          "max": 11.746958017349243
+        },
+        "record": {
+          "p50": 6.349,
+          "p95": 7.283,
+          "p99": 9.813,
+          "max": 10.062083005905151
+        },
+        "gpuWait": {
+          "p50": 1.558,
+          "p95": 2.756,
+          "p99": 3.665,
+          "max": 4.4244160652160645
+        },
+        "total": {
+          "p50": 15.314,
+          "p95": 18.111,
+          "p99": 19.434,
+          "max": 19.79579198360443
+        }
+      },
+      {
+        "collectedAt": "2026-10-11T05:24:43.598Z",
+        "platform": "ios",
+        "os": "26.5",
+        "development": false,
+        "type": "spine-cache-build",
+        "animation": "walk",
+        "sampleRate": 60,
+        "frames": 60,
+        "durationMs": 1000,
+        "geometryBytes": 1023840,
+        "bakeMs": 32.918416023254395,
+        "geometry": "frozen JS numeric payload; excludes objects/native buffers/atlas"
+      },
+      {
+        "collectedAt": "2026-10-11T05:24:46.102Z",
+        "platform": "ios",
+        "os": "26.5",
+        "development": false,
+        "type": "benchmark",
+        "name": "spine-4.2-cache60-20",
+        "draws": 20,
+        "samples": 120,
+        "overBudgetPercent": 0,
+        "update": {
+          "p50": 2.377,
+          "p95": 2.665,
+          "p99": 2.887,
+          "max": 2.9187079668045044
+        },
+        "record": {
+          "p50": 3.206,
+          "p95": 3.547,
+          "p99": 3.924,
+          "max": 3.9796249866485596
+        },
+        "gpuWait": {
+          "p50": 1.426,
+          "p95": 2.064,
+          "p99": 3.783,
+          "max": 5.977624893188477
+        },
+        "total": {
+          "p50": 6.959,
+          "p95": 7.906,
+          "p99": 9.454,
+          "max": 11.360915899276733
+        }
+      },
+      {
+        "collectedAt": "2026-10-11T05:24:48.603Z",
+        "platform": "ios",
+        "os": "26.5",
+        "development": false,
+        "type": "benchmark",
+        "name": "spine-4.2-cache60-20-staggered",
+        "draws": 20,
+        "samples": 120,
+        "overBudgetPercent": 0,
+        "update": {
+          "p50": 2.378,
+          "p95": 2.652,
+          "p99": 3.142,
+          "max": 3.216041922569275
+        },
+        "record": {
+          "p50": 3.181,
+          "p95": 3.464,
+          "p99": 4.088,
+          "max": 6.398084044456482
+        },
+        "gpuWait": {
+          "p50": 1.563,
+          "p95": 2.433,
+          "p99": 4.774,
+          "max": 5.363541960716248
+        },
+        "total": {
+          "p50": 7.069,
+          "p95": 8.161,
+          "p99": 11.015,
+          "max": 11.652499914169312
+        }
+      },
+      {
+        "collectedAt": "2026-10-11T05:24:51.119Z",
+        "platform": "ios",
+        "os": "26.5",
+        "development": false,
+        "type": "benchmark",
+        "name": "ui-gallery-16",
+        "draws": 29,
+        "samples": 120,
+        "overBudgetPercent": 0,
+        "update": {
+          "p50": 0.019,
+          "p95": 0.032,
+          "p99": 0.058,
+          "max": 0.2866249084472656
+        },
+        "record": {
+          "p50": 3.108,
+          "p95": 5.165,
+          "p99": 6.817,
+          "max": 8.0396249294281
+        },
+        "gpuWait": {
+          "p50": 2.048,
+          "p95": 3.342,
+          "p99": 5.695,
+          "max": 8.554333090782166
+        },
+        "total": {
+          "p50": 5.428,
+          "p95": 7.416,
+          "p99": 9.265,
+          "max": 16.625250101089478
+        }
+      },
+      {
+        "collectedAt": "2026-10-11T05:24:53.619Z",
+        "platform": "ios",
+        "os": "26.5",
+        "development": false,
+        "type": "benchmark",
+        "name": "ui-virtual-list-5000",
+        "draws": 12,
+        "samples": 120,
+        "overBudgetPercent": 0,
+        "update": {
+          "p50": 4.408,
+          "p95": 5.91,
+          "p99": 7.747,
+          "max": 10.072833061218262
+        },
+        "record": {
+          "p50": 0.916,
+          "p95": 1.832,
+          "p99": 2.982,
+          "max": 3.0178749561309814
+        },
+        "gpuWait": {
+          "p50": 1.541,
+          "p95": 2.742,
+          "p99": 3.886,
+          "max": 8.037333011627197
+        },
+        "total": {
+          "p50": 7.02,
+          "p95": 9.823,
+          "p99": 12.651,
+          "max": 13.656540989875793
+        }
+      },
+      {
+        "collectedAt": "2026-10-11T05:24:54.660Z",
+        "platform": "ios",
+        "os": "26.5",
+        "development": false,
+        "type": "native-view",
+        "step": 0,
+        "inputFocused": true,
+        "inputSwitched": true,
+        "scenesCreated": 1,
+        "scenesDisposed": 0,
+        "fps": 61,
+        "draws": 2,
+        "frames": 62,
+        "profile": {
+          "samples": 62,
+          "updateMs": {
+            "p50": 0.02937495708465576,
+            "p95": 0.05495798587799072,
+            "p99": 0.09237492084503174,
+            "max": 0.09237492084503174
+          },
+          "recordMs": {
+            "p50": 0.2710839509963989,
+            "p95": 1.0698750019073486,
+            "p99": 7.480416893959045,
+            "max": 7.480416893959045
+          },
+          "submitMs": {
+            "p50": 0.004999995231628418,
+            "p95": 0.006749987602233887,
+            "p99": 0.00879204273223877,
+            "max": 0.00879204273223877
+          },
+          "totalMs": {
+            "p50": 0.30820798873901367,
+            "p95": 1.1012920141220093,
+            "p99": 7.508417010307312,
+            "max": 7.508417010307312
+          }
+        }
+      },
+      {
+        "collectedAt": "2026-10-11T05:24:55.695Z",
+        "platform": "ios",
+        "os": "26.5",
+        "development": false,
+        "type": "native-view",
+        "step": 1,
+        "inputFocused": true,
+        "inputSwitched": true,
+        "scenesCreated": 2,
+        "scenesDisposed": 1,
+        "fps": 61,
+        "draws": 2,
+        "frames": 61,
+        "profile": {
+          "samples": 61,
+          "updateMs": {
+            "p50": 0.02745795249938965,
+            "p95": 0.04316699504852295,
+            "p99": 0.10379195213317871,
+            "max": 0.10379195213317871
+          },
+          "recordMs": {
+            "p50": 0.2387080192565918,
+            "p95": 0.6227920055389404,
+            "p99": 1.7823330163955688,
+            "max": 1.7823330163955688
+          },
+          "submitMs": {
+            "p50": 0.004917025566101074,
+            "p95": 0.007124900817871094,
+            "p99": 0.010957956314086914,
+            "max": 0.010957956314086914
+          },
+          "totalMs": {
+            "p50": 0.2764580249786377,
+            "p95": 0.6738330125808716,
+            "p99": 1.830875039100647,
+            "max": 1.830875039100647
+          }
+        }
+      },
+      {
+        "collectedAt": "2026-10-11T05:24:56.730Z",
+        "platform": "ios",
+        "os": "26.5",
+        "development": false,
+        "type": "native-view",
+        "step": 2,
+        "inputFocused": true,
+        "inputSwitched": true,
+        "scenesCreated": 3,
+        "scenesDisposed": 2,
+        "fps": 60,
+        "draws": 2,
+        "frames": 61,
+        "profile": {
+          "samples": 61,
+          "updateMs": {
+            "p50": 0.02950000762939453,
+            "p95": 0.04341697692871094,
+            "p99": 0.08924996852874756,
+            "max": 0.08924996852874756
+          },
+          "recordMs": {
+            "p50": 0.2761249542236328,
+            "p95": 0.9670829772949219,
+            "p99": 2.858291983604431,
+            "max": 2.858291983604431
+          },
+          "submitMs": {
+            "p50": 0.005583047866821289,
+            "p95": 0.010042071342468262,
+            "p99": 0.014292001724243164,
+            "max": 0.014292001724243164
+          },
+          "totalMs": {
+            "p50": 0.3211250305175781,
+            "p95": 0.9997919797897339,
+            "p99": 2.891541004180908,
+            "max": 2.891541004180908
+          }
+        }
+      },
+      {
+        "collectedAt": "2026-10-11T05:24:56.744Z",
+        "platform": "ios",
+        "os": "26.5",
+        "development": false,
+        "type": "complete",
+        "result": "pass"
+      },
+      {
+        "collectedAt": "2026-10-11T05:25:43.229Z",
+        "platform": "ios",
+        "os": "18.2",
+        "development": false,
+        "type": "functional",
+        "result": "pass"
+      },
+      {
+        "collectedAt": "2026-10-11T05:25:45.766Z",
+        "platform": "ios",
+        "os": "18.2",
+        "development": false,
+        "type": "benchmark",
+        "name": "sprites-100",
+        "draws": 1,
+        "samples": 120,
+        "overBudgetPercent": 0,
+        "update": {
+          "p50": 0.182,
+          "p95": 0.44,
+          "p99": 0.655,
+          "max": 0.6722919940948486
+        },
+        "record": {
+          "p50": 1.981,
+          "p95": 3.149,
+          "p99": 4.072,
+          "max": 5.330291032791138
+        },
+        "gpuWait": {
+          "p50": 1.477,
+          "p95": 2.102,
+          "p99": 3.158,
+          "max": 3.9505419731140137
+        },
+        "total": {
+          "p50": 3.759,
+          "p95": 5.318,
+          "p99": 6.256,
+          "max": 7.585792064666748
+        }
+      },
+      {
+        "collectedAt": "2026-10-11T05:25:48.267Z",
+        "platform": "ios",
+        "os": "18.2",
+        "development": false,
+        "type": "benchmark",
+        "name": "sprites-500",
+        "draws": 1,
+        "samples": 120,
+        "overBudgetPercent": 0,
+        "update": {
+          "p50": 0.432,
+          "p95": 0.512,
+          "p99": 0.586,
+          "max": 0.5927079916000366
+        },
+        "record": {
+          "p50": 4.232,
+          "p95": 4.966,
+          "p99": 5.278,
+          "max": 5.593582987785339
+        },
+        "gpuWait": {
+          "p50": 1.407,
+          "p95": 2.203,
+          "p99": 3.423,
+          "max": 3.920957922935486
+        },
+        "total": {
+          "p50": 6.111,
+          "p95": 7.206,
+          "p99": 8.549,
+          "max": 9.415624976158142
+        }
+      },
+      {
+        "collectedAt": "2026-10-11T05:25:50.769Z",
+        "platform": "ios",
+        "os": "18.2",
+        "development": false,
+        "type": "benchmark",
+        "name": "sprites-1000",
+        "draws": 1,
+        "samples": 120,
+        "overBudgetPercent": 0,
+        "update": {
+          "p50": 0.576,
+          "p95": 0.624,
+          "p99": 0.65,
+          "max": 0.661916971206665
+        },
+        "record": {
+          "p50": 5.676,
+          "p95": 5.974,
+          "p99": 6.154,
+          "max": 6.210541009902954
+        },
+        "gpuWait": {
+          "p50": 1.515,
+          "p95": 2.091,
+          "p99": 3.89,
+          "max": 4.957082986831665
+        },
+        "total": {
+          "p50": 7.771,
+          "p95": 8.575,
+          "p99": 10.154,
+          "max": 11.20254099369049
+        }
+      },
+      {
+        "collectedAt": "2026-10-11T05:25:53.265Z",
+        "platform": "ios",
+        "os": "18.2",
+        "development": false,
+        "type": "benchmark",
+        "name": "particles-1000",
+        "draws": 1,
+        "samples": 120,
+        "overBudgetPercent": 0.8,
+        "update": {
+          "p50": 0.157,
+          "p95": 0.384,
+          "p99": 0.556,
+          "max": 0.9807499647140503
+        },
+        "record": {
+          "p50": 2.88,
+          "p95": 5.729,
+          "p99": 7.992,
+          "max": 9.58424997329712
+        },
+        "gpuWait": {
+          "p50": 1.428,
+          "p95": 2.834,
+          "p99": 6.068,
+          "max": 12.505542039871216
+        },
+        "total": {
+          "p50": 5.121,
+          "p95": 7.945,
+          "p99": 11.86,
+          "max": 17.758124947547913
+        }
+      },
+      {
+        "collectedAt": "2026-10-11T05:25:55.773Z",
+        "platform": "ios",
+        "os": "18.2",
+        "development": false,
+        "type": "benchmark",
+        "name": "particles-5000",
+        "draws": 1,
+        "samples": 120,
+        "overBudgetPercent": 0,
+        "update": {
+          "p50": 0.498,
+          "p95": 0.514,
+          "p99": 0.518,
+          "max": 0.5239579677581787
+        },
+        "record": {
+          "p50": 9.034,
+          "p95": 9.296,
+          "p99": 9.46,
+          "max": 9.844124913215637
+        },
+        "gpuWait": {
+          "p50": 1.546,
+          "p95": 2.598,
+          "p99": 4.241,
+          "max": 7.119500041007996
+        },
+        "total": {
+          "p50": 11.129,
+          "p95": 12.155,
+          "p99": 13.698,
+          "max": 16.544209003448486
+        }
+      },
+      {
+        "collectedAt": "2026-10-11T05:25:58.299Z",
+        "platform": "ios",
+        "os": "18.2",
+        "development": false,
+        "type": "benchmark",
+        "name": "movieclips-100",
+        "draws": 1,
+        "samples": 120,
+        "overBudgetPercent": 0,
+        "update": {
+          "p50": 0.925,
+          "p95": 1.6,
+          "p99": 1.857,
+          "max": 2.067625045776367
+        },
+        "record": {
+          "p50": 2.02,
+          "p95": 2.87,
+          "p99": 3.661,
+          "max": 4.754707932472229
+        },
+        "gpuWait": {
+          "p50": 1.777,
+          "p95": 3.639,
+          "p99": 4.233,
+          "max": 5.153791069984436
+        },
+        "total": {
+          "p50": 4.991,
+          "p95": 6.864,
+          "p99": 8.923,
+          "max": 9.243000030517578
+        }
+      },
+      {
+        "collectedAt": "2026-10-11T05:26:00.832Z",
+        "platform": "ios",
+        "os": "18.2",
+        "development": false,
+        "type": "benchmark",
+        "name": "text-static-100",
+        "draws": 100,
+        "samples": 120,
+        "overBudgetPercent": 0,
+        "update": {
+          "p50": 0.001,
+          "p95": 0.001,
+          "p99": 0.004,
+          "max": 0.004250049591064453
+        },
+        "record": {
+          "p50": 4.584,
+          "p95": 6.351,
+          "p99": 8.794,
+          "max": 9.300750017166138
+        },
+        "gpuWait": {
+          "p50": 1.72,
+          "p95": 2.595,
+          "p99": 3.131,
+          "max": 5.4097089767456055
+        },
+        "total": {
+          "p50": 6.471,
+          "p95": 8.174,
+          "p99": 10.218,
+          "max": 11.142583012580872
+        }
+      },
+      {
+        "collectedAt": "2026-10-11T05:26:03.343Z",
+        "platform": "ios",
+        "os": "18.2",
+        "development": false,
+        "type": "benchmark",
+        "name": "text-changing-100",
+        "draws": 100,
+        "samples": 120,
+        "overBudgetPercent": 0.8,
+        "update": {
+          "p50": 0.147,
+          "p95": 0.161,
+          "p99": 0.17,
+          "max": 0.1974170207977295
+        },
+        "record": {
+          "p50": 11.873,
+          "p95": 13.173,
+          "p99": 13.791,
+          "max": 14.800999999046326
+        },
+        "gpuWait": {
+          "p50": 1.49,
+          "p95": 3.096,
+          "p99": 3.739,
+          "max": 8.601583003997803
+        },
+        "total": {
+          "p50": 13.746,
+          "p95": 15.116,
+          "p99": 16.348,
+          "max": 20.621124982833862
+        }
+      },
+      {
+        "collectedAt": "2026-10-11T05:26:05.850Z",
+        "platform": "ios",
+        "os": "18.2",
+        "development": false,
+        "type": "benchmark",
+        "name": "text-cached-100",
+        "draws": 1,
+        "samples": 120,
+        "overBudgetPercent": 0,
+        "update": {
+          "p50": 0.001,
+          "p95": 0.001,
+          "p99": 0.001,
+          "max": 0.0012919902801513672
+        },
+        "record": {
+          "p50": 0.234,
+          "p95": 0.376,
+          "p99": 0.859,
+          "max": 1.0767920017242432
+        },
+        "gpuWait": {
+          "p50": 1.613,
+          "p95": 2.88,
+          "p99": 3.946,
+          "max": 4.020541071891785
+        },
+        "total": {
+          "p50": 1.822,
+          "p95": 3.061,
+          "p99": 4.192,
+          "max": 4.397875070571899
+        }
+      },
+      {
+        "collectedAt": "2026-10-11T05:26:08.348Z",
+        "platform": "ios",
+        "os": "18.2",
+        "development": false,
+        "type": "benchmark",
+        "name": "bitmaptext-changing-100",
+        "draws": 300,
+        "samples": 120,
+        "overBudgetPercent": 0,
+        "update": {
+          "p50": 0.054,
+          "p95": 0.058,
+          "p99": 0.094,
+          "max": 0.17445898056030273
+        },
+        "record": {
+          "p50": 1.863,
+          "p95": 2.548,
+          "p99": 2.784,
+          "max": 2.8579999208450317
+        },
+        "gpuWait": {
+          "p50": 1.184,
+          "p95": 2.642,
+          "p99": 2.85,
+          "max": 3.6987080574035645
+        },
+        "total": {
+          "p50": 3.14,
+          "p95": 4.569,
+          "p99": 5.508,
+          "max": 5.611665964126587
+        }
+      },
+      {
+        "collectedAt": "2026-10-11T05:26:10.847Z",
+        "platform": "ios",
+        "os": "18.2",
+        "development": false,
+        "type": "benchmark",
+        "name": "spine-4.2-1",
+        "draws": 1,
+        "samples": 120,
+        "overBudgetPercent": 0,
+        "update": {
+          "p50": 0.419,
+          "p95": 0.86,
+          "p99": 2.003,
+          "max": 2.678624987602234
+        },
+        "record": {
+          "p50": 0.515,
+          "p95": 1.01,
+          "p99": 1.464,
+          "max": 2.1514170169830322
+        },
+        "gpuWait": {
+          "p50": 1.324,
+          "p95": 3.594,
+          "p99": 6.076,
+          "max": 6.153249979019165
+        },
+        "total": {
+          "p50": 2.326,
+          "p95": 4.804,
+          "p99": 7.018,
+          "max": 7.084999918937683
+        }
+      },
+      {
+        "collectedAt": "2026-10-11T05:26:13.350Z",
+        "platform": "ios",
+        "os": "18.2",
+        "development": false,
+        "type": "benchmark",
+        "name": "spine-4.2-5",
+        "draws": 5,
+        "samples": 120,
+        "overBudgetPercent": 0,
+        "update": {
+          "p50": 1.852,
+          "p95": 2.768,
+          "p99": 3.726,
+          "max": 4.6239999532699585
+        },
+        "record": {
+          "p50": 1.286,
+          "p95": 1.736,
+          "p99": 1.792,
+          "max": 1.8581249713897705
+        },
+        "gpuWait": {
+          "p50": 1.17,
+          "p95": 1.519,
+          "p99": 1.673,
+          "max": 3.333500027656555
+        },
+        "total": {
+          "p50": 4.509,
+          "p95": 5.724,
+          "p99": 6.35,
+          "max": 7.049749970436096
+        }
+      },
+      {
+        "collectedAt": "2026-10-11T05:26:15.926Z",
+        "platform": "ios",
+        "os": "18.2",
+        "development": false,
+        "type": "benchmark",
+        "name": "spine-4.2-20",
+        "draws": 20,
+        "samples": 120,
+        "overBudgetPercent": 1.7,
+        "update": {
+          "p50": 7.07,
+          "p95": 8.077,
+          "p99": 14.987,
+          "max": 15.125416994094849
+        },
+        "record": {
+          "p50": 3.869,
+          "p95": 4.576,
+          "p99": 5.07,
+          "max": 5.538707971572876
+        },
+        "gpuWait": {
+          "p50": 1.303,
+          "p95": 2.228,
+          "p99": 2.773,
+          "max": 2.9141669273376465
+        },
+        "total": {
+          "p50": 12.298,
+          "p95": 14.764,
+          "p99": 20.077,
+          "max": 20.235291957855225
+        }
+      },
+      {
+        "collectedAt": "2026-10-11T05:26:18.444Z",
+        "platform": "ios",
+        "os": "18.2",
+        "development": false,
+        "type": "benchmark",
+        "name": "spine-4.2-20-staggered",
+        "draws": 20,
+        "samples": 120,
+        "overBudgetPercent": 9.2,
+        "update": {
+          "p50": 6.899,
+          "p95": 7.962,
+          "p99": 11.07,
+          "max": 11.39691698551178
+        },
+        "record": {
+          "p50": 5.858,
+          "p95": 6.819,
+          "p99": 9.657,
+          "max": 10.425916075706482
+        },
+        "gpuWait": {
+          "p50": 1.843,
+          "p95": 3.695,
+          "p99": 5.395,
+          "max": 7.305292010307312
+        },
+        "total": {
+          "p50": 14.813,
+          "p95": 17.449,
+          "p99": 20.242,
+          "max": 20.58162498474121
+        }
+      },
+      {
+        "collectedAt": "2026-10-11T05:26:18.479Z",
+        "platform": "ios",
+        "os": "18.2",
+        "development": false,
+        "type": "spine-cache-build",
+        "animation": "walk",
+        "sampleRate": 60,
+        "frames": 60,
+        "durationMs": 1000,
+        "geometryBytes": 1023840,
+        "bakeMs": 31.5399169921875,
+        "geometry": "frozen JS numeric payload; excludes objects/native buffers/atlas"
+      },
+      {
+        "collectedAt": "2026-10-11T05:26:20.985Z",
+        "platform": "ios",
+        "os": "18.2",
+        "development": false,
+        "type": "benchmark",
+        "name": "spine-4.2-cache60-20",
+        "draws": 20,
+        "samples": 120,
+        "overBudgetPercent": 0,
+        "update": {
+          "p50": 2.147,
+          "p95": 2.335,
+          "p99": 2.782,
+          "max": 2.991083025932312
+        },
+        "record": {
+          "p50": 2.904,
+          "p95": 3.405,
+          "p99": 3.865,
+          "max": 4.241875052452087
+        },
+        "gpuWait": {
+          "p50": 1.276,
+          "p95": 2.057,
+          "p99": 2.676,
+          "max": 3.2137500047683716
+        },
+        "total": {
+          "p50": 6.526,
+          "p95": 7.277,
+          "p99": 8.177,
+          "max": 8.18691599369049
+        }
+      },
+      {
+        "collectedAt": "2026-10-11T05:26:23.490Z",
+        "platform": "ios",
+        "os": "18.2",
+        "development": false,
+        "type": "benchmark",
+        "name": "spine-4.2-cache60-20-staggered",
+        "draws": 20,
+        "samples": 120,
+        "overBudgetPercent": 0,
+        "update": {
+          "p50": 1.99,
+          "p95": 2.399,
+          "p99": 2.715,
+          "max": 2.7795000076293945
+        },
+        "record": {
+          "p50": 2.717,
+          "p95": 3.146,
+          "p99": 3.806,
+          "max": 6.2170000076293945
+        },
+        "gpuWait": {
+          "p50": 1.301,
+          "p95": 2.151,
+          "p99": 7.458,
+          "max": 9.05145800113678
+        },
+        "total": {
+          "p50": 6.086,
+          "p95": 7.43,
+          "p99": 12.521,
+          "max": 13.981624960899353
+        }
+      },
+      {
+        "collectedAt": "2026-10-11T05:26:26.005Z",
+        "platform": "ios",
+        "os": "18.2",
+        "development": false,
+        "type": "benchmark",
+        "name": "ui-gallery-16",
+        "draws": 29,
+        "samples": 120,
+        "overBudgetPercent": 0,
+        "update": {
+          "p50": 0.015,
+          "p95": 0.024,
+          "p99": 0.08,
+          "max": 0.11216700077056885
+        },
+        "record": {
+          "p50": 2.804,
+          "p95": 3.844,
+          "p99": 5.405,
+          "max": 5.7447919845581055
+        },
+        "gpuWait": {
+          "p50": 2.011,
+          "p95": 2.867,
+          "p99": 4.131,
+          "max": 4.647624969482422
+        },
+        "total": {
+          "p50": 4.893,
+          "p95": 6.672,
+          "p99": 8.154,
+          "max": 10.420082926750183
+        }
+      },
+      {
+        "collectedAt": "2026-10-11T05:26:28.500Z",
+        "platform": "ios",
+        "os": "18.2",
+        "development": false,
+        "type": "benchmark",
+        "name": "ui-virtual-list-5000",
+        "draws": 12,
+        "samples": 120,
+        "overBudgetPercent": 0,
+        "update": {
+          "p50": 2.637,
+          "p95": 4.89,
+          "p99": 5.884,
+          "max": 8.69866693019867
+        },
+        "record": {
+          "p50": 0.574,
+          "p95": 1.328,
+          "p99": 1.742,
+          "max": 2.2082090377807617
+        },
+        "gpuWait": {
+          "p50": 1.355,
+          "p95": 2.11,
+          "p99": 3.353,
+          "max": 3.5397499799728394
+        },
+        "total": {
+          "p50": 4.82,
+          "p95": 7.495,
+          "p99": 8.1,
+          "max": 12.747416973114014
+        }
+      },
+      {
+        "collectedAt": "2026-10-11T05:26:29.514Z",
+        "platform": "ios",
+        "os": "18.2",
+        "development": false,
+        "type": "native-view",
+        "step": 0,
+        "inputFocused": true,
+        "inputSwitched": true,
+        "scenesCreated": 1,
+        "scenesDisposed": 0,
+        "fps": 61,
+        "draws": 2,
+        "frames": 61,
+        "profile": {
+          "samples": 61,
+          "updateMs": {
+            "p50": 0.02520895004272461,
+            "p95": 0.034332990646362305,
+            "p99": 0.08666694164276123,
+            "max": 0.08666694164276123
+          },
+          "recordMs": {
+            "p50": 0.20274996757507324,
+            "p95": 0.9769999980926514,
+            "p99": 24.10354197025299,
+            "max": 24.10354197025299
+          },
+          "submitMs": {
+            "p50": 0.004374980926513672,
+            "p95": 0.006625056266784668,
+            "p99": 0.009832978248596191,
+            "max": 0.009832978248596191
+          },
+          "totalMs": {
+            "p50": 0.23475003242492676,
+            "p95": 1.0050419569015503,
+            "p99": 24.144500017166138,
+            "max": 24.144500017166138
+          }
+        }
+      },
+      {
+        "collectedAt": "2026-10-11T05:26:30.547Z",
+        "platform": "ios",
+        "os": "18.2",
+        "development": false,
+        "type": "native-view",
+        "step": 1,
+        "inputFocused": true,
+        "inputSwitched": true,
+        "scenesCreated": 2,
+        "scenesDisposed": 1,
+        "fps": 60,
+        "draws": 2,
+        "frames": 61,
+        "profile": {
+          "samples": 61,
+          "updateMs": {
+            "p50": 0.029375076293945312,
+            "p95": 0.08104109764099121,
+            "p99": 0.16558408737182617,
+            "max": 0.16558408737182617
+          },
+          "recordMs": {
+            "p50": 0.2127920389175415,
+            "p95": 1.1507079601287842,
+            "p99": 2.708791971206665,
+            "max": 2.708791971206665
+          },
+          "submitMs": {
+            "p50": 0.005833029747009277,
+            "p95": 0.013958096504211426,
+            "p99": 0.01479196548461914,
+            "max": 0.01479196548461914
+          },
+          "totalMs": {
+            "p50": 0.2452911138534546,
+            "p95": 1.1841250658035278,
+            "p99": 2.744834065437317,
+            "max": 2.744834065437317
+          }
+        }
+      },
+      {
+        "collectedAt": "2026-10-11T05:26:31.583Z",
+        "platform": "ios",
+        "os": "18.2",
+        "development": false,
+        "type": "native-view",
+        "step": 2,
+        "inputFocused": true,
+        "inputSwitched": true,
+        "scenesCreated": 3,
+        "scenesDisposed": 2,
+        "fps": 60,
+        "draws": 2,
+        "frames": 61,
+        "profile": {
+          "samples": 61,
+          "updateMs": {
+            "p50": 0.029958009719848633,
+            "p95": 0.07141709327697754,
+            "p99": 0.17754197120666504,
+            "max": 0.17754197120666504
+          },
+          "recordMs": {
+            "p50": 0.25162506103515625,
+            "p95": 0.9045829772949219,
+            "p99": 2.806874990463257,
+            "max": 2.806874990463257
+          },
+          "submitMs": {
+            "p50": 0.005749940872192383,
+            "p95": 0.013707995414733887,
+            "p99": 0.1302499771118164,
+            "max": 0.1302499771118164
+          },
+          "totalMs": {
+            "p50": 0.28575003147125244,
+            "p95": 1.0196659564971924,
+            "p99": 2.849292039871216,
+            "max": 2.849292039871216
+          }
+        }
+      },
+      {
+        "collectedAt": "2026-10-11T05:26:31.595Z",
+        "platform": "ios",
+        "os": "18.2",
+        "development": false,
+        "type": "complete",
+        "result": "pass"
+      },
+      {
+        "collectedAt": "2026-10-11T05:27:51.162Z",
+        "platform": "android",
+        "os": 36,
+        "development": false,
+        "type": "failure",
+        "message": "batch preserves atlas density, rotation, anchors, inherited tint/alpha and source alpha: pixel 35,51 channel 3: 231 vs 235"
+      }
+    ]
+  }
+}

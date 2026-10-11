@@ -1,0 +1,2241 @@
+{
+  "assessmentDate": "2026-10-11",
+  "timezone": "Asia/Shanghai",
+  "libraryVersion": "0.1.2 + unreleased source additions",
+  "baseCommit": "904a64e56766781e80868f0597ed30df659fea2e",
+  "sourceFingerprintSHA256": "4d9e333ae1e4b23c1b8c2d1ed1269adeb39388c59fbc204e0f5c1d2c52435d29",
+  "sourceFingerprintScope": "src; authored tests/native code, configs, resources and lock; root package/lock/compiler configs; excludes Markdown and ignored output",
+  "host": "Apple M1 Max Mac; one test client active at a time; desktop workload was not controlled",
+  "versions": {
+    "core": "2.5.3",
+    "ui": "3.5.0",
+    "game": "2.0.0",
+    "dragonbones": "0.1.0",
+    "spine40to42": "0.2.1",
+    "spine43": "0.3.1",
+    "skia": "3.3.0",
+    "reactNative": "0.86.3",
+    "expo": "57.0.27",
+    "node": "26.11.1"
+  },
+  "build": "Release native applications; embedded production Hermes JS; __DEV__ false; simulator/emulator only",
+  "buildArtifacts": {
+    "ios": {
+      "applicationId": "com.irwinmc.KurotSkia.NativeTests",
+      "configuration": "Release-iphonesimulator",
+      "codeSigning": false,
+      "nativeExecutable": {
+        "bytes": 60079336,
+        "sha256": "7bce2e02f98a7dc69955e3aa02f3a7b3fefd76f2c1df1fd9ce5eca9a6953eb03"
+      },
+      "hermesBytecode": {
+        "bytes": 6020728,
+        "sha256": "0eb7cb9b9c3e4ab20305af26e1143451f1d16ce311bd61ecf895c5b5919fb175"
+      }
+    },
+    "android": {
+      "applicationId": "com.irwinmc.KurotSkia.nativetests",
+      "configuration": "assembleRelease / arm64-v8a",
+      "signing": "local Expo debug keystore; not a publishable signing identity",
+      "apkBytes": 63349278,
+      "apkSHA256": "a15368349795aeda64b5013c37b14a79074d692b355e4cd3d8c0178aaa7645e1",
+      "hermesBytecode": {
+        "bytes": 4861324,
+        "sha256": "e3590498adf67f110487d714f55795f4cd29250c4b37478c3e666c6d010c3b8d"
+      }
+    }
+  },
+  "baseline": "native-spine-baseline-2026-10-11.json; retained pre-optimization distributions and original source/build hashes",
+  "benchmark": {
+    "physicalSurface": [
+      720,
+      1280
+    ],
+    "logicalStage": [
+      360,
+      640
+    ],
+    "warmupFrames": 30,
+    "samples": 120,
+    "budgetMs": 16.666666666666668,
+    "total": "update + recording + synchronous GPU flush(true)",
+    "spinePhases": "original spine-4.2-20 remains synchronized; additive staggered fixture offsets each actor by index * 61 ms; every actor updates each frame",
+    "nativeView": "cold mount/focus/switch diagnostics; submit does not wait for GPU; fps is JS callback frequency"
+  },
+  "gates": {
+    "functionalNativeRendering": "passed in three Release simulation environments",
+    "simulatorReleaseBuilds": "iOS Release iphonesimulator and Android arm64-v8a assembleRelease passed; independent test IDs; Android uses local debug keystore",
+    "iphoneOSUnsignedReleaseBuild": "historical linking pass before manual fixture and Spine optimization; not rerun for current source",
+    "physicalReleasePerformance": "deferred by user; this round tests simulators only",
+    "actualTypingIME": "listed iOS 18.2/26.5 screen-keyboard cases passed in a separate Debug client; Android actual typing/IME unverified",
+    "presentedFPSMemoryThermal": "unverified"
+  },
+  "runs": [
+    {
+      "device": "iPhone 17 Pro simulator",
+      "backend": "Mac Metal / Apple M1 Max",
+      "functional": {
+        "collectedAt": "2026-10-11T04:01:58.634Z",
+        "platform": "ios",
+        "os": "26.5",
+        "development": false,
+        "type": "functional",
+        "result": "pass"
+      },
+      "benchmarks": [
+        {
+          "collectedAt": "2026-10-11T04:02:01.139Z",
+          "platform": "ios",
+          "os": "26.5",
+          "development": false,
+          "type": "benchmark",
+          "name": "sprites-100",
+          "draws": 1,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.18,
+            "p95": 0.325,
+            "p99": 0.463,
+            "max": 0.48887503147125244
+          },
+          "record": {
+            "p50": 1.936,
+            "p95": 4.759,
+            "p99": 6.483,
+            "max": 6.571750044822693
+          },
+          "gpuWait": {
+            "p50": 1.776,
+            "p95": 3.462,
+            "p99": 4.676,
+            "max": 4.983457922935486
+          },
+          "total": {
+            "p50": 4.287,
+            "p95": 6.942,
+            "p99": 8.382,
+            "max": 8.745374917984009
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:02:03.641Z",
+          "platform": "ios",
+          "os": "26.5",
+          "development": false,
+          "type": "benchmark",
+          "name": "sprites-500",
+          "draws": 1,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.425,
+            "p95": 0.506,
+            "p99": 1.22,
+            "max": 1.570708990097046
+          },
+          "record": {
+            "p50": 4.407,
+            "p95": 5.094,
+            "p99": 5.508,
+            "max": 6.041790962219238
+          },
+          "gpuWait": {
+            "p50": 1.553,
+            "p95": 2.622,
+            "p99": 3.738,
+            "max": 4.203624963760376
+          },
+          "total": {
+            "p50": 6.572,
+            "p95": 7.696,
+            "p99": 8.709,
+            "max": 9.189792037010193
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:02:06.144Z",
+          "platform": "ios",
+          "os": "26.5",
+          "development": false,
+          "type": "benchmark",
+          "name": "sprites-1000",
+          "draws": 1,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.555,
+            "p95": 0.601,
+            "p99": 0.618,
+            "max": 0.6417089700698853
+          },
+          "record": {
+            "p50": 5.776,
+            "p95": 6.117,
+            "p99": 6.356,
+            "max": 6.414375066757202
+          },
+          "gpuWait": {
+            "p50": 1.56,
+            "p95": 2.083,
+            "p99": 2.301,
+            "max": 2.6545839309692383
+          },
+          "total": {
+            "p50": 7.919,
+            "p95": 8.498,
+            "p99": 8.724,
+            "max": 9.031874895095825
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:02:08.651Z",
+          "platform": "ios",
+          "os": "26.5",
+          "development": false,
+          "type": "benchmark",
+          "name": "particles-1000",
+          "draws": 1,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.298,
+            "p95": 0.434,
+            "p99": 0.633,
+            "max": 0.8761659860610962
+          },
+          "record": {
+            "p50": 5.343,
+            "p95": 6.725,
+            "p99": 6.883,
+            "max": 8.01687502861023
+          },
+          "gpuWait": {
+            "p50": 1.453,
+            "p95": 1.98,
+            "p99": 2.341,
+            "max": 2.859166979789734
+          },
+          "total": {
+            "p50": 7.139,
+            "p95": 8.608,
+            "p99": 8.745,
+            "max": 9.906291961669922
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:02:11.162Z",
+          "platform": "ios",
+          "os": "26.5",
+          "development": false,
+          "type": "benchmark",
+          "name": "particles-5000",
+          "draws": 1,
+          "samples": 120,
+          "overBudgetPercent": 0.8,
+          "update": {
+            "p50": 0.497,
+            "p95": 0.511,
+            "p99": 0.514,
+            "max": 0.5257079601287842
+          },
+          "record": {
+            "p50": 9.141,
+            "p95": 9.373,
+            "p99": 9.682,
+            "max": 9.78554093837738
+          },
+          "gpuWait": {
+            "p50": 1.566,
+            "p95": 2.001,
+            "p99": 4.527,
+            "max": 7.552749991416931
+          },
+          "total": {
+            "p50": 11.212,
+            "p95": 11.725,
+            "p99": 14.048,
+            "max": 17.342417001724243
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:02:13.691Z",
+          "platform": "ios",
+          "os": "26.5",
+          "development": false,
+          "type": "benchmark",
+          "name": "movieclips-100",
+          "draws": 1,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.75,
+            "p95": 1.563,
+            "p99": 2.133,
+            "max": 3.0311659574508667
+          },
+          "record": {
+            "p50": 2.306,
+            "p95": 3.206,
+            "p99": 3.536,
+            "max": 3.8639590740203857
+          },
+          "gpuWait": {
+            "p50": 1.458,
+            "p95": 2.125,
+            "p99": 2.447,
+            "max": 6.2495410442352295
+          },
+          "total": {
+            "p50": 4.78,
+            "p95": 6.013,
+            "p99": 7.146,
+            "max": 7.474040985107422
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:02:16.225Z",
+          "platform": "ios",
+          "os": "26.5",
+          "development": false,
+          "type": "benchmark",
+          "name": "text-static-100",
+          "draws": 100,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.001,
+            "p95": 0.001,
+            "p99": 0.012,
+            "max": 0.029416918754577637
+          },
+          "record": {
+            "p50": 4.853,
+            "p95": 6.029,
+            "p99": 6.953,
+            "max": 8.744583010673523
+          },
+          "gpuWait": {
+            "p50": 1.655,
+            "p95": 2.277,
+            "p99": 2.771,
+            "max": 3.3554999828338623
+          },
+          "total": {
+            "p50": 6.599,
+            "p95": 7.984,
+            "p99": 9.205,
+            "max": 10.572666049003601
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:02:18.731Z",
+          "platform": "ios",
+          "os": "26.5",
+          "development": false,
+          "type": "benchmark",
+          "name": "text-changing-100",
+          "draws": 100,
+          "samples": 120,
+          "overBudgetPercent": 0.8,
+          "update": {
+            "p50": 0.132,
+            "p95": 0.143,
+            "p99": 0.148,
+            "max": 0.15445899963378906
+          },
+          "record": {
+            "p50": 10.702,
+            "p95": 11.979,
+            "p99": 13.94,
+            "max": 14.46749997138977
+          },
+          "gpuWait": {
+            "p50": 1.48,
+            "p95": 1.963,
+            "p99": 2.457,
+            "max": 7.654209017753601
+          },
+          "total": {
+            "p50": 12.384,
+            "p95": 13.838,
+            "p99": 16.397,
+            "max": 18.060875058174133
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:02:21.222Z",
+          "platform": "ios",
+          "os": "26.5",
+          "development": false,
+          "type": "benchmark",
+          "name": "text-cached-100",
+          "draws": 1,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.001,
+            "p95": 0.001,
+            "p99": 0.001,
+            "max": 0.0014579296112060547
+          },
+          "record": {
+            "p50": 0.187,
+            "p95": 0.375,
+            "p99": 0.506,
+            "max": 0.6937500238418579
+          },
+          "gpuWait": {
+            "p50": 1.692,
+            "p95": 3.506,
+            "p99": 4.878,
+            "max": 6.271750092506409
+          },
+          "total": {
+            "p50": 1.88,
+            "p95": 3.738,
+            "p99": 5.385,
+            "max": 6.537958025932312
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:02:23.725Z",
+          "platform": "ios",
+          "os": "26.5",
+          "development": false,
+          "type": "benchmark",
+          "name": "bitmaptext-changing-100",
+          "draws": 300,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.159,
+            "p95": 0.338,
+            "p99": 0.397,
+            "max": 0.4347500801086426
+          },
+          "record": {
+            "p50": 5.039,
+            "p95": 6.573,
+            "p99": 7.29,
+            "max": 7.638124942779541
+          },
+          "gpuWait": {
+            "p50": 1.364,
+            "p95": 2.35,
+            "p99": 2.978,
+            "max": 3.520292043685913
+          },
+          "total": {
+            "p50": 6.776,
+            "p95": 8.336,
+            "p99": 8.839,
+            "max": 10.247375011444092
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:02:26.246Z",
+          "platform": "ios",
+          "os": "26.5",
+          "development": false,
+          "type": "benchmark",
+          "name": "spine-4.2-1",
+          "draws": 1,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 1.517,
+            "p95": 3.107,
+            "p99": 3.474,
+            "max": 3.8949999809265137
+          },
+          "record": {
+            "p50": 1.718,
+            "p95": 2.231,
+            "p99": 2.782,
+            "max": 3.0610419511795044
+          },
+          "gpuWait": {
+            "p50": 1.493,
+            "p95": 2.366,
+            "p99": 2.74,
+            "max": 2.9104580879211426
+          },
+          "total": {
+            "p50": 5.018,
+            "p95": 6.414,
+            "p99": 7.243,
+            "max": 7.466875076293945
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:02:28.775Z",
+          "platform": "ios",
+          "os": "26.5",
+          "development": false,
+          "type": "benchmark",
+          "name": "spine-4.2-5",
+          "draws": 5,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 4.194,
+            "p95": 6.227,
+            "p99": 7.134,
+            "max": 7.840250015258789
+          },
+          "record": {
+            "p50": 1.391,
+            "p95": 2.062,
+            "p99": 3.072,
+            "max": 3.1048330068588257
+          },
+          "gpuWait": {
+            "p50": 1.313,
+            "p95": 2.354,
+            "p99": 3.183,
+            "max": 4.261458992958069
+          },
+          "total": {
+            "p50": 7.098,
+            "p95": 9.124,
+            "p99": 11.168,
+            "max": 12.42629098892212
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:02:31.348Z",
+          "platform": "ios",
+          "os": "26.5",
+          "development": false,
+          "type": "benchmark",
+          "name": "spine-4.2-20",
+          "draws": 20,
+          "samples": 120,
+          "overBudgetPercent": 3.3,
+          "update": {
+            "p50": 6.748,
+            "p95": 7.449,
+            "p99": 13.997,
+            "max": 14.050042033195496
+          },
+          "record": {
+            "p50": 3.719,
+            "p95": 4.165,
+            "p99": 4.61,
+            "max": 4.835333943367004
+          },
+          "gpuWait": {
+            "p50": 1.33,
+            "p95": 1.644,
+            "p99": 6.988,
+            "max": 9.117166996002197
+          },
+          "total": {
+            "p50": 11.862,
+            "p95": 13.24,
+            "p99": 19.396,
+            "max": 19.527292013168335
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:02:33.851Z",
+          "platform": "ios",
+          "os": "26.5",
+          "development": false,
+          "type": "benchmark",
+          "name": "spine-4.2-20-staggered",
+          "draws": 20,
+          "samples": 120,
+          "overBudgetPercent": 9.2,
+          "update": {
+            "p50": 6.923,
+            "p95": 7.991,
+            "p99": 11.067,
+            "max": 11.08175003528595
+          },
+          "record": {
+            "p50": 6.005,
+            "p95": 7.032,
+            "p99": 7.285,
+            "max": 7.46150004863739
+          },
+          "gpuWait": {
+            "p50": 1.521,
+            "p95": 3.328,
+            "p99": 4.312,
+            "max": 9.24354100227356
+          },
+          "total": {
+            "p50": 14.851,
+            "p95": 16.954,
+            "p99": 18.589,
+            "max": 22.618124961853027
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:02:36.359Z",
+          "platform": "ios",
+          "os": "26.5",
+          "development": false,
+          "type": "benchmark",
+          "name": "ui-gallery-16",
+          "draws": 29,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.017,
+            "p95": 0.029,
+            "p99": 0.146,
+            "max": 0.2533339262008667
+          },
+          "record": {
+            "p50": 3.171,
+            "p95": 4.67,
+            "p99": 5.898,
+            "max": 7.412416934967041
+          },
+          "gpuWait": {
+            "p50": 1.988,
+            "p95": 2.862,
+            "p99": 3.368,
+            "max": 4.264250040054321
+          },
+          "total": {
+            "p50": 5.422,
+            "p95": 6.92,
+            "p99": 7.656,
+            "max": 9.353707909584045
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:02:38.857Z",
+          "platform": "ios",
+          "os": "26.5",
+          "development": false,
+          "type": "benchmark",
+          "name": "ui-virtual-list-5000",
+          "draws": 12,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 4.645,
+            "p95": 5.752,
+            "p99": 6.517,
+            "max": 6.696333050727844
+          },
+          "record": {
+            "p50": 0.801,
+            "p95": 1.566,
+            "p99": 2.219,
+            "max": 2.6420000791549683
+          },
+          "gpuWait": {
+            "p50": 1.461,
+            "p95": 1.881,
+            "p99": 2.314,
+            "max": 2.616374969482422
+          },
+          "total": {
+            "p50": 7.121,
+            "p95": 8.192,
+            "p99": 8.904,
+            "max": 9.216457962989807
+          }
+        }
+      ],
+      "nativeViews": [
+        {
+          "collectedAt": "2026-10-11T04:02:39.883Z",
+          "platform": "ios",
+          "os": "26.5",
+          "development": false,
+          "type": "native-view",
+          "step": 0,
+          "inputFocused": true,
+          "inputSwitched": true,
+          "scenesCreated": 1,
+          "scenesDisposed": 0,
+          "fps": 61,
+          "draws": 2,
+          "frames": 61,
+          "profile": {
+            "samples": 61,
+            "updateMs": {
+              "p50": 0.028916001319885254,
+              "p95": 0.06624996662139893,
+              "p99": 0.5928341150283813,
+              "max": 0.5928341150283813
+            },
+            "recordMs": {
+              "p50": 0.32258307933807373,
+              "p95": 1.044124960899353,
+              "p99": 5.763208031654358,
+              "max": 5.763208031654358
+            },
+            "submitMs": {
+              "p50": 0.004917025566101074,
+              "p95": 0.00937497615814209,
+              "p99": 0.011500000953674316,
+              "max": 0.011500000953674316
+            },
+            "totalMs": {
+              "p50": 0.3719170093536377,
+              "p95": 1.0690829753875732,
+              "p99": 5.7948750257492065,
+              "max": 5.7948750257492065
+            }
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:02:40.901Z",
+          "platform": "ios",
+          "os": "26.5",
+          "development": false,
+          "type": "native-view",
+          "step": 1,
+          "inputFocused": true,
+          "inputSwitched": true,
+          "scenesCreated": 2,
+          "scenesDisposed": 1,
+          "fps": 61,
+          "draws": 2,
+          "frames": 61,
+          "profile": {
+            "samples": 61,
+            "updateMs": {
+              "p50": 0.029458045959472656,
+              "p95": 0.06029200553894043,
+              "p99": 0.12208294868469238,
+              "max": 0.12208294868469238
+            },
+            "recordMs": {
+              "p50": 0.265874981880188,
+              "p95": 0.9617919921875,
+              "p99": 6.607541918754578,
+              "max": 6.607541918754578
+            },
+            "submitMs": {
+              "p50": 0.0052089691162109375,
+              "p95": 0.009166955947875977,
+              "p99": 0.014040946960449219,
+              "max": 0.014040946960449219
+            },
+            "totalMs": {
+              "p50": 0.30195796489715576,
+              "p95": 0.9925830364227295,
+              "p99": 6.639875054359436,
+              "max": 6.639875054359436
+            }
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:02:41.936Z",
+          "platform": "ios",
+          "os": "26.5",
+          "development": false,
+          "type": "native-view",
+          "step": 2,
+          "inputFocused": true,
+          "inputSwitched": true,
+          "scenesCreated": 3,
+          "scenesDisposed": 2,
+          "fps": 60,
+          "draws": 2,
+          "frames": 61,
+          "profile": {
+            "samples": 61,
+            "updateMs": {
+              "p50": 0.03100001811981201,
+              "p95": 0.050874948501586914,
+              "p99": 0.10604202747344971,
+              "max": 0.10604202747344971
+            },
+            "recordMs": {
+              "p50": 0.28733301162719727,
+              "p95": 0.8912920951843262,
+              "p99": 3.036916971206665,
+              "max": 3.036916971206665
+            },
+            "submitMs": {
+              "p50": 0.00554203987121582,
+              "p95": 0.008916020393371582,
+              "p99": 0.01020801067352295,
+              "max": 0.01020801067352295
+            },
+            "totalMs": {
+              "p50": 0.3259589672088623,
+              "p95": 0.9242500066757202,
+              "p99": 3.0689589977264404,
+              "max": 3.0689589977264404
+            }
+          }
+        }
+      ],
+      "complete": {
+        "collectedAt": "2026-10-11T04:02:41.951Z",
+        "platform": "ios",
+        "os": "26.5",
+        "development": false,
+        "type": "complete",
+        "result": "pass"
+      }
+    },
+    {
+      "device": "iPhone SE (3rd generation) simulator",
+      "backend": "Mac Metal / Apple M1 Max",
+      "functional": {
+        "collectedAt": "2026-10-11T04:03:21.196Z",
+        "platform": "ios",
+        "os": "18.2",
+        "development": false,
+        "type": "functional",
+        "result": "pass"
+      },
+      "benchmarks": [
+        {
+          "collectedAt": "2026-10-11T04:03:23.709Z",
+          "platform": "ios",
+          "os": "18.2",
+          "development": false,
+          "type": "benchmark",
+          "name": "sprites-100",
+          "draws": 1,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.196,
+            "p95": 0.281,
+            "p99": 0.414,
+            "max": 1.9840419292449951
+          },
+          "record": {
+            "p50": 2.072,
+            "p95": 3.368,
+            "p99": 4.268,
+            "max": 4.363833069801331
+          },
+          "gpuWait": {
+            "p50": 1.666,
+            "p95": 2.544,
+            "p99": 3.067,
+            "max": 4.29812490940094
+          },
+          "total": {
+            "p50": 4.006,
+            "p95": 5.578,
+            "p99": 6.407,
+            "max": 6.952291011810303
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:03:26.209Z",
+          "platform": "ios",
+          "os": "18.2",
+          "development": false,
+          "type": "benchmark",
+          "name": "sprites-500",
+          "draws": 1,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.479,
+            "p95": 0.565,
+            "p99": 0.571,
+            "max": 0.5735419988632202
+          },
+          "record": {
+            "p50": 4.576,
+            "p95": 5.468,
+            "p99": 5.757,
+            "max": 5.9786670207977295
+          },
+          "gpuWait": {
+            "p50": 1.515,
+            "p95": 1.998,
+            "p99": 2.674,
+            "max": 2.838582992553711
+          },
+          "total": {
+            "p50": 6.728,
+            "p95": 7.66,
+            "p99": 8.246,
+            "max": 9.382042050361633
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:03:28.711Z",
+          "platform": "ios",
+          "os": "18.2",
+          "development": false,
+          "type": "benchmark",
+          "name": "sprites-1000",
+          "draws": 1,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.557,
+            "p95": 0.596,
+            "p99": 0.647,
+            "max": 0.6826250553131104
+          },
+          "record": {
+            "p50": 5.758,
+            "p95": 6.184,
+            "p99": 6.532,
+            "max": 7.021458983421326
+          },
+          "gpuWait": {
+            "p50": 1.66,
+            "p95": 2.447,
+            "p99": 3.127,
+            "max": 3.4672080278396606
+          },
+          "total": {
+            "p50": 8.038,
+            "p95": 8.876,
+            "p99": 9.516,
+            "max": 9.915624976158142
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:03:31.209Z",
+          "platform": "ios",
+          "os": "18.2",
+          "development": false,
+          "type": "benchmark",
+          "name": "particles-1000",
+          "draws": 1,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.247,
+            "p95": 0.397,
+            "p99": 0.493,
+            "max": 2.9440829753875732
+          },
+          "record": {
+            "p50": 4.607,
+            "p95": 6.491,
+            "p99": 7.074,
+            "max": 7.1659170389175415
+          },
+          "gpuWait": {
+            "p50": 1.693,
+            "p95": 2.487,
+            "p99": 2.979,
+            "max": 3.3355419635772705
+          },
+          "total": {
+            "p50": 6.663,
+            "p95": 8.552,
+            "p99": 10.379,
+            "max": 10.778332948684692
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:03:33.712Z",
+          "platform": "ios",
+          "os": "18.2",
+          "development": false,
+          "type": "benchmark",
+          "name": "particles-5000",
+          "draws": 1,
+          "samples": 120,
+          "overBudgetPercent": 0.8,
+          "update": {
+            "p50": 0.499,
+            "p95": 0.506,
+            "p99": 0.516,
+            "max": 0.5331660509109497
+          },
+          "record": {
+            "p50": 9.074,
+            "p95": 9.366,
+            "p99": 9.622,
+            "max": 9.693459033966064
+          },
+          "gpuWait": {
+            "p50": 1.557,
+            "p95": 2.004,
+            "p99": 4.804,
+            "max": 8.950833082199097
+          },
+          "total": {
+            "p50": 11.208,
+            "p95": 11.831,
+            "p99": 14.263,
+            "max": 18.533542037010193
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:03:36.241Z",
+          "platform": "ios",
+          "os": "18.2",
+          "development": false,
+          "type": "benchmark",
+          "name": "movieclips-100",
+          "draws": 1,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.769,
+            "p95": 1.084,
+            "p99": 1.937,
+            "max": 2.326333999633789
+          },
+          "record": {
+            "p50": 2.204,
+            "p95": 3.071,
+            "p99": 3.47,
+            "max": 3.4787501096725464
+          },
+          "gpuWait": {
+            "p50": 1.813,
+            "p95": 2.69,
+            "p99": 3.384,
+            "max": 4.895292043685913
+          },
+          "total": {
+            "p50": 4.806,
+            "p95": 6.551,
+            "p99": 7.148,
+            "max": 8.329416990280151
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:03:38.775Z",
+          "platform": "ios",
+          "os": "18.2",
+          "development": false,
+          "type": "benchmark",
+          "name": "text-static-100",
+          "draws": 100,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.001,
+            "p95": 0.001,
+            "p99": 0.001,
+            "max": 0.004541993141174316
+          },
+          "record": {
+            "p50": 4.429,
+            "p95": 5.781,
+            "p99": 6.492,
+            "max": 6.669541954994202
+          },
+          "gpuWait": {
+            "p50": 1.749,
+            "p95": 2.76,
+            "p99": 3.397,
+            "max": 4.0399169921875
+          },
+          "total": {
+            "p50": 6.163,
+            "p95": 7.766,
+            "p99": 8.913,
+            "max": 9.690541982650757
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:03:41.283Z",
+          "platform": "ios",
+          "os": "18.2",
+          "development": false,
+          "type": "benchmark",
+          "name": "text-changing-100",
+          "draws": 100,
+          "samples": 120,
+          "overBudgetPercent": 0.8,
+          "update": {
+            "p50": 0.133,
+            "p95": 0.148,
+            "p99": 0.156,
+            "max": 0.15645897388458252
+          },
+          "record": {
+            "p50": 10.979,
+            "p95": 12.057,
+            "p99": 13.178,
+            "max": 13.347124934196472
+          },
+          "gpuWait": {
+            "p50": 1.509,
+            "p95": 2.335,
+            "p99": 3.039,
+            "max": 6.246541976928711
+          },
+          "total": {
+            "p50": 12.747,
+            "p95": 13.968,
+            "p99": 16.519,
+            "max": 16.95158302783966
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:03:43.789Z",
+          "platform": "ios",
+          "os": "18.2",
+          "development": false,
+          "type": "benchmark",
+          "name": "text-cached-100",
+          "draws": 1,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.001,
+            "p95": 0.001,
+            "p99": 0.001,
+            "max": 0.0020830631256103516
+          },
+          "record": {
+            "p50": 0.205,
+            "p95": 0.333,
+            "p99": 0.447,
+            "max": 0.4982919692993164
+          },
+          "gpuWait": {
+            "p50": 1.495,
+            "p95": 2.436,
+            "p99": 3.692,
+            "max": 4.256042003631592
+          },
+          "total": {
+            "p50": 1.707,
+            "p95": 2.609,
+            "p99": 3.933,
+            "max": 4.445667028427124
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:03:46.290Z",
+          "platform": "ios",
+          "os": "18.2",
+          "development": false,
+          "type": "benchmark",
+          "name": "bitmaptext-changing-100",
+          "draws": 300,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.147,
+            "p95": 0.207,
+            "p99": 0.432,
+            "max": 0.4893749952316284
+          },
+          "record": {
+            "p50": 5.104,
+            "p95": 7.107,
+            "p99": 7.669,
+            "max": 8.299000024795532
+          },
+          "gpuWait": {
+            "p50": 1.333,
+            "p95": 2.351,
+            "p99": 2.865,
+            "max": 2.867833971977234
+          },
+          "total": {
+            "p50": 6.794,
+            "p95": 8.712,
+            "p99": 9.825,
+            "max": 10.19054102897644
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:03:48.807Z",
+          "platform": "ios",
+          "os": "18.2",
+          "development": false,
+          "type": "benchmark",
+          "name": "spine-4.2-1",
+          "draws": 1,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 1.253,
+            "p95": 2.13,
+            "p99": 3.253,
+            "max": 4.04925000667572
+          },
+          "record": {
+            "p50": 1.431,
+            "p95": 2.25,
+            "p99": 2.986,
+            "max": 3.1640419960021973
+          },
+          "gpuWait": {
+            "p50": 1.522,
+            "p95": 2.59,
+            "p99": 2.757,
+            "max": 2.814750075340271
+          },
+          "total": {
+            "p50": 4.357,
+            "p95": 5.982,
+            "p99": 6.94,
+            "max": 7.314582943916321
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:03:51.309Z",
+          "platform": "ios",
+          "os": "18.2",
+          "development": false,
+          "type": "benchmark",
+          "name": "spine-4.2-5",
+          "draws": 5,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 2.727,
+            "p95": 4.228,
+            "p99": 5.544,
+            "max": 8
+          },
+          "record": {
+            "p50": 1.714,
+            "p95": 2.478,
+            "p99": 3.375,
+            "max": 3.665374994277954
+          },
+          "gpuWait": {
+            "p50": 1.41,
+            "p95": 1.913,
+            "p99": 4.056,
+            "max": 4.644917011260986
+          },
+          "total": {
+            "p50": 5.829,
+            "p95": 8.567,
+            "p99": 10.564,
+            "max": 11.82325005531311
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:03:53.896Z",
+          "platform": "ios",
+          "os": "18.2",
+          "development": false,
+          "type": "benchmark",
+          "name": "spine-4.2-20",
+          "draws": 20,
+          "samples": 120,
+          "overBudgetPercent": 1.7,
+          "update": {
+            "p50": 6.836,
+            "p95": 7.589,
+            "p99": 15.099,
+            "max": 15.829750061035156
+          },
+          "record": {
+            "p50": 3.731,
+            "p95": 4.316,
+            "p99": 4.671,
+            "max": 5.165709018707275
+          },
+          "gpuWait": {
+            "p50": 1.362,
+            "p95": 1.745,
+            "p99": 2.017,
+            "max": 4.199542045593262
+          },
+          "total": {
+            "p50": 11.964,
+            "p95": 13.131,
+            "p99": 21.028,
+            "max": 21.599000096321106
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:03:56.417Z",
+          "platform": "ios",
+          "os": "18.2",
+          "development": false,
+          "type": "benchmark",
+          "name": "spine-4.2-20-staggered",
+          "draws": 20,
+          "samples": 120,
+          "overBudgetPercent": 8.3,
+          "update": {
+            "p50": 6.971,
+            "p95": 7.821,
+            "p99": 10.916,
+            "max": 10.966416954994202
+          },
+          "record": {
+            "p50": 5.846,
+            "p95": 6.689,
+            "p99": 7.034,
+            "max": 7.098541975021362
+          },
+          "gpuWait": {
+            "p50": 1.464,
+            "p95": 3.338,
+            "p99": 4.51,
+            "max": 4.821749925613403
+          },
+          "total": {
+            "p50": 14.299,
+            "p95": 16.905,
+            "p99": 18.469,
+            "max": 18.81000006198883
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:03:58.924Z",
+          "platform": "ios",
+          "os": "18.2",
+          "development": false,
+          "type": "benchmark",
+          "name": "ui-gallery-16",
+          "draws": 29,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.015,
+            "p95": 0.024,
+            "p99": 0.155,
+            "max": 0.17816603183746338
+          },
+          "record": {
+            "p50": 2.768,
+            "p95": 4.697,
+            "p99": 6.79,
+            "max": 7.058333039283752
+          },
+          "gpuWait": {
+            "p50": 2.102,
+            "p95": 3.218,
+            "p99": 4.321,
+            "max": 4.353791952133179
+          },
+          "total": {
+            "p50": 4.928,
+            "p95": 7.204,
+            "p99": 8.872,
+            "max": 9.321750044822693
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:04:01.425Z",
+          "platform": "ios",
+          "os": "18.2",
+          "development": false,
+          "type": "benchmark",
+          "name": "ui-virtual-list-5000",
+          "draws": 12,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 4.02,
+            "p95": 5.574,
+            "p99": 6.079,
+            "max": 7.858292102813721
+          },
+          "record": {
+            "p50": 0.696,
+            "p95": 1.353,
+            "p99": 2.804,
+            "max": 3.0232499837875366
+          },
+          "gpuWait": {
+            "p50": 1.537,
+            "p95": 2.404,
+            "p99": 2.49,
+            "max": 2.9463329315185547
+          },
+          "total": {
+            "p50": 6.1,
+            "p95": 8.636,
+            "p99": 9.089,
+            "max": 9.832500100135803
+          }
+        }
+      ],
+      "nativeViews": [
+        {
+          "collectedAt": "2026-10-11T04:04:02.455Z",
+          "platform": "ios",
+          "os": "18.2",
+          "development": false,
+          "type": "native-view",
+          "step": 0,
+          "inputFocused": true,
+          "inputSwitched": true,
+          "scenesCreated": 1,
+          "scenesDisposed": 0,
+          "fps": 60,
+          "draws": 2,
+          "frames": 61,
+          "profile": {
+            "samples": 61,
+            "updateMs": {
+              "p50": 0.026958107948303223,
+              "p95": 0.08454203605651855,
+              "p99": 0.9785000085830688,
+              "max": 0.9785000085830688
+            },
+            "recordMs": {
+              "p50": 0.25637495517730713,
+              "p95": 1.3532500267028809,
+              "p99": 10.106792092323303,
+              "max": 10.106792092323303
+            },
+            "submitMs": {
+              "p50": 0.005208015441894531,
+              "p95": 0.011875033378601074,
+              "p99": 0.029124975204467773,
+              "max": 0.029124975204467773
+            },
+            "totalMs": {
+              "p50": 0.30674993991851807,
+              "p95": 1.3839579820632935,
+              "p99": 10.161749958992004,
+              "max": 10.161749958992004
+            }
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:04:03.490Z",
+          "platform": "ios",
+          "os": "18.2",
+          "development": false,
+          "type": "native-view",
+          "step": 1,
+          "inputFocused": true,
+          "inputSwitched": true,
+          "scenesCreated": 2,
+          "scenesDisposed": 1,
+          "fps": 60,
+          "draws": 2,
+          "frames": 61,
+          "profile": {
+            "samples": 61,
+            "updateMs": {
+              "p50": 0.03391695022583008,
+              "p95": 0.06966698169708252,
+              "p99": 0.19775009155273438,
+              "max": 0.19775009155273438
+            },
+            "recordMs": {
+              "p50": 0.3227499723434448,
+              "p95": 0.6742089986801147,
+              "p99": 2.9501250982284546,
+              "max": 2.9501250982284546
+            },
+            "submitMs": {
+              "p50": 0.007166028022766113,
+              "p95": 0.01237499713897705,
+              "p99": 0.015708088874816895,
+              "max": 0.015708088874816895
+            },
+            "totalMs": {
+              "p50": 0.375,
+              "p95": 0.798583984375,
+              "p99": 2.985957980155945,
+              "max": 2.985957980155945
+            }
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:04:04.522Z",
+          "platform": "ios",
+          "os": "18.2",
+          "development": false,
+          "type": "native-view",
+          "step": 2,
+          "inputFocused": true,
+          "inputSwitched": true,
+          "scenesCreated": 3,
+          "scenesDisposed": 2,
+          "fps": 60,
+          "draws": 2,
+          "frames": 61,
+          "profile": {
+            "samples": 61,
+            "updateMs": {
+              "p50": 0.029334068298339844,
+              "p95": 0.07645893096923828,
+              "p99": 0.5896669626235962,
+              "max": 0.5896669626235962
+            },
+            "recordMs": {
+              "p50": 0.24729204177856445,
+              "p95": 2.1712499856948853,
+              "p99": 3.362125039100647,
+              "max": 3.362125039100647
+            },
+            "submitMs": {
+              "p50": 0.005916953086853027,
+              "p95": 0.015249967575073242,
+              "p99": 0.16633296012878418,
+              "max": 0.16633296012878418
+            },
+            "totalMs": {
+              "p50": 0.27991700172424316,
+              "p95": 2.225916028022766,
+              "p99": 3.642542004585266,
+              "max": 3.642542004585266
+            }
+          }
+        }
+      ],
+      "complete": {
+        "collectedAt": "2026-10-11T04:04:04.534Z",
+        "platform": "ios",
+        "os": "18.2",
+        "development": false,
+        "type": "complete",
+        "result": "pass"
+      }
+    },
+    {
+      "device": "Small_Phone Android API 36 emulator",
+      "backend": "software Vulkan / llvmpipe LLVM 21.1.4; GLES Android Emulator Translator / Apple M1 Max",
+      "functional": {
+        "collectedAt": "2026-10-11T04:04:41.228Z",
+        "platform": "android",
+        "os": 36,
+        "development": false,
+        "type": "functional",
+        "result": "pass"
+      },
+      "benchmarks": [
+        {
+          "collectedAt": "2026-10-11T04:04:43.771Z",
+          "platform": "android",
+          "os": 36,
+          "development": false,
+          "type": "benchmark",
+          "name": "sprites-100",
+          "draws": 1,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.076,
+            "p95": 0.097,
+            "p99": 0.157,
+            "max": 0.23012500000186265
+          },
+          "record": {
+            "p50": 0.934,
+            "p95": 1.232,
+            "p99": 1.372,
+            "max": 1.7854999999981374
+          },
+          "gpuWait": {
+            "p50": 2.457,
+            "p95": 3.061,
+            "p99": 3.491,
+            "max": 3.6386250000214204
+          },
+          "total": {
+            "p50": 3.51,
+            "p95": 4.167,
+            "p99": 4.593,
+            "max": 4.671042000001762
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:04:46.293Z",
+          "platform": "android",
+          "os": 36,
+          "development": false,
+          "type": "benchmark",
+          "name": "sprites-500",
+          "draws": 1,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.239,
+            "p95": 0.305,
+            "p99": 0.713,
+            "max": 0.907500000030268
+          },
+          "record": {
+            "p50": 2.973,
+            "p95": 3.399,
+            "p99": 3.549,
+            "max": 3.572667000000365
+          },
+          "gpuWait": {
+            "p50": 7.177,
+            "p95": 8.539,
+            "p99": 9.537,
+            "max": 9.54824999999255
+          },
+          "total": {
+            "p50": 10.415,
+            "p95": 11.829,
+            "p99": 12.738,
+            "max": 13.064666999998735
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:04:51.305Z",
+          "platform": "android",
+          "os": 36,
+          "development": false,
+          "type": "benchmark",
+          "name": "sprites-1000",
+          "draws": 1,
+          "samples": 120,
+          "overBudgetPercent": 100,
+          "update": {
+            "p50": 0.479,
+            "p95": 0.599,
+            "p99": 1.15,
+            "max": 1.3386249999748543
+          },
+          "record": {
+            "p50": 5.851,
+            "p95": 6.417,
+            "p99": 7.489,
+            "max": 7.929541999998037
+          },
+          "gpuWait": {
+            "p50": 13.707,
+            "p95": 15.625,
+            "p99": 17.583,
+            "max": 18.084792000008747
+          },
+          "total": {
+            "p50": 20.119,
+            "p95": 22.077,
+            "p99": 23.92,
+            "max": 24.959374999976717
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:04:53.824Z",
+          "platform": "android",
+          "os": 36,
+          "development": false,
+          "type": "benchmark",
+          "name": "particles-1000",
+          "draws": 1,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.123,
+            "p95": 0.137,
+            "p99": 0.254,
+            "max": 0.2920420000446029
+          },
+          "record": {
+            "p50": 2.813,
+            "p95": 3.083,
+            "p99": 3.302,
+            "max": 3.3865419999929145
+          },
+          "gpuWait": {
+            "p50": 3.209,
+            "p95": 3.888,
+            "p99": 4.333,
+            "max": 5.9589580000028946
+          },
+          "total": {
+            "p50": 6.206,
+            "p95": 6.918,
+            "p99": 7.568,
+            "max": 8.742124999989755
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:04:58.878Z",
+          "platform": "android",
+          "os": 36,
+          "development": false,
+          "type": "benchmark",
+          "name": "particles-5000",
+          "draws": 1,
+          "samples": 120,
+          "overBudgetPercent": 100,
+          "update": {
+            "p50": 0.579,
+            "p95": 0.694,
+            "p99": 0.858,
+            "max": 0.8613750000367872
+          },
+          "record": {
+            "p50": 12.172,
+            "p95": 12.91,
+            "p99": 13.98,
+            "max": 27.9075840000296
+          },
+          "gpuWait": {
+            "p50": 12.513,
+            "p95": 15.4,
+            "p99": 16.386,
+            "max": 16.447167000034824
+          },
+          "total": {
+            "p50": 25.304,
+            "p95": 28.742,
+            "p99": 30.006,
+            "max": 42.25483400002122
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:05:01.403Z",
+          "platform": "android",
+          "os": 36,
+          "development": false,
+          "type": "benchmark",
+          "name": "movieclips-100",
+          "draws": 1,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.256,
+            "p95": 0.342,
+            "p99": 0.411,
+            "max": 0.48591600003419444
+          },
+          "record": {
+            "p50": 0.967,
+            "p95": 1.328,
+            "p99": 1.606,
+            "max": 2.0230420000152662
+          },
+          "gpuWait": {
+            "p50": 1.332,
+            "p95": 1.84,
+            "p99": 2.276,
+            "max": 2.278374999994412
+          },
+          "total": {
+            "p50": 2.625,
+            "p95": 3.28,
+            "p99": 3.473,
+            "max": 3.6877499999827705
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:05:03.922Z",
+          "platform": "android",
+          "os": 36,
+          "development": false,
+          "type": "benchmark",
+          "name": "text-static-100",
+          "draws": 100,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.001,
+            "p95": 0.001,
+            "p99": 0.001,
+            "max": 0.001166999980341643
+          },
+          "record": {
+            "p50": 1.784,
+            "p95": 2.556,
+            "p99": 3.078,
+            "max": 3.158584000018891
+          },
+          "gpuWait": {
+            "p50": 2.507,
+            "p95": 2.842,
+            "p99": 3.43,
+            "max": 4.306750000047032
+          },
+          "total": {
+            "p50": 4.312,
+            "p95": 5.354,
+            "p99": 5.766,
+            "max": 6.279957999999169
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:05:07.383Z",
+          "platform": "android",
+          "os": 36,
+          "development": false,
+          "type": "benchmark",
+          "name": "text-changing-100",
+          "draws": 100,
+          "samples": 120,
+          "overBudgetPercent": 5.8,
+          "update": {
+            "p50": 0.137,
+            "p95": 0.211,
+            "p99": 0.268,
+            "max": 0.8903750000172295
+          },
+          "record": {
+            "p50": 12.618,
+            "p95": 13.698,
+            "p99": 14.536,
+            "max": 14.782208999968134
+          },
+          "gpuWait": {
+            "p50": 1.949,
+            "p95": 2.568,
+            "p99": 4.678,
+            "max": 4.838041999959387
+          },
+          "total": {
+            "p50": 14.691,
+            "p95": 16.698,
+            "p99": 17.766,
+            "max": 18.077791000017896
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:05:09.903Z",
+          "platform": "android",
+          "os": 36,
+          "development": false,
+          "type": "benchmark",
+          "name": "text-cached-100",
+          "draws": 1,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.001,
+            "p95": 0.001,
+            "p99": 0.002,
+            "max": 0.0027500000433064997
+          },
+          "record": {
+            "p50": 0.131,
+            "p95": 0.248,
+            "p99": 0.375,
+            "max": 0.4460839999956079
+          },
+          "gpuWait": {
+            "p50": 1.657,
+            "p95": 2.463,
+            "p99": 2.875,
+            "max": 3.076375000004191
+          },
+          "total": {
+            "p50": 1.799,
+            "p95": 2.629,
+            "p99": 3.251,
+            "max": 3.2652499999967404
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:05:12.404Z",
+          "platform": "android",
+          "os": 36,
+          "development": false,
+          "type": "benchmark",
+          "name": "bitmaptext-changing-100",
+          "draws": 300,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.059,
+            "p95": 0.07,
+            "p99": 0.083,
+            "max": 0.20979200000874698
+          },
+          "record": {
+            "p50": 2.877,
+            "p95": 3.732,
+            "p99": 4.037,
+            "max": 4.0702499999897555
+          },
+          "gpuWait": {
+            "p50": 1.32,
+            "p95": 1.554,
+            "p99": 1.785,
+            "max": 1.8479999999981374
+          },
+          "total": {
+            "p50": 4.26,
+            "p95": 5.173,
+            "p99": 5.452,
+            "max": 5.604457999987062
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:05:14.920Z",
+          "platform": "android",
+          "os": 36,
+          "development": false,
+          "type": "benchmark",
+          "name": "spine-4.2-1",
+          "draws": 1,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.595,
+            "p95": 1.173,
+            "p99": 1.24,
+            "max": 2.023250000027474
+          },
+          "record": {
+            "p50": 0.939,
+            "p95": 1.324,
+            "p99": 1.846,
+            "max": 1.8902499999967404
+          },
+          "gpuWait": {
+            "p50": 1.444,
+            "p95": 1.975,
+            "p99": 2.149,
+            "max": 4.204583999991883
+          },
+          "total": {
+            "p50": 3.09,
+            "p95": 3.928,
+            "p99": 4.41,
+            "max": 5.516999999992549
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:05:17.439Z",
+          "platform": "android",
+          "os": 36,
+          "development": false,
+          "type": "benchmark",
+          "name": "spine-4.2-5",
+          "draws": 5,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 2.039,
+            "p95": 2.816,
+            "p99": 3.886,
+            "max": 4.244500000029802
+          },
+          "record": {
+            "p50": 1.481,
+            "p95": 1.987,
+            "p99": 2.316,
+            "max": 2.432874999998603
+          },
+          "gpuWait": {
+            "p50": 1.596,
+            "p95": 1.919,
+            "p99": 3.137,
+            "max": 3.6755409999750555
+          },
+          "total": {
+            "p50": 5.217,
+            "p95": 6.069,
+            "p99": 7.688,
+            "max": 9.177415999991354
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:05:21.483Z",
+          "platform": "android",
+          "os": 36,
+          "development": false,
+          "type": "benchmark",
+          "name": "spine-4.2-20",
+          "draws": 20,
+          "samples": 120,
+          "overBudgetPercent": 13.3,
+          "update": {
+            "p50": 7.493,
+            "p95": 9.018,
+            "p99": 15.481,
+            "max": 15.866582999995444
+          },
+          "record": {
+            "p50": 3.938,
+            "p95": 4.996,
+            "p99": 6.343,
+            "max": 6.817792000016198
+          },
+          "gpuWait": {
+            "p50": 3.466,
+            "p95": 4.505,
+            "p99": 5.266,
+            "max": 5.883541000017431
+          },
+          "total": {
+            "p50": 15.054,
+            "p95": 18.242,
+            "p99": 23.04,
+            "max": 23.069707999995444
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:05:26.504Z",
+          "platform": "android",
+          "os": 36,
+          "development": false,
+          "type": "benchmark",
+          "name": "spine-4.2-20-staggered",
+          "draws": 20,
+          "samples": 120,
+          "overBudgetPercent": 100,
+          "update": {
+            "p50": 7.924,
+            "p95": 9.3,
+            "p99": 12.399,
+            "max": 12.739000000001397
+          },
+          "record": {
+            "p50": 7.549,
+            "p95": 10.177,
+            "p99": 13.797,
+            "max": 13.957667000009678
+          },
+          "gpuWait": {
+            "p50": 3.488,
+            "p95": 4.152,
+            "p99": 4.928,
+            "max": 5.350000000034925
+          },
+          "total": {
+            "p50": 19.094,
+            "p95": 23.217,
+            "p99": 25.039,
+            "max": 26.62445800000569
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:05:29.039Z",
+          "platform": "android",
+          "os": 36,
+          "development": false,
+          "type": "benchmark",
+          "name": "ui-gallery-16",
+          "draws": 29,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 0.011,
+            "p95": 0.016,
+            "p99": 0.029,
+            "max": 0.09049999999115244
+          },
+          "record": {
+            "p50": 1.126,
+            "p95": 1.497,
+            "p99": 2.213,
+            "max": 2.6832919999724254
+          },
+          "gpuWait": {
+            "p50": 2.294,
+            "p95": 2.9,
+            "p99": 3.16,
+            "max": 4.362124999985099
+          },
+          "total": {
+            "p50": 3.502,
+            "p95": 4.016,
+            "p99": 5.219,
+            "max": 5.3173749999841675
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:05:31.554Z",
+          "platform": "android",
+          "os": 36,
+          "development": false,
+          "type": "benchmark",
+          "name": "ui-virtual-list-5000",
+          "draws": 12,
+          "samples": 120,
+          "overBudgetPercent": 0,
+          "update": {
+            "p50": 1.593,
+            "p95": 1.907,
+            "p99": 2.092,
+            "max": 3.112916999962181
+          },
+          "record": {
+            "p50": 0.541,
+            "p95": 0.734,
+            "p99": 1.888,
+            "max": 2.199124999984633
+          },
+          "gpuWait": {
+            "p50": 1.394,
+            "p95": 1.707,
+            "p99": 2.197,
+            "max": 3.721124999981839
+          },
+          "total": {
+            "p50": 3.589,
+            "p95": 4.436,
+            "p99": 5.31,
+            "max": 5.959207999985665
+          }
+        }
+      ],
+      "nativeViews": [
+        {
+          "collectedAt": "2026-10-11T04:05:32.589Z",
+          "platform": "android",
+          "os": 36,
+          "development": false,
+          "type": "native-view",
+          "step": 0,
+          "inputFocused": true,
+          "inputSwitched": true,
+          "scenesCreated": 1,
+          "scenesDisposed": 0,
+          "fps": 57,
+          "draws": 2,
+          "frames": 57,
+          "profile": {
+            "samples": 57,
+            "updateMs": {
+              "p50": 0.038792000035755336,
+              "p95": 0.2885000000242144,
+              "p99": 2.8401670000166632,
+              "max": 2.8401670000166632
+            },
+            "recordMs": {
+              "p50": 0.27920899994205683,
+              "p95": 5.353207999956794,
+              "p99": 16.24133399996208,
+              "max": 16.24133399996208
+            },
+            "submitMs": {
+              "p50": 0.016417000035289675,
+              "p95": 0.23195899999700487,
+              "p99": 1.6242499999934807,
+              "max": 1.6242499999934807
+            },
+            "totalMs": {
+              "p50": 0.35820800001965836,
+              "p95": 5.944000000017695,
+              "p99": 16.329750000033528,
+              "max": 16.329750000033528
+            }
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:05:33.636Z",
+          "platform": "android",
+          "os": 36,
+          "development": false,
+          "type": "native-view",
+          "step": 1,
+          "inputFocused": true,
+          "inputSwitched": true,
+          "scenesCreated": 2,
+          "scenesDisposed": 1,
+          "fps": 55,
+          "draws": 2,
+          "frames": 55,
+          "profile": {
+            "samples": 55,
+            "updateMs": {
+              "p50": 0.03770799998892471,
+              "p95": 0.08166600001277402,
+              "p99": 0.4768749999930151,
+              "max": 0.4768749999930151
+            },
+            "recordMs": {
+              "p50": 0.2800000000279397,
+              "p95": 6.717165999987628,
+              "p99": 41.16904200002318,
+              "max": 41.16904200002318
+            },
+            "submitMs": {
+              "p50": 0.012332999962382019,
+              "p95": 0.04066699999384582,
+              "p99": 0.10237499995855615,
+              "max": 0.10237499995855615
+            },
+            "totalMs": {
+              "p50": 0.32850000000325963,
+              "p95": 6.798083000001498,
+              "p99": 41.22433400002774,
+              "max": 41.22433400002774
+            }
+          }
+        },
+        {
+          "collectedAt": "2026-10-11T04:05:34.688Z",
+          "platform": "android",
+          "os": 36,
+          "development": false,
+          "type": "native-view",
+          "step": 2,
+          "inputFocused": true,
+          "inputSwitched": true,
+          "scenesCreated": 3,
+          "scenesDisposed": 2,
+          "fps": 60,
+          "draws": 2,
+          "frames": 61,
+          "profile": {
+            "samples": 61,
+            "updateMs": {
+              "p50": 0.03583399998024106,
+              "p95": 0.1538750000181608,
+              "p99": 0.4991669999435544,
+              "max": 0.4991669999435544
+            },
+            "recordMs": {
+              "p50": 0.26824999996460974,
+              "p95": 1.3901670000050217,
+              "p99": 4.122541000018828,
+              "max": 4.122541000018828
+            },
+            "submitMs": {
+              "p50": 0.012417000019922853,
+              "p95": 0.030541000014636666,
+              "p99": 0.15720800001872703,
+              "max": 0.15720800001872703
+            },
+            "totalMs": {
+              "p50": 0.33449999999720603,
+              "p95": 1.4351250000181608,
+              "p99": 4.1659160000272095,
+              "max": 4.1659160000272095
+            }
+          }
+        }
+      ],
+      "complete": {
+        "collectedAt": "2026-10-11T04:05:34.704Z",
+        "platform": "android",
+        "os": 36,
+        "development": false,
+        "type": "complete",
+        "result": "pass"
+      }
+    }
+  ],
+  "productionExports": {
+    "android": {
+      "sources": 1670,
+      "hermesBytes": 4861324,
+      "hermesSHA256": "278ac24db5f85ee348c7d918e8a381aedd08309be84196956876e816412d39f2",
+      "excludedTools": [
+        "/src/generator/",
+        "/dist/generator/",
+        "/src/development/",
+        "/dist/development/",
+        "dist/metro.cjs",
+        "@kurot/cli",
+        "@kurot/ui-document",
+        "node_modules/typescript/",
+        "node_modules/chokidar/",
+        "node:"
+      ]
+    },
+    "ios": {
+      "sources": 1672,
+      "hermesBytes": 4856988,
+      "hermesSHA256": "2ed7345eeaed68d0f2cc39a98dddace2307c3baf092e1aaf76e44216374a0ad2",
+      "excludedTools": [
+        "/src/generator/",
+        "/dist/generator/",
+        "/src/development/",
+        "/dist/development/",
+        "dist/metro.cjs",
+        "@kurot/cli",
+        "@kurot/ui-document",
+        "node_modules/typescript/",
+        "node_modules/chokidar/",
+        "node:"
+      ]
+    }
+  }
+}

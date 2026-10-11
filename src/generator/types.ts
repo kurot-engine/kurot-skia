@@ -21,7 +21,7 @@ export interface ProjectResult {
 export interface CollectedAsset {
 	readonly url: string;
 	readonly path: string;
-	readonly kind: 'json' | 'text' | 'image' | 'file';
+	readonly kind: 'json' | 'text' | 'image' | 'file' | 'binary';
 	readonly value?: unknown;
 }
 

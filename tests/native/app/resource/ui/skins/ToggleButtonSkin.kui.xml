@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Skin xmlns="https://kurot.dev/ui/1" class="skins.ToggleButtonSkin" states="disabled,disabledAndSelected,down,downAndSelected,up,upAndSelected" minHeight="48" minWidth="96">
+    <Image height="100%" width="100%" source="kui.surface_up" source.down="kui.surface_down" source.disabled="kui.button_disabled" source.disabledAndSelected="kui.surface_disabled_selected" source.downAndSelected="kui.surface_selected_down" source.upAndSelected="kui.surface_selected" touchEnabled="false" />
+    <Label id="labelDisplay" bottom="10" left="16" right="16" top="10" size="18" bold="true" multiline="false" textFit="shrink" minFontSize="14" textAlign="center" textColor="@style:colors:text" verticalAlign="middle" textColor.disabled="@style:colors:disabled-text" textColor.disabledAndSelected="@style:colors:disabled-text" />
+</Skin>

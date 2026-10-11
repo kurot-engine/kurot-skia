@@ -12,7 +12,11 @@ export async function installOutput(output: string, files: ReadonlyMap<string, s
 	const existing = await scanFiles(output, true);
 	if (existing.length) {
 		const ownership = await readJSON(path.join(output, marker));
-		if (!isRecord(ownership) || ownership.generator !== '@kurot/skia/generator' || !Array.isArray(ownership.files)) {
+		if (
+			!isRecord(ownership) ||
+			ownership.generator !== '@kurot/skia/generator' ||
+			!Array.isArray(ownership.files)
+		) {
 			throw new Error(`Output directory is not owned by this generator: ${output}`);
 		}
 		const owned = new Set([...ownership.files, marker]);

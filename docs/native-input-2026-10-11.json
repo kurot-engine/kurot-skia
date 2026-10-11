@@ -1,0 +1,3460 @@
+{
+  "date": "2026-10-11",
+  "scope": "iOS simulator screen keyboard; synthetic values only; no physical devices",
+  "versions": {
+    "core": "2.5.3",
+    "reactNative": "0.86.3",
+    "skia": "3.3.0"
+  },
+  "build": "Debug native development client; production minified JS; __DEV__ false",
+  "method": "Native UI screen-key presses/candidate selection, screenshots/accessibility and loopback Core observations; no controller text injection",
+  "automatedIMEPass": false,
+  "androidActualTypingIME": "unverified; emulator window unavailable to native UI automation",
+  "physicalDevices": "deferred by user; this round tests simulators only",
+  "observations": [
+    {
+      "collectedAt": "2026-10-11T01:42:42.633Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "none",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "password",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:43:10.303Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "plain",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "password",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:43:53.998Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "none",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "password",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:45:10.706Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "none",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "password",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:45:23.715Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "plain",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "password",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:45:44.601Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "plain",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "a",
+          "selection": [
+            1,
+            1
+          ]
+        },
+        {
+          "name": "password",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:45:44.729Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "plain",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "ab",
+          "selection": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "password",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:45:44.829Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "plain",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "abc",
+          "selection": [
+            3,
+            3
+          ]
+        },
+        {
+          "name": "password",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:45:44.896Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "plain",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "abcd",
+          "selection": [
+            4,
+            4
+          ]
+        },
+        {
+          "name": "password",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:45:44.979Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "plain",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "abcde",
+          "selection": [
+            5,
+            5
+          ]
+        },
+        {
+          "name": "password",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:45:45.047Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "plain",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "abcdef",
+          "selection": [
+            6,
+            6
+          ]
+        },
+        {
+          "name": "password",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:45:53.197Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "plain",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "abcdef",
+          "selection": [
+            2,
+            4
+          ]
+        },
+        {
+          "name": "password",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:46:01.597Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "plain",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "abxef",
+          "selection": [
+            3,
+            3
+          ]
+        },
+        {
+          "name": "password",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:46:08.681Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "plain",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "abef",
+          "selection": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "password",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:46:08.769Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "none",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "abef",
+          "selection": [
+            4,
+            4
+          ]
+        },
+        {
+          "name": "password",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:46:14.654Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "password",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "abef",
+          "selection": [
+            4,
+            4
+          ]
+        },
+        {
+          "name": "password",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:46:28.530Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "password",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "abef",
+          "selection": [
+            4,
+            4
+          ]
+        },
+        {
+          "name": "password",
+          "text": "1",
+          "selection": [
+            1,
+            1
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:46:28.679Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "password",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "abef",
+          "selection": [
+            4,
+            4
+          ]
+        },
+        {
+          "name": "password",
+          "text": "12",
+          "selection": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:46:28.729Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "password",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "abef",
+          "selection": [
+            4,
+            4
+          ]
+        },
+        {
+          "name": "password",
+          "text": "123",
+          "selection": [
+            3,
+            3
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:46:28.812Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "password",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "abef",
+          "selection": [
+            4,
+            4
+          ]
+        },
+        {
+          "name": "password",
+          "text": "1234",
+          "selection": [
+            4,
+            4
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:46:28.880Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "password",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "abef",
+          "selection": [
+            4,
+            4
+          ]
+        },
+        {
+          "name": "password",
+          "text": "12345",
+          "selection": [
+            5,
+            5
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:46:28.964Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "password",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "abef",
+          "selection": [
+            4,
+            4
+          ]
+        },
+        {
+          "name": "password",
+          "text": "123456",
+          "selection": [
+            6,
+            6
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:46:29.062Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "password",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "abef",
+          "selection": [
+            4,
+            4
+          ]
+        },
+        {
+          "name": "password",
+          "text": "1234567",
+          "selection": [
+            7,
+            7
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:46:29.162Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "password",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "abef",
+          "selection": [
+            4,
+            4
+          ]
+        },
+        {
+          "name": "password",
+          "text": "12345678",
+          "selection": [
+            8,
+            8
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:46:40.423Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "restricted",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "abef",
+          "selection": [
+            4,
+            4
+          ]
+        },
+        {
+          "name": "password",
+          "text": "12345678",
+          "selection": [
+            8,
+            8
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:47:04.204Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "restricted",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "abef",
+          "selection": [
+            4,
+            4
+          ]
+        },
+        {
+          "name": "password",
+          "text": "12345678",
+          "selection": [
+            8,
+            8
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "n",
+          "selection": [
+            1,
+            1
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:47:04.355Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "restricted",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "abef",
+          "selection": [
+            4,
+            4
+          ]
+        },
+        {
+          "name": "password",
+          "text": "12345678",
+          "selection": [
+            8,
+            8
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "ni",
+          "selection": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:47:04.479Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "restricted",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "abef",
+          "selection": [
+            4,
+            4
+          ]
+        },
+        {
+          "name": "password",
+          "text": "12345678",
+          "selection": [
+            8,
+            8
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "ni h",
+          "selection": [
+            4,
+            4
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:47:04.564Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "restricted",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "abef",
+          "selection": [
+            4,
+            4
+          ]
+        },
+        {
+          "name": "password",
+          "text": "12345678",
+          "selection": [
+            8,
+            8
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "ni ha",
+          "selection": [
+            5,
+            5
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:47:04.646Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "restricted",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "abef",
+          "selection": [
+            4,
+            4
+          ]
+        },
+        {
+          "name": "password",
+          "text": "12345678",
+          "selection": [
+            8,
+            8
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "ni hao",
+          "selection": [
+            6,
+            6
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:47:34.131Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "restricted",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "abef",
+          "selection": [
+            4,
+            4
+          ]
+        },
+        {
+          "name": "password",
+          "text": "12345678",
+          "selection": [
+            8,
+            8
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "你好",
+          "selection": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:47:46.197Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "restricted",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "abef",
+          "selection": [
+            4,
+            4
+          ]
+        },
+        {
+          "name": "password",
+          "text": "12345678",
+          "selection": [
+            8,
+            8
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "你好1",
+          "selection": [
+            3,
+            3
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:47:46.279Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "restricted",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "abef",
+          "selection": [
+            4,
+            4
+          ]
+        },
+        {
+          "name": "password",
+          "text": "12345678",
+          "selection": [
+            8,
+            8
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "你好12",
+          "selection": [
+            4,
+            4
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:47:52.098Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "none",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "abef",
+          "selection": [
+            4,
+            4
+          ]
+        },
+        {
+          "name": "password",
+          "text": "12345678",
+          "selection": [
+            8,
+            8
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "12",
+          "selection": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:48:09.697Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "plain",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "abef",
+          "selection": [
+            4,
+            4
+          ]
+        },
+        {
+          "name": "password",
+          "text": "12345678",
+          "selection": [
+            8,
+            8
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "12",
+          "selection": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:48:19.247Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "plain",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "abefn",
+          "selection": [
+            5,
+            5
+          ]
+        },
+        {
+          "name": "password",
+          "text": "12345678",
+          "selection": [
+            8,
+            8
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "12",
+          "selection": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:48:19.312Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "plain",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "abefni",
+          "selection": [
+            6,
+            6
+          ]
+        },
+        {
+          "name": "password",
+          "text": "12345678",
+          "selection": [
+            8,
+            8
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "12",
+          "selection": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:48:19.379Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "plain",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "abefni h",
+          "selection": [
+            8,
+            8
+          ]
+        },
+        {
+          "name": "password",
+          "text": "12345678",
+          "selection": [
+            8,
+            8
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "12",
+          "selection": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:48:19.445Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "plain",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "abefni ha",
+          "selection": [
+            9,
+            9
+          ]
+        },
+        {
+          "name": "password",
+          "text": "12345678",
+          "selection": [
+            8,
+            8
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "12",
+          "selection": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:48:19.512Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "plain",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "abefni hao",
+          "selection": [
+            10,
+            10
+          ]
+        },
+        {
+          "name": "password",
+          "text": "12345678",
+          "selection": [
+            8,
+            8
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "12",
+          "selection": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:48:26.097Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "plain",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "abef你好",
+          "selection": [
+            6,
+            6
+          ]
+        },
+        {
+          "name": "password",
+          "text": "12345678",
+          "selection": [
+            8,
+            8
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "12",
+          "selection": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:48:26.212Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "none",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "abef你好",
+          "selection": [
+            6,
+            6
+          ]
+        },
+        {
+          "name": "password",
+          "text": "12345678",
+          "selection": [
+            8,
+            8
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "12",
+          "selection": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:48:35.981Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "multiline",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "abef你好",
+          "selection": [
+            6,
+            6
+          ]
+        },
+        {
+          "name": "password",
+          "text": "12345678",
+          "selection": [
+            8,
+            8
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "12",
+          "selection": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:48:51.707Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "multiline",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "abef你好",
+          "selection": [
+            6,
+            6
+          ]
+        },
+        {
+          "name": "password",
+          "text": "12345678",
+          "selection": [
+            8,
+            8
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "12",
+          "selection": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "a",
+          "selection": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:48:51.779Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "multiline",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "abef你好",
+          "selection": [
+            6,
+            6
+          ]
+        },
+        {
+          "name": "password",
+          "text": "12345678",
+          "selection": [
+            8,
+            8
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "12",
+          "selection": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "a\n",
+          "selection": [
+            2,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:48:51.846Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "multiline",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "abef你好",
+          "selection": [
+            6,
+            6
+          ]
+        },
+        {
+          "name": "password",
+          "text": "12345678",
+          "selection": [
+            8,
+            8
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "12",
+          "selection": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "a\nb",
+          "selection": [
+            3,
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:49:34.585Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "none",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "abef你好",
+          "selection": [
+            6,
+            6
+          ]
+        },
+        {
+          "name": "password",
+          "text": "12345678",
+          "selection": [
+            8,
+            8
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "12",
+          "selection": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "a\nb",
+          "selection": [
+            3,
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:49:34.747Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "plain",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "abef你好",
+          "selection": [
+            6,
+            6
+          ]
+        },
+        {
+          "name": "password",
+          "text": "12345678",
+          "selection": [
+            8,
+            8
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "12",
+          "selection": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "a\nb",
+          "selection": [
+            3,
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:49:53.798Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "plain",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "abef你好n",
+          "selection": [
+            7,
+            7
+          ]
+        },
+        {
+          "name": "password",
+          "text": "12345678",
+          "selection": [
+            8,
+            8
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "12",
+          "selection": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "a\nb",
+          "selection": [
+            3,
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:50:17.646Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "plain",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "abef你好ni",
+          "selection": [
+            8,
+            8
+          ]
+        },
+        {
+          "name": "password",
+          "text": "12345678",
+          "selection": [
+            8,
+            8
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "12",
+          "selection": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "a\nb",
+          "selection": [
+            3,
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:50:17.745Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "plain",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "abef你好ni h",
+          "selection": [
+            10,
+            10
+          ]
+        },
+        {
+          "name": "password",
+          "text": "12345678",
+          "selection": [
+            8,
+            8
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "12",
+          "selection": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "a\nb",
+          "selection": [
+            3,
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:50:17.879Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "plain",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "abef你好ni ha",
+          "selection": [
+            11,
+            11
+          ]
+        },
+        {
+          "name": "password",
+          "text": "12345678",
+          "selection": [
+            8,
+            8
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "12",
+          "selection": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "a\nb",
+          "selection": [
+            3,
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:50:17.962Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "plain",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "abef你好ni hao",
+          "selection": [
+            12,
+            12
+          ]
+        },
+        {
+          "name": "password",
+          "text": "12345678",
+          "selection": [
+            8,
+            8
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "12",
+          "selection": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "a\nb",
+          "selection": [
+            3,
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:50:25.246Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "plain",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "abef你好👋",
+          "selection": [
+            8,
+            8
+          ]
+        },
+        {
+          "name": "password",
+          "text": "12345678",
+          "selection": [
+            8,
+            8
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "12",
+          "selection": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "a\nb",
+          "selection": [
+            3,
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:50:37.130Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "plain",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "abef你好",
+          "selection": [
+            6,
+            6
+          ]
+        },
+        {
+          "name": "password",
+          "text": "12345678",
+          "selection": [
+            8,
+            8
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "12",
+          "selection": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "a\nb",
+          "selection": [
+            3,
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:50:37.278Z",
+      "platform": "ios",
+      "os": "18.2",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "none",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "abef你好",
+          "selection": [
+            6,
+            6
+          ]
+        },
+        {
+          "name": "password",
+          "text": "12345678",
+          "selection": [
+            8,
+            8
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "12",
+          "selection": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "a\nb",
+          "selection": [
+            3,
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:50:55.173Z",
+      "platform": "ios",
+      "os": "26.5",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "none",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "password",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:51:22.181Z",
+      "platform": "ios",
+      "os": "26.5",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "plain",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "password",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:51:46.590Z",
+      "platform": "ios",
+      "os": "26.5",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "plain",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "n",
+          "selection": [
+            1,
+            1
+          ]
+        },
+        {
+          "name": "password",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:51:46.780Z",
+      "platform": "ios",
+      "os": "26.5",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "plain",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "ni",
+          "selection": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "password",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:51:46.913Z",
+      "platform": "ios",
+      "os": "26.5",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "plain",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "ni h",
+          "selection": [
+            4,
+            4
+          ]
+        },
+        {
+          "name": "password",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:51:47.062Z",
+      "platform": "ios",
+      "os": "26.5",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "plain",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "ni ha",
+          "selection": [
+            5,
+            5
+          ]
+        },
+        {
+          "name": "password",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:51:47.212Z",
+      "platform": "ios",
+      "os": "26.5",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "plain",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "ni hao",
+          "selection": [
+            6,
+            6
+          ]
+        },
+        {
+          "name": "password",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:51:53.881Z",
+      "platform": "ios",
+      "os": "26.5",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "plain",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "你好",
+          "selection": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "password",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:51:54.067Z",
+      "platform": "ios",
+      "os": "26.5",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "none",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "你好",
+          "selection": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "password",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:52:01.564Z",
+      "platform": "ios",
+      "os": "26.5",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "password",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "你好",
+          "selection": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "password",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:52:16.646Z",
+      "platform": "ios",
+      "os": "26.5",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "password",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "你好",
+          "selection": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "password",
+          "text": "1",
+          "selection": [
+            1,
+            1
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:52:16.779Z",
+      "platform": "ios",
+      "os": "26.5",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "password",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "你好",
+          "selection": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "password",
+          "text": "12",
+          "selection": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:52:16.846Z",
+      "platform": "ios",
+      "os": "26.5",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "password",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "你好",
+          "selection": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "password",
+          "text": "123",
+          "selection": [
+            3,
+            3
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:52:16.962Z",
+      "platform": "ios",
+      "os": "26.5",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "password",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "你好",
+          "selection": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "password",
+          "text": "1234",
+          "selection": [
+            4,
+            4
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:52:17.029Z",
+      "platform": "ios",
+      "os": "26.5",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "password",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "你好",
+          "selection": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "password",
+          "text": "12345",
+          "selection": [
+            5,
+            5
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:52:17.129Z",
+      "platform": "ios",
+      "os": "26.5",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "password",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "你好",
+          "selection": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "password",
+          "text": "123456",
+          "selection": [
+            6,
+            6
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:52:17.197Z",
+      "platform": "ios",
+      "os": "26.5",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "password",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "你好",
+          "selection": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "password",
+          "text": "1234567",
+          "selection": [
+            7,
+            7
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:52:17.296Z",
+      "platform": "ios",
+      "os": "26.5",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "password",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "你好",
+          "selection": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "password",
+          "text": "12345678",
+          "selection": [
+            8,
+            8
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:52:28.147Z",
+      "platform": "ios",
+      "os": "26.5",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "password",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "你好",
+          "selection": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "password",
+          "text": "12345678",
+          "selection": [
+            2,
+            4
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:52:34.680Z",
+      "platform": "ios",
+      "os": "26.5",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "password",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "你好",
+          "selection": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "password",
+          "text": "1295678",
+          "selection": [
+            3,
+            3
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:52:34.830Z",
+      "platform": "ios",
+      "os": "26.5",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "none",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "你好",
+          "selection": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "password",
+          "text": "1295678",
+          "selection": [
+            3,
+            3
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:52:44.364Z",
+      "platform": "ios",
+      "os": "26.5",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "multiline",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "你好",
+          "selection": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "password",
+          "text": "1295678",
+          "selection": [
+            3,
+            3
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:52:59.730Z",
+      "platform": "ios",
+      "os": "26.5",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "multiline",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "你好",
+          "selection": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "password",
+          "text": "1295678",
+          "selection": [
+            3,
+            3
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "a",
+          "selection": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:52:59.828Z",
+      "platform": "ios",
+      "os": "26.5",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "multiline",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "你好",
+          "selection": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "password",
+          "text": "1295678",
+          "selection": [
+            3,
+            3
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "a\n",
+          "selection": [
+            2,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:52:59.929Z",
+      "platform": "ios",
+      "os": "26.5",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "multiline",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "你好",
+          "selection": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "password",
+          "text": "1295678",
+          "selection": [
+            3,
+            3
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "a\nb",
+          "selection": [
+            3,
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "collectedAt": "2026-10-11T01:53:13.430Z",
+      "platform": "ios",
+      "os": "26.5",
+      "development": false,
+      "type": "manual-input-observation",
+      "focused": "none",
+      "fields": [
+        {
+          "name": "plain",
+          "text": "你好",
+          "selection": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "password",
+          "text": "1295678",
+          "selection": [
+            3,
+            3
+          ]
+        },
+        {
+          "name": "restricted",
+          "text": "",
+          "selection": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "multiline",
+          "text": "a\nb",
+          "selection": [
+            3,
+            3
+          ]
+        }
+      ]
+    }
+  ]
+}
