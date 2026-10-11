@@ -1,5 +1,11 @@
 # Native feature assessment
 
+The working tree now adds an opt-in [Picture cache](native-runtime.md#picture-caching-unreleased).
+Its static UI/text/Graphics comparisons use independent fixtures and build
+identities in [native-picture-cache-2026-10-11.json](native-picture-cache-2026-10-11.json). They do not replace the
+historical live-Spine or shared-pose-cache measurements below. Publication and
+physical-device performance acceptance remain separate.
+
 The later opt-in [Spine shared-cache experiment](native-spine-shared-cache.md)
 has separate Release records in `native-spine-cache-2026-10-11.json`. Its sampled
 player leaves the live SDK path unchanged. The live-pose distributions and build

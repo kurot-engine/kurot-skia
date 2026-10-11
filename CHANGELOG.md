@@ -1,8 +1,16 @@
 # Changelog
 
+## Unreleased
+
+- Add opt-in native `NativePictureCache` subtree command recordings with explicit invalidation/disposal. Preserve ordinary per-child opacity; root placement normally reuses recordings, while external mask relationships, effective alpha/tint and content changes rebuild them.
+- Observe Core dirty/structure notifications without editing SDK sources; check recorded sorting state, font revision and source identity/content versions. Release owned Pictures on invalidation, disabled/absent caches, budget eviction and renderer disposal; failed recordings are never retained.
+- Keep Picture recordings separate from image captures and Graphite frame transactions. Expose count/draw-operation limits and diagnostic stats without claiming these are GPU bytes or hardware draw calls.
+- Add native GPU pixel/lifetime/failure regressions and separate stationary/transformed UI, text and Graphics comparisons against ordinary and image-cached drawing. Core/UI/Game/Spine requirements and the registry Demo are unchanged.
+- Verify 45 Node tests and the complete iOS 26.5 / Android API 36 Release suites on the recorded Metal / auto-selected llvmpipe backends. Preserve original benchmark/oracle contracts. Record separate comparison distributions, cold timings, source/build identities and the explicit SwiftShader batching-oracle failure in `docs/native-picture-cache-2026-10-11.json`. Retain opt-in behavior: reduced command recording does not ensure lower total frame time.
+
 ## 0.1.4 — 2026-10-11
 
-Native rendering organization and stable notification callbacks, prepared for publication.
+Native rendering organization and stable notification callbacks. Published and registry/compiled-output verified on 2026-10-11.
 
 ### Changed
 
@@ -14,7 +22,7 @@ Native rendering organization and stable notification callbacks, prepared for pu
 ### Compatibility and adoption
 
 - Public package entries/types, Core 2.5.3, UI 3.5.0 and Skia 3.3.0 requirements, and resource/KUI formats are unchanged. No Core/UI/Game/Spine or other engine SDK release is required.
-- After publication, the Demo's exact registry 0.1.3 declaration needs an explicit update to adopt 0.1.4. Compatible 0.1.x ranges may adopt through their installations/locks. Restart Metro with `--clear`; rebuild embedded Release bundles. Existing development builds containing Skia 3.3.0 can be reused.
+- The Demo now installs exact registry 0.1.4 with a matching lock. Other compatible 0.1.x consumers may adopt through their installations/locks. Restart Metro with `--clear`; rebuild embedded Release bundles. Existing development builds containing Skia 3.3.0 can be reused.
 - The independent native test host retains its explicit `file:` dependency and refreshes that installation for source validation. Generator-only adoption is optional; engine packages, templates/examples and other applications are unaffected.
 
 ### Release verification

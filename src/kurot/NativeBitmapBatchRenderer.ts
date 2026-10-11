@@ -5,6 +5,7 @@ import type { SkCanvas, SkImage, SkRSXform, SkRect } from 'react-native-skia';
 import { getSkiaImage } from './textures.js';
 import { NativeNineSliceRenderer } from './nine-slice.js';
 import { NativeImagePaint } from './NativeImagePaint.js';
+import { getNativePictureCache } from './NativePictureCache.js';
 
 interface SpriteEntry {
 	transform: SkRSXform;
@@ -22,6 +23,7 @@ function eligible(object: DisplayObject | undefined): Bitmap | undefined {
 		object.$maskRect ||
 		object.$scrollRect ||
 		object.$displayList ||
+		getNativePictureCache(object) ||
 		object.$filters.length ||
 		object.$children?.length ||
 		object.blendMode !== 'source-over' ||

@@ -9,6 +9,7 @@ import type { SharedMeshGeometry } from './NativeMeshGeometryPool.js';
 import { nativeBlendMode } from './blend.js';
 import { getSkiaImage } from './textures.js';
 import { sharedSpineGeometryKey } from './spine-cache-data.js';
+import { getNativePictureCache } from './NativePictureCache.js';
 
 interface MeshCache {
 	vertices: SkVertices[];
@@ -32,6 +33,7 @@ function eligible(object: DisplayObject): Mesh | undefined {
 		object.$maskRect ||
 		object.$scrollRect ||
 		object.$displayList ||
+		getNativePictureCache(object) ||
 		object.$filters.length ||
 		object.$children?.length ||
 		object.anchorOffsetX ||

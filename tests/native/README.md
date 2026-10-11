@@ -66,6 +66,21 @@ sample-time GPU oracles and count actual JSI vertex allocations across frames;
 sampling is not asserted equal to continuous poses. See the
 [cache guide](../../docs/native-spine-shared-cache.md) for API/ownership limits.
 
+The Picture suite adds GPU comparisons with ordinary drawing for text/Graphics,
+overlap opacity, transforms, sorting, external masks, fonts and resources. It checks
+actual Picture disposal, replay after primitive eviction, nested ownership,
+count/draw limits, failed recordings and restoring existing dirty callbacks.
+Separate `picture-benchmark` records compare the same 16 UI skins, 100 TextFields
+and 160 Graphics objects (nine fills each) in ordinary/image/Picture modes, both
+stationary and continuously transformed. Every fixture uses the same 720×1280
+target, 30 warm-up frames and 120 samples; cold record/GPU-wait timing is separate.
+Picture fixtures assert exactly one rebuild. Their stats count owned recordings
+and adapter operations, not hardware draw calls or native memory bytes.
+External mask coverage includes changes inside a mask container and transforms
+of its ancestors. Final Release distributions and exact passing backends are in
+[the Picture measurement record](../../docs/native-picture-cache-2026-10-11.json);
+explicit SwiftShader's existing batching-oracle failure is recorded separately.
+
 For production JavaScript diagnostics, use:
 
 ```sh
@@ -107,8 +122,9 @@ It accepts synthetic test records at `127.0.0.1:9085` and appends them under the
 ignored `tests/native/results/` directory. For Android emulator runs, configure
 `adb reverse tcp:9085 tcp:9085` and the corresponding Metro port. iOS simulators
 can reach the Mac's loopback directly. The collector is not an application service
-and does not ship in npm. A complete run contains functional pass, 18 benchmark
-records, three native-view records and final complete pass. Failed or interrupted
+and does not ship in npm. A complete run contains functional pass, the original 18 benchmark
+records, 18 separately typed picture-benchmark records, three native-view records
+and final complete pass. Failed or interrupted
 runs must not be used as completed acceptance records.
 
 For isolated mounted input/view debugging, prefix the development command with

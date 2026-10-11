@@ -1,6 +1,6 @@
 # Kurot Skia：适配与测试计划
 
-更新日期：2026-10-11。0.1.4 准备发布，收入原生渲染组织调整和保留场景的回调更新；0.1.3 已发布原生特性补全和可选的共享 Spine 动画缓存。完整能力矩阵、原生测试和性能结果见 [native-feature-assessment.md](native-feature-assessment.md)，缓存测量见 [native-spine-shared-cache.md](native-spine-shared-cache.md)。发布和 Demo 的 npm 采用需要单独检查；历史测试数据保留实际测试版本和构建摘要。
+更新日期：2026-10-11。0.1.4 已发布，收入原生渲染组织调整和保留场景的回调更新；0.1.3 已发布原生特性补全和可选的共享 Spine 动画缓存。完整能力矩阵、原生测试和性能结果见 [native-feature-assessment.md](native-feature-assessment.md)，缓存测量见 [native-spine-shared-cache.md](native-spine-shared-cache.md)。发布和 Demo 的 npm 采用需要单独检查；历史测试数据保留实际测试版本和构建摘要。
 
 本文件记录当前能力、需要验证的假设和后续适配候选，不代表已经承诺支持全部功能。实际完成情况以测试结果和代码为准。
 
@@ -45,7 +45,17 @@ DragonBones 的图像、旋转/trim 图集、加权/形变网格、嵌套骨架�
 
 通知回调通过已提交的引用更新：替换 onStats/onError 保留场景，工厂或视口变化仍重建。调整后库构建、45 项 Node 测试、独立宿主类型检查和零警告 lint 通过；重新构建的 iOS 26.5 Release 模拟器宿主通过完整功能/GPU 套件、18 个性能场景和三轮回调替换、输入与卸载检查。下述多平台性能基线保留原始测试身份；本次组织调整的原生复测覆盖 iOS 26.5。
 
+### 可选 Picture 缓存（尚未发布）
+
+工作树新增 NativePictureCache，通过 Skia 适配层接入现有 Core 脏标记，保留根节点局部命令、普通子项透明度及资源依赖。缓存失效、关闭、未使用、预算淘汰和 renderer 销毁时显式释放。根节点几何变换通常复用；alpha/tint、内容、排序、字体和资源变化重录。使用缓存树外部遮罩时，根节点或遮罩的世界矩阵变化、遮罩容器内部修改也重录。默认预算为 64 个直接持有的 Picture / 32,768 次适配层绘制操作，不声称等于 GPU 字节或实际 draw call。所有权和 API 见 [运行时指南](native-runtime.md#picture-caching-unreleased)。
+
+最终 iOS 26.5 Release / Android API 36 Release（原基线 `-gpu auto` / llvmpipe Vulkan）均通过完整 GPU/功能测试、原有 18 个性能场景、新增 18 个 Picture 对比及 3 个 RN 挂载生命周期检查。静态场景的重复命令录制成本下降，但总耗时收益依赖场景；持续变换文字未见稳定收益，模拟器总耗时存在明显波动。保留显式可选策略。最终数据与前期试验分开保留，冷启动成本、源码/构建摘要及独立 SwiftShader 合批像素失败见 [测量记录](native-picture-cache-2026-10-11.json)；真机性能和 Picture 原生内存量仍未测量。未 bump、发布或升级 npm Demo。
+
+独立宿主新增真实 GPU 像素、失效、释放、预算及失败重试检查，并把静态/变换 UI、文字和 Graphics 的三种绘制模式作为 18 个单独场景记录。原有 Spine/其他 18 个工作负载及历史测量不变。Core/UI/Game/Spine、资源格式和 npm Demo 不作更新；此功能尚未 bump 或发布。
+
 ## 性能验证
+
+本节保留 0.1.3 能力补全阶段的验收和测量。后续 0.1.4 组织调整及本次 Picture 的构建身份和结果分别记录；上述 Picture 章节不重标本节历史数据。
 
 本次源码验收：库构建、35/35 Node 测试、独立宿主类型检查和零警告 lint、iOS/Android 生产 JS 导出均通过。独立 iOS 模拟器 Release 与 Android arm64-v8a Release 测试包已编译安装；iOS 26.5、iOS 18.2 和 Android API 36 在 Release 客户端完成整套功能/像素检查、每平台 16 个预热后性能场景，以及 3 次实际 RN 视图焦点切换/卸载，不需要 Metro。48 个既有 GPU 九宫格用例未修改；新增 24 个 Bitmap 组合、4 个粒子图集边缘对照，以及独立 RenderTexture 抓图后主渲染器更新 Graphics、缓存容器和 Mesh 的像素回归；抓图不再消耗主画面的待更新标记。此前的未签名 iPhoneOS Release 编译也通过，未安装真机。
 

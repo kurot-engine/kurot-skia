@@ -1,7 +1,7 @@
 import type { DisplayObject } from '@kurot/core';
 import { SkiaRenderer } from '@kurot/skia';
 import { AlphaType, ColorType, Skia } from 'react-native-skia';
-import type { SkImage } from 'react-native-skia';
+import type { SkCanvas, SkImage } from 'react-native-skia';
 
 export function assert(condition: unknown, message: string): asserts condition {
     if (!condition) throw new Error(message);
@@ -19,13 +19,14 @@ export function imageFromPixels(width: number, height: number, pixels: Uint8Arra
     }
 }
 
-export function readGPU(object: DisplayObject, renderer: SkiaRenderer, width = 128, height = 128): Uint8Array {
+export function readGPU(object: DisplayObject, renderer: SkiaRenderer, width = 128, height = 128,
+    wrapCanvas: (canvas: SkCanvas) => SkCanvas = canvas => canvas): Uint8Array {
     const surface = Skia.Surface.MakeOffscreen(width, height, { colorSpace: 'srgb' });
     assert(surface, 'GPU allocation');
     try {
         const canvas = surface.getCanvas();
         canvas.clear(Skia.Color('transparent'));
-        renderer.render(object, canvas);
+        renderer.render(object, wrapCanvas(canvas));
         surface.flush(true);
         const image = surface.makeImageSnapshot();
         try {

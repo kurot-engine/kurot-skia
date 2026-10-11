@@ -33,6 +33,9 @@ import { ManualInput } from './ManualInput';
 import { runMeshBatchChecks } from './mesh-batch.test';
 import { SpineDemo } from './SpineDemo';
 import { runSpineCacheChecks } from './spine-cache.test';
+import { runPictureCacheChecks } from './picture-cache.test';
+import { runPictureLifecycleChecks } from './picture-cache-lifecycle.test';
+import { runPictureBenchmarks } from './picture-performance';
 
 const probeOnly = process.env.EXPO_PUBLIC_KUROT_PROBE_ONLY === '1';
 const inputOnly = process.env.EXPO_PUBLIC_KUROT_INPUT_ONLY === '1';
@@ -90,10 +93,13 @@ export function App(): ReactElement {
                 await runGalleryChecks();
                 await runFontChecks();
                 runRenderTextureChecks();
+                runPictureCacheChecks();
+                runPictureLifecycleChecks();
                 console.info('KUROT_FUNCTIONAL_PASS');
                 await reportResult({ type: 'functional', result: 'pass' });
                 if (mounted) setResult('PASS · functional tests\nRunning GPU performance benchmarks…');
                 await runBenchmarks(() => mounted);
+                await runPictureBenchmarks(() => mounted);
             } finally {
                 renderer.dispose();
             }

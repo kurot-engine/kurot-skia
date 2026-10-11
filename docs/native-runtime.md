@@ -14,7 +14,7 @@ Keep the Node entries out of application runtime imports. The runtime entry does
 
 ## Install in an application
 
-After publication, install 0.1.4 as a runtime dependency in the Expo application. It adds stable notification callbacks and internal rendering organization, retaining 0.1.3 native Mesh/game/UI support, shared Spine caches and native nine-slice rendering:
+Install published 0.1.4 as a runtime dependency in the Expo application. It adds stable notification callbacks and internal rendering organization, retaining 0.1.3 native Mesh/game/UI support, shared Spine caches and native nine-slice rendering:
 
 ```sh
 # In the application
@@ -117,7 +117,135 @@ modules are internal; applications keep using `KurotView` and `SkiaRenderer`.
 Core's ticker remains the frame source. Background resume resets delta/statistics
 time, and a failed loop stays stopped until its scene is recreated. This
 organization preserves continuous rendering, display semantics and the existing
-cache budgets. It adds no static-scene detection, Picture cache or new backend API.
+cache budgets. Version 0.1.4 adds no static-scene detection, Picture cache or new backend API.
+The working tree adds the opt-in Picture cache described below.
+
+## Picture caching (unreleased)
+
+The working tree adds `NativePictureCache`; published 0.1.4 does not contain it.
+It is an explicit native option, independent of Core's `cacheAsTexture()` image
+captures. Core/UI/Game/Spine sources and version requirements remain unchanged.
+Use the independent local-file host when testing this feature.
+
+```ts
+import { NativePictureCache } from '@kurot/skia';
+
+const commands = new NativePictureCache(panel);
+// Ordinary setters invalidate automatically. Direct mutable data edits need:
+commands.invalidate();
+// On scene disposal, or when returning this subtree to ordinary drawing:
+commands.dispose();
+```
+
+The renderer records local subtree drawing commands into `SkPicture` and replays
+under the current root matrix, anchor and outer clips/compositing. Root translation,
+rotation and scale normally reuse commands; bitmap sources still have their own
+pixel resolution. A descendant mask outside the cached tree depends on the root's
+world matrix and the mask's world matrix, so moving either tree re-records its
+relative mask placement. Dirty notifications from a mask container's descendants
+also invalidate its users. Effective
+alpha/tint are recorded and changes rebuild, preserving ordinary per-child opacity
+and overlapping items. A new group-opacity layer is not inserted just to fade a Picture.
+A root cannot simultaneously select Picture and image caching; this fails explicitly.
+
+Native dirty observers chain the existing Core callbacks and restore them when
+the last handle is disposed. Descendant dirty notifications, root content changes,
+structure changes and mask users invalidate recordings. Successful native content
+drawing consumes `$renderDirty`; placement-only changes keep it clear. Sorting
+metadata is checked because Core's zIndex setter only sets `$sortDirty`. Font
+revision and unique BitmapData source identity/content versions are checked,
+including off-stage resources. Existing font layout readiness still requires
+`invalidateTextMetrics()` on affected fields. Direct edits to graphics/mesh/particle
+or other mutable data without a Core notification require `commands.invalidate()`.
+A static cached subtree does not evaluate or skip its application's animation updates.
+
+Each renderer owns its Pictures. Invalidation/disabling releases them immediately;
+absent roots are evicted at frame end, and renderer disposal releases every owned
+entry. Replacement publishes only a complete recording. A failed recording retains
+no Picture and can retry. Nested Pictures/native images may retain their own native
+references after their JS wrappers are disposed; GPU tests cover replay after
+primitive-cache eviction and eviction before synchronous frame completion.
+Caller-owned images must be disposed after their associated caches/BitmapData;
+directly disposing an SkImage wrapper is not a Core resource notification.
+
+Defaults retain at most 64 directly owned Pictures and 32,768 recorded adapter draw
+operations per renderer. Advanced imperative renderers accept these limits as their
+fourth constructor argument, `{ maxPictures, maxRecordedDraws }`. Oversized recordings
+can draw for the current frame but are immediately evicted. `pictureCacheStats`
+reports directly owned picture count, recorded adapter draws, rebuilds, hits and
+evictions. These are workload limits, not a byte/GPU-memory budget;
+nested native references, retained images and temporary effect layers are excluded.
+RN Skia 3.3.0 does not expose Picture's native byte estimator to JavaScript. The
+existing `estimatedCacheBytes` continues to count image captures only.
+
+Picture replay avoids repeated JS traversal/JSI emission on a hit, but Skia still
+executes the recorded operations. `draws` counts adapter operations; one Picture
+replay is not one hardware draw call. Image captures also skip traversal and reuse
+finished pixels. Prefer measuring both for a specific static subtree; frequent
+geometry/content changes can make re-recording expensive.
+
+The independent host adds stationary and moving/scaling/rotating comparisons for
+16 original UI skins, 100 TextFields and 160 Graphics shapes (nine fills each), in
+ordinary, image and Picture modes. Each mode gets the same authored population,
+720×1280 GPU target, density 2, 30 warm-up frames and 120 measured frames. Cold
+record/GPU-wait timing is recorded separately. Static Picture fixtures require
+exactly one recording, even throughout root transform changes. Original 18
+performance fixtures and their historical records remain unchanged. Timings are
+JS-thread record plus synchronous offscreen GPU wait, not presented phone FPS.
+
+### Release measurements — 2026-10-11
+
+Both final production Hermes builds passed their complete GPU/functional suites,
+18 original benchmarks, 18 separate Picture comparisons and three mounted RN
+callback/input/cleanup probes. The iOS host was iPhone 17 Pro / iOS 26.5 on Mac
+Metal. Android was Small_Phone / API 36 with `-gpu auto`, selecting Dawn Vulkan
+on llvmpipe LLVM 21.1.4. These are simulator/emulator results, with one active
+test client and uncontrolled desktop load, not physical-device acceptance.
+
+Static total time p95, milliseconds (update + recording + synchronous GPU wait):
+
+| Host | Scene | Ordinary | Image cache | Picture cache |
+| --- | --- | ---: | ---: | ---: |
+| iOS | 16 UI skins | 8.634 | 3.136 | 4.842 |
+| iOS | 100 TextFields | 7.762 | 5.978 | 5.218 |
+| iOS | 160 Graphics shapes | 13.465 | 3.253 | 7.121 |
+| Android | 16 UI skins | 4.379 | 3.956 | 3.704 |
+| Android | 100 TextFields | 5.697 | 5.206 | 4.268 |
+| Android | 160 Graphics shapes | 43.209 | 3.568 | 17.860 |
+
+Picture lowers repeated recording cost in these static cases. For example,
+iOS UI recording p95 falls from 4.266 to 1.305 ms, and Android Graphics from
+9.774 to 0.887 ms. Native replay still costs time: moving/scaling/rotating iOS
+text has no established total-time gain with Picture (8.562 versus 8.410 ms
+ordinary; image is 3.800 ms). Image has the lowest steady-state recording cost
+in all fixtures. Static text happens to have a lower total with Picture than
+image in this trial; no single mode wins every total-time comparison.
+
+Complete preliminary trials before the external-mask completion are retained
+with separate source/build identities. Their moving iOS text was slower with
+Picture (10.043 versus 6.912 ms ordinary); Android static Graphics was essentially
+unchanged (21.215 versus 21.540 ms). The final Android Graphics totals above vary
+substantially from that preliminary run, especially in GPU wait on the software
+driver. This is evidence of simulator/desktop timing variability, not a stable
+acceleration ratio. Controlled repeated device trials are needed to establish
+total-time gains; close differences are not established improvements.
+
+All six Picture fixtures per host recorded once and hit 150 times, including
+root transforms. Picture retains vector/text commands across scale changes;
+images embedded in them retain their source pixel resolution. Image captures
+use about 6.88 MiB for this UI, 2.96 MiB for text and 2.87 MiB for Graphics.
+Picture avoids those full-rectangle raster captures, but its native retained
+memory was not measured. Keep it opt-in and choose per subtree after measuring.
+
+An initial Android run with explicit `-gpu swiftshader` failed the existing
+bitmap-batching pixel oracle before any Picture cache was enabled (alpha 231
+versus 235, tolerance 2). The same APK passed with the original `-gpu auto`
+configuration above. No oracle was relaxed; explicit SwiftShader is outside
+this passing acceptance. This does not establish how the old library behaves
+on that backend.
+
+[Full distributions, cold timings, diagnostics and source/build identities](native-picture-cache-2026-10-11.json)
+retain the final runs separately from preliminary trials and earlier Spine data.
 
 ## Connect generated resources and UI
 
@@ -136,6 +264,7 @@ For UI, retain project-owned setup that installs an `IAssetAdapter` backed by th
 
 - `KurotView`, `KurotViewProps`, `NativeScene`, `FrameStats`: native canvas and scene lifecycle.
 - `SkiaRenderer`: imperative rendering into a provided `SkCanvas`; owns Graphics hit testing and text/path/nine-slice caches. Dispose it when finished.
+- Unreleased: `NativePictureCache`, `NativePictureCacheLimits`, `NativePictureCacheStats`: opt-in subtree command ownership, renderer retention limits and diagnostics. Dispose each handle with its scene.
 - `NativeTouch`, `createViewport`, `Viewport`: input forwarding and logical coordinate mapping.
 - `createSkiaBitmapData`, `createSkiaTexture`, `getSkiaImage`: bind native images to Core geometry. The loader transfers image ownership; `createSkiaTexture()` leaves the image owned by its caller.
 - `registerNativeAssets`, `getNativeAsset`, `NativeAsset`: register/query the application's static JSON/text/image table. The current registry is process-wide; scoped registration is future work.

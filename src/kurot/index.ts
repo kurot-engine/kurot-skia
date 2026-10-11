@@ -1,6 +1,8 @@
 export { KurotView } from './KurotView.js';
 export type { KurotViewProps, NativeScene, FrameStats } from './KurotView.js';
 export { SkiaRenderer } from './SkiaRenderer.js';
+export { NativePictureCache } from './NativePictureCache.js';
+export type { NativePictureCacheLimits, NativePictureCacheStats } from './NativePictureCacheRenderer.js';
 export { NativeTouch } from './NativeTouch.js';
 export { createSkiaTexture, createSkiaBitmapData, getSkiaImage } from './textures.js';
 export { registerNativeAssets, getNativeAsset } from './native-assets.js';

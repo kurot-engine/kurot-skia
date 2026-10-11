@@ -11,6 +11,8 @@ import { NativeEffects } from './NativeEffects.js';
 import { NativeGraphicsRenderer } from './NativeGraphicsRenderer.js';
 import { NativeMeshRenderer } from './NativeMeshRenderer.js';
 import { NativeParticleRenderer } from './NativeParticleRenderer.js';
+import { NativePictureCacheRenderer } from './NativePictureCacheRenderer.js';
+import type { NativePictureCacheLimits, NativePictureCacheStats } from './NativePictureCacheRenderer.js';
 import { NativeTextRenderer } from './NativeTextRenderer.js';
 import { nativeBlendMode } from './blend.js';
 
@@ -29,14 +31,17 @@ export class SkiaRenderer {
 	private readonly maskPaint = Skia.Paint();
 	private readonly text = new NativeTextRenderer();
 	private readonly drawing = new Set<DisplayObject>();
+	private readonly pictures: NativePictureCacheRenderer;
 
 	public constructor(
 		private readonly resolution = 1,
 		private readonly ownsHitTests = true,
 		private readonly batchPrimitives = true,
+		pictureCacheLimits: NativePictureCacheLimits = {},
 	) {
 		if (!Number.isFinite(resolution) || resolution <= 0)
 			throw new RangeError('Native render resolution must be positive.');
+		this.pictures = new NativePictureCacheRenderer(pictureCacheLimits);
 		this.maskPaint.setBlendMode(BlendMode.DstIn);
 		if (!ownsHitTests) return;
 		setGraphicsHitTest((graphics, x, y) => this.graphics.hitTest(graphics, x, y));
@@ -45,6 +50,10 @@ export class SkiaRenderer {
 
 	public get estimatedCacheBytes(): number {
 		return this.cache.estimatedBytes;
+	}
+
+	public get pictureCacheStats(): NativePictureCacheStats {
+		return this.pictures.stats;
 	}
 
 	public render(stage: Stage | DisplayObject, canvas: SkCanvas): number {
@@ -70,6 +79,7 @@ export class SkiaRenderer {
 		this.mesh.dispose();
 		this.particles.dispose();
 		this.cache.dispose();
+		this.pictures.dispose();
 		this.effects.dispose();
 		this.maskPaint.dispose();
 		this.text.dispose();
@@ -82,6 +92,7 @@ export class SkiaRenderer {
 		this.mesh.beginFrame();
 		this.particles.beginFrame();
 		this.cache.beginFrame();
+		this.pictures.beginFrame();
 		this.effects.beginFrame();
 		this.text.beginFrame();
 		try {
@@ -92,6 +103,7 @@ export class SkiaRenderer {
 			this.mesh.endFrame();
 			this.particles.endFrame();
 			this.cache.endFrame();
+			this.pictures.endFrame();
 			this.effects.endFrame();
 			this.text.endFrame();
 			this.graphics.endFrame();
@@ -146,9 +158,10 @@ export class SkiaRenderer {
 				(object.blendMode !== 'source-over' && (object.$renderObjectType !== 2 || object.$displayList));
 			if (layered) canvas.saveLayer(this.effects.get(object));
 			try {
-				const cached = this.cache.draw(object, canvas, alpha, tint, this.resolution, target =>
-					this.drawContent(object, target, 1, tint),
-				);
+				const commands = this.pictures.draw(object, canvas, alpha, tint,
+					target => this.drawContent(object, target, alpha, tint));
+				const cached = commands ?? this.cache.draw(object, canvas, alpha, tint, this.resolution,
+					target => this.drawContent(object, target, 1, tint));
 				let count = cached ?? this.drawContent(object, canvas, alpha, tint);
 				if (displayMask) {
 					const relative = object.$getInvertedConcatenatedMatrix().clone();
@@ -239,6 +252,7 @@ export class SkiaRenderer {
 				index++;
 			}
 		}
+		object.$renderDirty = false;
 		return count;
 	}
 
