@@ -8,7 +8,7 @@ Turn an existing `resource.json`, local assets and KUI XML skins into a static T
 
 The package provides a React Native runtime, a Metro resolver helper, a Node CLI and a build-script API. The sibling `Kurot-Skia-Demo` uses the library renderer and keeps its scenes and project initialization. Applications can consume the npm release; use a local dependency when developing the library itself.
 
-Source version 0.2.0 targets Core 3.2, UI 5.1, CLI 5 and Expo SDK 58. It has not been published; the separate Demo still uses npm 0.1.5. Use the local test host to try this checkout. Registry installation commands below apply after 0.2.0 is published.
+[Version 0.2.0 is on npm](https://www.npmjs.com/package/@kurot/skia/v/0.2.0). It targets Core 3.2, UI 5.1, CLI 5 and Expo SDK 58. The [Expo Demo](https://github.com/kurot-engine/kurot-skia-demo) installs this registry release.
 
 Version 0.1.3 adds native Mesh, Game/Spine/DragonBones rendering, broader UI/text/input support and an opt-in shared Spine animation cache. It retains 0.1.2's native `drawImageNine` and cached atlas crops. The same 48 GPU cases pass on iOS 18.2/26.5 and Android API 36 simulations, covering fractional transforms, atlas density/trim, smoothing and opacity. Crops copy source pixels on first use and retain the source alpha representation; subsequent draws reuse them.
 
@@ -80,9 +80,9 @@ pnpm exec expo install '@kurot/skia@^0.2.0' --dev --pnpm
 
 For native rendering, omit `--dev` so the library is a runtime dependency, then follow the [native runtime guide](docs/native-runtime.md). Applications using the npm package need no library checkout; use the installed resource-watch commands below.
 
-The Demo consumes npm `@kurot/skia@0.1.5`. Its `pnpm dev --ios` or `pnpm dev --android` watches project resources and starts Expo. To test unpublished library changes, use an application installation explicitly declaring a local `file:` dependency and run the library's development supervisor. An existing native development build is required. See [library development](docs/development.md) for setup, synchronization and cleanup.
+The Demo consumes npm `@kurot/skia@0.2.0`. Its `pnpm dev --ios` or `pnpm dev --android` watches project resources and starts Expo. To test unpublished library changes, use an application installation explicitly declaring a local `file:` dependency and run the library's development supervisor. An existing native development build is required. See [library development](docs/development.md) for setup, synchronization and cleanup.
 
-After publication, install the 0.2 series, regenerate entries, rebuild the native client and restart Metro with `--clear`. The [native guide](docs/native-runtime.md#install-in-an-application) lists the supported host ranges and the React renderer exception. A client built for 0.1.x cannot load the new Skia native module.
+To migrate from 0.1.x, install the 0.2 series, regenerate entries, rebuild the native client and restart Metro with `--clear`. The [native guide](docs/native-runtime.md#install-in-an-application) lists the supported host ranges and the React renderer exception. A client built for 0.1.x cannot load the new Skia native module.
 
 Native pixel reads are asynchronous: use `NativeRenderTexture.readPixel32()`, `hitTestNative()`, and [prepare manually created atlases](docs/native-runtime.md#migrating-native-pixel-apis-to-02) before drawing subframes.
 

@@ -14,7 +14,7 @@ Keep the Node entries out of application runtime imports. The runtime entry does
 
 ## Install in an application
 
-Version 0.2.0 is prepared in source. Use the local test app until it is published; after publication, install it as a runtime dependency:
+Install the published 0.2 series as a runtime dependency:
 
 ```sh
 # In the application

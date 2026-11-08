@@ -8,7 +8,7 @@
 
 本包提供 React Native 运行时、Metro resolver、Node CLI 和构建脚本 API。相邻的 `Kurot-Skia-Demo` 已通过库使用渲染适配，并保留场景与项目初始化。应用可以使用 npm 发布包，开发库本身时使用本地依赖。
 
-源码版本 0.2.0 面向 Core 3.2、UI 5.1、CLI 5 和 Expo SDK 58，目前尚未发布。独立 Demo 仍使用 npm 0.1.5；现在可以通过本仓库内的测试 App 试用。下文 npm 安装命令在 0.2.0 发布后可用。
+[0.2.0 已发布到 npm](https://www.npmjs.com/package/@kurot/skia/v/0.2.0)，面向 Core 3.2、UI 5.1、CLI 5 和 Expo SDK 58。[独立 Demo](https://github.com/kurot-engine/kurot-skia-demo) 直接使用这个 npm 包。
 
 0.1.3 增加原生 Mesh、Game/Spine/DragonBones 绘制、更完整的 UI/文字/输入支持和可选的共享 Spine 动画缓存。保留 0.1.2 的原生 `drawImageNine` 和缓存图集子图。同一组 48 项 GPU 用例在 iOS 18.2/26.5 和 Android API 36 模拟环境通过，覆盖分数变换、图集密度/trim、过滤和透明度。首次使用复制源像素并保留原图的 alpha 表示，后续绘制复用缓存。
 
@@ -53,9 +53,9 @@ pnpm exec expo install '@kurot/skia@^0.2.0' --dev --pnpm
 
 接入原生渲染时去掉 `--dev`，将库作为运行时依赖，再按[原生运行时指南](native-runtime.md)配置。使用 npm 包的应用不需要库源码，直接使用下文的安装包资源监听命令。
 
-Demo 使用 npm `@kurot/skia@0.1.5`；它的 `pnpm dev --ios` 或 `pnpm dev --android` 监听项目资源并启动 Expo。验证尚未发布的库改动时，使用明确声明本地 `file:` 依赖的应用安装，再运行库的开发工具。需要已有原生 development build。初次安装、同步与退出清理详见[库开发指南](development.md)。
+Demo 使用 npm `@kurot/skia@0.2.0`；它的 `pnpm dev --ios` 或 `pnpm dev --android` 监听项目资源并启动 Expo。验证尚未发布的库改动时，使用明确声明本地 `file:` 依赖的应用安装，再运行库的开发工具。需要已有原生 development build。初次安装、同步与退出清理详见[库开发指南](development.md)。
 
-发布后，升级到 0.2 系列，重新生成入口，重新构建原生客户端，再使用 `--clear` 重启 Metro。依赖范围和 React 渲染器的例外见[原生指南](native-runtime.md#install-in-an-application)。0.1.x 的旧客户端不能直接加载新版 Skia 原生模块。
+从 0.1.x 迁移时，先升级到 0.2 系列，重新生成入口，重新构建原生客户端，再使用 `--clear` 重启 Metro。依赖范围和 React 渲染器的例外见[原生指南](native-runtime.md#install-in-an-application)。0.1.x 的旧客户端不能直接加载新版 Skia 原生模块。
 
 新版原生像素读取需要 `await`：截图使用 `NativeRenderTexture.readPixel32()`，像素命中使用 `hitTestNative()`。手动创建的图集需要[先准备像素](native-runtime.md#migrating-native-pixel-apis-to-02)再绘制子帧。
 

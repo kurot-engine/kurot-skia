@@ -1,8 +1,8 @@
 # Kurot-Skia
 
 Source version 0.2.0 targets the SDK and native host ranges in package.json.
-The separate Demo uses published 0.1.5; change its dependency only after a new
-release is available. Check the registry before documenting publication.
+The separate Demo consumes the published 0.2 series. Check the registry and
+release tag before documenting a new version.
 Version 0.1.5 adds opt-in NativePictureCache commands, separate
 from cacheAsTexture images. Read docs/native-runtime.md#picture-caching
 before changing dirty observers, per-child opacity, source dependencies or
@@ -62,7 +62,7 @@ changes preserve the scene; factory/viewport changes recreate it. Keep continuou
 Core ticker rendering and existing cache/batch contracts. See the internal
 responsibility table in docs/native-runtime.md before changing these boundaries.
 
-The Demo consumes npm `@kurot/skia@0.1.5` and calls its installed
+The Demo consumes npm `@kurot/skia@0.2.0` and calls its installed
 `kurot-project` binary. Keep compiled output in the package's `files` list.
 The npm release is public. `prepack` cleans and rebuilds shipped output, and
 `prepublishOnly` runs tests. Verify registry availability before changing the

@@ -2,7 +2,7 @@
 
 Use Node 22.22+ on the 22 LTS line. Both installs use the pnpm version in package.json; run `pnpm install --frozen-lockfile` in each project to reproduce the recorded dependency versions. Builds and Node tests use the TypeScript 7 CLI. The generator and incremental development supervisor use the TypeScript 6 compiler API, which TypeScript 7 does not expose at its root. The Expo lint stack uses ESLint 9 and TypeScript 6 within its plugin peer ranges.
 
-The library and Expo Demo remain separate projects and repositories. This guide describes source development for `@kurot/skia` 0.1.5 using an installed local file package.
+The library and Expo Demo remain separate projects and repositories. This guide describes source development for `@kurot/skia` 0.2.0 using an installed local file package.
 
 Applications consuming the npm release use the installed `kurot-project` command and package entries without this supervisor. The Demo uses npm `@kurot/skia`; its `pnpm dev` watches project resources and starts Expo. This guide requires an explicit local `file:` dependency. Use a separate Demo installation to validate unpublished fixes while keeping the original registry installation intact.
 

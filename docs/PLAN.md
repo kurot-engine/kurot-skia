@@ -1,6 +1,6 @@
 # Kurot Skia：适配与测试计划
 
-更新日期：2026-11-08。当前源码 0.2.0 升级到 Core 3.2、UI 5.1、CLI 5、Expo 58 和原生 Skia 3.9，尚未发布。npm 和独立 Demo 仍为 0.1.5。[原生迁移指南](native-runtime.md#migrating-native-pixel-apis-to-02)说明像素读取、图集准备和客户端重建。下文的 0.1.x 基线、[历史性能记录](native-feature-assessment.md)与[共享 Spine 缓存测量](native-spine-shared-cache.md)保留各自实际验证的版本。
+更新日期：2026-11-08。当前源码 0.2.0 升级到 Core 3.2、UI 5.1、CLI 5、Expo 58 和原生 Skia 3.9。0.2.0 已发布到 npm，独立 Demo 使用这个发布包。[原生迁移指南](native-runtime.md#migrating-native-pixel-apis-to-02)说明像素读取、图集准备和客户端重建。下文的 0.1.x 基线、[历史性能记录](native-feature-assessment.md)与[共享 Spine 缓存测量](native-spine-shared-cache.md)保留各自实际验证的版本。
 
 本文件记录当前能力、需要验证的假设和后续适配候选，不代表已经承诺支持全部功能。实际完成情况以测试结果和代码为准。
 

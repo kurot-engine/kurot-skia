@@ -2,15 +2,19 @@
 
 ## 0.2.0 — 2026-11-08
 
-Prepared in source; not published to npm.
+Published on 2026-11-08 at 13:24:31 UTC as [npm latest](https://www.npmjs.com/package/@kurot/skia/v/0.2.0). The annotated [release tag](https://github.com/kurot-engine/kurot-skia/releases/tag/%40kurot/skia%400.2.0) and registry `gitHead` identify `c6dda79bdaeee68b4b90e5fc8d21360bf6e3a4b1`.
 
-- Adopt Core 3.2.3, UI 5.1.2, CLI 5.0.0 and ui-document 0.14.0, and move the private native app to Expo SDK 58, RN 0.88.1 and react-native-skia 3.9.1. Game, DragonBones and all four Spine adapters use their current compatible registry releases. The separate registry Demo stays on 0.1.5.
+The downloaded [tarball](https://registry.npmjs.org/@kurot/skia/-/skia-0.2.0.tgz) matches the registry SHA-512 (`sha512-O6VMvzWID2566swlGDM4hCh65Ff5pcfvvaqmjwKxt125quYUdiqNSjh9PnIOeDnwsNc+NiRoTUNVIy07yEaWOA==`). Packing the release checkout with npm reproduced that archive byte-for-byte. Compared with the previously tested pnpm pack, all 151 file paths and all 134 compiled file contents match. The npm archive retains `packageManager`, `prepack` and `prepublishOnly` in its manifest and stores the CLI as 0644 instead of 0755. The installed CLI was verified by regenerating the Demo's resources and skins.
+
+- Adopt Core 3.2.3, UI 5.1.2, CLI 5.0.0 and ui-document 0.14.0, and move the private native app to Expo SDK 58, RN 0.88.1 and react-native-skia 3.9.1. Game, DragonBones and all four Spine adapters use their current compatible registry releases. The independent Demo now installs this release from npm.
 - Declare compatible dependency ranges and keep exact installations in both pnpm locks. Metro checks the installed Core/UI against those same peer ranges. The native application's React stays at 19.3.0 to match RN's embedded renderer. Use Node 22.22+ on the 22 LTS line and rebuild the native client.
 - Skia GPU reads are asynchronous. Use `NativeRenderTexture.readPixel32()` and `hitTestNative()`. NativeTouch preserves event order and cancellation while waiting for pixels. Bundled images prepare their source-alpha bytes during loading; call `prepareNativeAtlas()` for a manually created atlas before drawing subframes.
 - Preserve Skia 3.9 pixel coverage: rotated or fractional sprite edges use the individual painter; pixel-aligned opaque sprites can still batch. Keep GPU reference comparisons at their original tolerances. Historical performance results apply to their recorded builds.
 - Use TypeScript 7 for compilation and the TypeScript 6 compiler API for KUI generation and the development supervisor. See [native API migration](docs/native-runtime.md#migrating-native-pixel-apis-to-02).
 
 Validation: Node 22 built both targets and passed 47 tests. The private app generated 20 assets and 17 skins, typechecked, linted and exported for both platforms. Freshly built iOS 26.5 and Android API 36 simulator clients passed the functional GPU suite, 18 general and 18 Picture performance fixtures per platform, and the mounted-view/focus/teardown checks. These were Debug native clients with production JavaScript; they do not establish physical-device or Release performance.
+
+Post-publication [Demo verification](https://github.com/kurot-engine/kurot-skia-demo/blob/6c701ce83543d065645322b954ea446b3a658820/docs/verification.md): the frozen install matched all 151 published files. The independent Demo rebuilt both native clients; its Release game ran on iOS 26.5 and Android API 36 simulators, and its Debug test entry passed all seven native suites on both platforms. The record includes the initial Android interaction miss and three passing cold starts of the same APK.
 
 ## 0.1.6 — 2026-10-28
 
