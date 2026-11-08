@@ -82,10 +82,11 @@ export class NativeTextRenderer {
 					ClipOp.Intersect,
 					true,
 				);
-				let y = getTextVerticalOffset(field) - field.getScrollYOffset();
+				const scrollY = field.type === TextFieldType.INPUT && field.multiline ? field.$inputScrollY : field.getScrollYOffset();
+				let y = getTextVerticalOffset(field) - scrollY;
 				for (let i = 0; i < lines.length; i++) {
 					const line = lines[i];
-					const hasInk = line.inkAscent + line.inkDescent > 0;
+					const hasInk = field.type === TextFieldType.DYNAMIC && line.inkAscent + line.inkDescent > 0;
 					const top = y + (hasInk ? line.baseline - line.inkAscent : 0);
 					const bottom = y + (hasInk ? line.baseline + line.inkDescent : line.height);
 					if (bottom > 0 && top < height) {

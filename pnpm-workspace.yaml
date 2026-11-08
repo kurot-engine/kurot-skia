@@ -1,0 +1,8 @@
+# Install dependencies explicitly; dev scripts use the installed packages.
+verifyDepsBeforeRun: false
+minimumReleaseAgeExclude:
+  - '@kurot/core@3.2.3'
+  - '@kurot/ui@5.1.2'
+  - '@kurot/cli@5.0.0'
+allowBuilds:
+  esbuild: false

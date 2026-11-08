@@ -41,7 +41,7 @@ export function registerFontMapping(name: string, path: string): void {
 	if (!buffer) throw new Error(`Native font data is not bundled or cached: ${path}`);
 	const data = Skia.Data.fromBytes(new Uint8Array(buffer));
 	try {
-		const face = Skia.Typeface.MakeFreeTypeFaceFromData(data);
+		const face = Skia.Typeface.MakeFromData(data);
 		if (!face) throw new Error(`Native font could not be decoded: ${path}`);
 		const next = Skia.TypefaceFontProvider.Make();
 		try {

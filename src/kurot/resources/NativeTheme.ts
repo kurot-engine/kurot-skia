@@ -27,7 +27,7 @@ export function registerNativeSkinModule(path: string, load: () => void | Promis
 }
 
 /**
- * Native port of UI 3.5.0's Theme registry and deferred skin assignment.
+ * Native port of host UI's Theme registry and deferred skin assignment.
  * Configuration is supplied by IThemeAdapter; skin modules are Metro imports.
  */
 export class Theme extends EventDispatcher {

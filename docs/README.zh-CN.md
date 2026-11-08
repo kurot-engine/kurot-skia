@@ -1,6 +1,6 @@
 # Kurot Skia
 
-`@kurot/skia` **0.1.5** — Kurot 的原生 Skia 渲染适配与资源/KUI 入口生成工具。
+`@kurot/skia` **0.2.0** — Kurot 的原生 Skia 渲染适配与资源/KUI 入口生成工具。
 
 [English](../README.md) · [原生运行时指南](native-runtime.md) · [库开发指南](development.md) · [适配与测试计划](PLAN.md) · [变更记录](../CHANGELOG.md)
 
@@ -8,11 +8,11 @@
 
 本包提供 React Native 运行时、Metro resolver、Node CLI 和构建脚本 API。相邻的 `Kurot-Skia-Demo` 已通过库使用渲染适配，并保留场景与项目初始化。应用可以使用 npm 发布包，开发库本身时使用本地依赖。
 
-0.1.5 已准备发布，包含可选 Picture 缓存、运行时目录整理和导出分组，目前尚未发布；下文的 0.1.5 安装命令在确认注册表可用后执行。0.1.4 已发布并于 2026-10-11 验证注册表包，Demo 仍安装精确的 npm 0.1.4。
+源码版本 0.2.0 面向 Core 3.2、UI 5.1、CLI 5 和 Expo SDK 58，目前尚未发布。独立 Demo 仍使用 npm 0.1.5；现在可以通过本仓库内的测试 App 试用。下文 npm 安装命令在 0.2.0 发布后可用。
 
 0.1.3 增加原生 Mesh、Game/Spine/DragonBones 绘制、更完整的 UI/文字/输入支持和可选的共享 Spine 动画缓存。保留 0.1.2 的原生 `drawImageNine` 和缓存图集子图。同一组 48 项 GPU 用例在 iOS 18.2/26.5 和 Android API 36 模拟环境通过，覆盖分数变换、图集密度/trim、过滤和透明度。首次使用复制源像素并保留原图的 alpha 表示，后续绘制复用缓存。
 
-**迁移：**从 0.1.2–0.1.4 升级无需修改源图几何、包入口、resource/KUI 格式或宿主版本。从 0.1.1 或更早版本升级时，源图区域和九宫格分割线必须落在整数物理像素上，中心区域需为正且位于帧内。2× 密度允许 0.5 的逻辑坐标；升级前需对齐任意小数物理分割线。缓存生命周期、首次复制成本及剩余真机测试见[原生验证与限制](native-runtime.md#validation-and-limits)。
+**迁移：**从 0.1.2–0.1.5 升级无需修改源图几何、包入口、resource/KUI 格式；原生宿主需要升级。从 0.1.1 或更早版本升级时，源图区域和九宫格分割线必须落在整数物理像素上，中心区域需为正且位于帧内。2× 密度允许 0.5 的逻辑坐标；升级前需对齐任意小数物理分割线。缓存生命周期、首次复制成本及剩余真机测试见[原生验证与限制](native-runtime.md#validation-and-limits)。
 
 接入原生渲染请先看[原生运行时指南](native-runtime.md)：把库放入运行时依赖，配置 `@kurot/skia/metro` 的 `createKurotResolver()`，再从 `@kurot/skia` 导入 `KurotView`。下文主要介绍资源/KUI 生成；只使用生成器的项目可以放入开发依赖。
 
@@ -24,7 +24,7 @@
 
 运行时实现 Bitmap 填充/tint/旋转和普通精灵批绘制、Mesh、BitmapText、粒子批绘制、混合/遮罩/内置滤镜、cacheAsTexture、RenderTexture、渐变/虚线、打包字体和 RN TextInput 桥。发布版 Game、Spine 4.0–4.3、DragonBones 使用共享原生绘制能力，原版 UI 皮肤仍交给 CLI 编译。这些功能通过 npm 包提供；开发库源码时才需要明确使用本地 `file:` 安装。
 
-[特性评估](native-feature-assessment.md) 记录完整覆盖、场景性能上限和待办。`tests/native/app` 是独立 GPU 测试宿主，含 UI gallery 和性能场景；`pnpm test` 只运行 Node 工具测试。Core/UI 源码、Web 工作流和 SDK 版本要求不变。
+[特性评估](native-feature-assessment.md) 记录完整覆盖、场景性能上限和待办。`tests/native/app` 是独立 GPU 测试宿主，含 UI gallery 和性能场景；`pnpm test` 只运行 Node 工具测试。已有性能报告对应各自记录的 SDK 和原生版本。
 
 Release 模拟器按 60 FPS / 16.67 ms 预算诊断，重负载仍有超预算场景。[iOS 键盘验收](native-input-acceptance.md) 记录实际拼音、密码和选区操作；真机性能及 Android 实际 IME 尚未验证。
 
@@ -36,26 +36,28 @@ Mesh 按原始顺序合批，几何数据完全相同的角色共享原生顶点
 
 ## 安装生成器
 
-生成器需要 Node.js >=20 和 pnpm。应用本身还有独立的平台要求；Demo 使用的 Expo SDK 57 需要 Node.js >=22.13（[Expo SDK 文档](https://docs.expo.dev/versions/v57.0.0/)）。
+建议使用 Node.js 22 LTS（22.22 起）和 pnpm。其他支持的 Node 版本范围见 package.json 的 engines。原生测试 App 使用 Expo SDK 58。
 
 在现有 Kurot 应用中安装生成器：
 
 ```sh
 # 在应用项目中
-pnpm add --save-dev '@kurot/skia@0.1.5'
+pnpm add --save-dev '@kurot/skia@^0.2.0'
 ```
 
 Expo 应用在这一步使用 [Expo 安装命令](https://docs.expo.dev/more/expo-cli/#install-dependencies)：
 
 ```sh
-pnpm exec expo install '@kurot/skia@0.1.5' --dev --pnpm
+pnpm exec expo install '@kurot/skia@^0.2.0' --dev --pnpm
 ```
 
 接入原生渲染时去掉 `--dev`，将库作为运行时依赖，再按[原生运行时指南](native-runtime.md)配置。使用 npm 包的应用不需要库源码，直接使用下文的安装包资源监听命令。
 
-Demo 使用 npm `@kurot/skia@0.1.4`；它的 `pnpm dev --ios` 或 `pnpm dev --android` 监听项目资源并启动 Expo。验证尚未发布的库改动时，使用明确声明本地 `file:` 依赖的应用安装，再运行库的开发工具。需要已有原生 development build。初次安装、同步与退出清理详见[库开发指南](development.md)。
+Demo 使用 npm `@kurot/skia@0.1.5`；它的 `pnpm dev --ios` 或 `pnpm dev --android` 监听项目资源并启动 Expo。验证尚未发布的库改动时，使用明确声明本地 `file:` 依赖的应用安装，再运行库的开发工具。需要已有原生 development build。初次安装、同步与退出清理详见[库开发指南](development.md)。
 
-发布后，使用 `pnpm exec expo install '@kurot/skia@0.1.5' --pnpm` 更新应用安装和 lockfile，再加 `--clear` 重启 Metro。此版本只改变 JavaScript 适配代码，已有包含 Skia 3.3.0 的 development build 可以复用；内嵌代码的 Release 应用需要重新构建。Core 2.5.3、UI 3.5.0、Skia 3.3.0 要求不变，resource/KUI 格式和生成入口不变。精确依赖旧版本的应用需显式更新声明，兼容的 0.1.x 范围可以更新安装和 lockfile 来采用。只用生成器的项目可独立选择更新，没有原生迁移要求。
+发布后，升级到 0.2 系列，重新生成入口，重新构建原生客户端，再使用 `--clear` 重启 Metro。依赖范围和 React 渲染器的例外见[原生指南](native-runtime.md#install-in-an-application)。0.1.x 的旧客户端不能直接加载新版 Skia 原生模块。
+
+新版原生像素读取需要 `await`：截图使用 `NativeRenderTexture.readPixel32()`，像素命中使用 `hitTestNative()`。手动创建的图集需要[先准备像素](native-runtime.md#migrating-native-pixel-apis-to-02)再绘制子帧。
 
 ## 生成项目入口
 
@@ -172,7 +174,7 @@ import {
 
 Demo 的 `src/resources/bundled.ts` 和 `src/ui/native-ui.ts` 实现了这些连接，它们使用 `@kurot/skia` 提供的运行时适配。新建原生应用需要按原生指南配置 Metro 和画布；生成模块本身不会启动引擎。
 
-生成的皮肤模块导入 `@kurot/core` 和 `@kurot/ui`，由宿主提供这两个包。Demo 已验证的基线是 Core 2.5.3 和 UI 3.5.0。包的原生运行时将 Core/UI 声明为可选宿主 peer；Node 生成器不会加载它们。
+生成的皮肤模块导入 `@kurot/core` 和 `@kurot/ui`，由宿主提供这两个包。原生测试 App 的锁文件使用 Core 3.2.3 和 UI 5.1.2。包的原生运行时将 Core/UI 声明为可选宿主 peer；Node 生成器不会加载它们。
 
 ### 主题映射
 
@@ -273,7 +275,7 @@ await watcher.close();
 
 资源生成不会自动提供全部平台能力。0.1.3 提供位图字体渲染、显式打包字体注册、更广的 UI 回归和可选音频接口；实际播放仍需要项目提供媒体后端。`style.json` 编译不会自动初始化项目字体。采用具体控件或资源前请查看[当前评估](native-feature-assessment.md)。
 
-编译语义来自固定版本的 `@kurot/cli` 3.6.0 和 `@kurot/ui-document` 0.13.1。内部编译器导入隔离在 `src/generator/compiler.ts`，升级 CLI 时需要重新验证。
+编译语义来自`@kurot/cli` ~5.0.0 和 `@kurot/ui-document` ^0.14.0。内部编译器导入隔离在 `src/generator/compiler.ts`，升级 CLI 时需要重新验证。
 
 ## 开发库项目
 

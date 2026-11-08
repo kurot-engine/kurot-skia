@@ -18,15 +18,15 @@ export async function runFontChecks(): Promise<void> {
     try {
         const field = new TextField(); field.fontFamily = 'NativeTestFont'; field.text = 'Native 字体 123';
         field.width = 220; field.height = 48; field.size = 24; stage.addChild(field);
-        const regular = readGPU(stage, renderer, 256, 64); const before = measureText('123', field.fontFamily, 24, false, false);
+        const regular = await readGPU(stage, renderer, 256, 64); const before = measureText('123', field.fontFamily, 24, false, false);
         for (let i = 0; i < 20; i++) registerFontMapping('NativeTestFont', url);
         assert(measureText('123', field.fontFamily, 24, false, false) === before, 'font registration idempotent');
         assert(regular.some((value, index) => index % 4 === 3 && value > 0), 'custom font with CJK system fallback');
         const measured = measureTextMetrics('123', field.fontFamily, 24, false, false); measured.width = -1;
         assert(measureTextMetrics('123', field.fontFamily, 24, false, false).width > 0, 'measurement cache returns independent values');
         field.bold = true;
-        assert(readGPU(stage, renderer, 256, 64).some((value, index) => value !== regular[index]), 'real bold face native shaping');
-        stage.removeChildren(); readGPU(stage, renderer, 256, 64);
+        assert((await readGPU(stage, renderer, 256, 64)).some((value, index) => value !== regular[index]), 'real bold face native shaping');
+        stage.removeChildren(); await readGPU(stage, renderer, 256, 64);
         console.info('Kurot Skia: font checks passed (binary transport, custom regular/bold, CJK fallback, repeated registration).');
     } finally { stage.removeChildren(); renderer.dispose(); clearNativeFonts(); }
 }

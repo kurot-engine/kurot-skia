@@ -1,6 +1,6 @@
 import { BitmapFont, BitmapText, Resource, Stage } from '@kurot/core';
 import { BitmapLabel } from '@kurot/ui';
-import { createSkiaTexture, getSkiaImage, SkiaRenderer } from '@kurot/skia';
+import { prepareNativeAtlas, createSkiaTexture, getSkiaImage, SkiaRenderer } from '@kurot/skia';
 
 import { assert, imageFromPixels, near, readGPU, rgba } from './gpu';
 
@@ -10,6 +10,7 @@ export async function runBitmapFontChecks(): Promise<void> {
         for (let x = 0; x < 8; x++) bytes.set(x < 4 ? [255, 0, 0, 255] : [0, 0, 255, 255], (y * 8 + x) * 4);
     }
     const image = imageFromPixels(8, 4, bytes);
+    await prepareNativeAtlas(image);
     const page = createSkiaTexture(image);
     const glyph = { y: 0, width: 4, height: 4, xOffset: 1, yOffset: 1, xAdvance: 6, logicalWidth: 6, logicalHeight: 6 };
     const font = new BitmapFont(page, { version: 1, lineHeight: 6, baseline: 5, spaceAdvance: 3,
@@ -22,8 +23,8 @@ export async function runBitmapFontChecks(): Promise<void> {
         text.text = 'AB';
         stage.addChild(text);
         assert(text.getGlyphs()[1].x === 5, 'shared kernel kerning');
-        near(rgba(readGPU(stage, renderer), 2, 2), [255, 0, 0, 255], 'glyph bearing');
-        near(rgba(readGPU(stage, renderer), 7, 2), [0, 0, 255, 255], 'second glyph');
+        near(rgba(await readGPU(stage, renderer), 2, 2), [255, 0, 0, 255], 'glyph bearing');
+        near(rgba(await readGPU(stage, renderer), 7, 2), [0, 0, 255, 255], 'second glyph');
         text.width = 6;
         text.height = 18;
         text.text = 'AB\nA';
@@ -31,7 +32,7 @@ export async function runBitmapFontChecks(): Promise<void> {
         text.height = 6;
         assert(text.getGlyphs().length === 1, 'only complete font rows are admitted');
         text.height = 0;
-        assert(!readGPU(stage, renderer).some((value) => value !== 0), 'zero height draws no glyphs');
+        assert(!(await readGPU(stage, renderer)).some((value) => value !== 0), 'zero height draws no glyphs');
         stage.removeChildren();
         const label = new BitmapLabel();
         label.font = font;
@@ -42,9 +43,9 @@ export async function runBitmapFontChecks(): Promise<void> {
         label.verticalAlign = 'middle';
         stage.addChild(label);
         label.validateNow();
-        assert(readGPU(stage, renderer).some((value, index) => index % 4 === 3 && value > 0), 'published BitmapLabel native glyphs');
+        assert((await readGPU(stage, renderer)).some((value, index) => index % 4 === 3 && value > 0), 'published BitmapLabel native glyphs');
         stage.removeChildren();
-        readGPU(stage, renderer);
+        await readGPU(stage, renderer);
         font.dispose();
         assert(page.bitmapData && getSkiaImage(page.bitmapData), 'borrowed page survives font/renderer eviction');
     } finally {
@@ -60,8 +61,8 @@ export async function runBitmapFontChecks(): Promise<void> {
         const loaded = await resources.load<BitmapFont>('native_bitmap_font');
         assert(loaded instanceof BitmapFont && resources.get('native_bitmap_font') === loaded, 'native bitmap-font Resource analyzer');
         const text = new BitmapText(); text.font = loaded; text.text = 'AB'; loadedStage.addChild(text);
-        assert(text.getGlyphs()[1].x === 5 && readGPU(loadedStage, loadedRenderer).some((value, i) => i % 4 === 3 && value > 0), 'manifest font glyphs and kerning draw');
-        loadedStage.removeChildren(); readGPU(loadedStage, loadedRenderer);
+        assert(text.getGlyphs()[1].x === 5 && (await readGPU(loadedStage, loadedRenderer)).some((value, i) => i % 4 === 3 && value > 0), 'manifest font glyphs and kerning draw');
+        loadedStage.removeChildren(); await readGPU(loadedStage, loadedRenderer);
         assert(resources.destroy('native_bitmap_font'), 'font resource disposal');
         const reloaded = await resources.load<BitmapFont>('native_bitmap_font');
         assert(reloaded instanceof BitmapFont && reloaded !== loaded, 'font resource reload creates a fresh font/page');

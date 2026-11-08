@@ -1,6 +1,6 @@
 import { Bitmap, Event, SpriteSheet, Stage, ticker } from '@kurot/core';
 import { MovieClip, MovieClipDataFactory, ParticleSystem, Tween, URLLoader, URLRequest } from '@kurot/game';
-import { createSkiaTexture, SkiaRenderer } from '@kurot/skia';
+import { prepareNativeAtlas, createSkiaTexture, SkiaRenderer } from '@kurot/skia';
 
 import { assert, imageFromPixels, near, readGPU, rgba } from './gpu';
 
@@ -10,6 +10,7 @@ export async function runGameChecks(): Promise<void> {
         for (let x = 0; x < 16; x++) bytes.set(x < 8 ? [220, 40, 40, 255] : [40, 180, 220, 255], (y * 16 + x) * 4);
     }
     const image = imageFromPixels(16, 8, bytes);
+    await prepareNativeAtlas(image);
     const texture = createSkiaTexture(image);
     const stage = new Stage();
     const renderer = new SkiaRenderer();
@@ -29,15 +30,15 @@ export async function runGameChecks(): Promise<void> {
         clip.addEventListener(Event.COMPLETE, () => events.push('complete'));
         stage.addChild(clip);
         clip.gotoAndPlay('loop', 1);
-        near(rgba(readGPU(stage, renderer), 3, 3), [220, 40, 40, 255], 'MovieClip first frame');
+        near(rgba(await readGPU(stage, renderer), 3, 3), [220, 40, 40, 255], 'MovieClip first frame');
         clip.advanceFrame();
         assert(clip.currentFrame === 2, 'duration holds the same texture for the second frame');
         clip.advanceFrame();
-        near(rgba(readGPU(stage, renderer), 3, 3), [40, 180, 220, 255], 'MovieClip third frame');
+        near(rgba(await readGPU(stage, renderer), 3, 3), [40, 180, 220, 255], 'MovieClip third frame');
         clip.advanceFrame();
         assert(!clip.isPlaying && events.join(',') === 'blue,complete', 'label range and events');
         clip.gotoAndStop(4);
-        near(rgba(readGPU(stage, renderer), 3, 3), [0, 0, 0, 0], 'blank frame');
+        near(rgba(await readGPU(stage, renderer), 3, 3), [0, 0, 0, 0], 'blank frame');
         clip.gotoAndPlay(1, -1);
         stage.removeChild(clip);
         assert(!clip.isPlaying, 'MovieClip stops on stage removal');
@@ -47,7 +48,7 @@ export async function runGameChecks(): Promise<void> {
         const tween = Tween.get(tweened).to({ x: 20, alpha: 0.5 }, 100);
         tween.setPosition(50);
         assert(Math.abs(tweened.x - 10) < 0.01 && Math.abs(tweened.alpha - 0.75) < 0.01, 'Tween native properties');
-        assert(readGPU(stage, renderer).some((value, index) => index % 4 === 3 && value > 0), 'Tween draw after seek');
+        assert((await readGPU(stage, renderer)).some((value, index) => index % 4 === 3 && value > 0), 'Tween draw after seek');
         Tween.removeTweens(tweened);
         await tween;
         assert(Tween.getCount(tweened) === 0, 'Tween cleanup completes its promise');
@@ -59,12 +60,12 @@ export async function runGameChecks(): Promise<void> {
         particles.setCurrentParticles(3);
         particles.particles.forEach((particle, index) => { particle.x = 10 + index * 20; particle.y = 10; });
         stage.addChild(particles);
-        near(rgba(readGPU(stage, renderer), 10, 10), [220, 40, 40, 255], 'particle native atlas batch');
+        near(rgba(await readGPU(stage, renderer), 10, 10), [220, 40, 40, 255], 'particle native atlas batch');
         particles.particles[1].alpha = 0.5;
-        near(rgba(readGPU(stage, renderer), 30, 10), [220, 40, 40, 128], 'per-particle alpha');
+        near(rgba(await readGPU(stage, renderer), 30, 10), [220, 40, 40, 128], 'per-particle alpha');
         particles.particles[2].rotation = 45;
         particles.particles[2].blendMode = 1;
-        readGPU(stage, renderer);
+        await readGPU(stage, renderer);
         particles.stop(true);
         assert(particles.numParticles === 0, 'particle clear');
         stage.removeChildren();

@@ -1,7 +1,8 @@
 import { Bitmap, BitmapFillMode } from '@kurot/core';
 import type { DisplayObject } from '@kurot/core';
-import { AlphaType, BlendMode, ColorType, FilterMode, Skia } from 'react-native-skia';
+import { AlphaType, BlendMode, FilterMode, Skia } from 'react-native-skia';
 import type { SkCanvas, SkImage, SkRSXform, SkRect } from 'react-native-skia';
+import { hasPreparedPixels, preparedOpacity } from '../resources/atlas-pixels.js';
 import { getSkiaImage } from '../resources/textures.js';
 import { NativeNineSliceRenderer } from './nine-slice.js';
 import { NativeImagePaint } from './NativeImagePaint.js';
@@ -48,8 +49,23 @@ function eligible(object: DisplayObject | undefined): Bitmap | undefined {
 	)
 		return undefined;
 	const matrix = object.$getMatrix();
-	if (Math.abs(matrix.c + matrix.b) > 1e-10 || Math.abs(matrix.d - matrix.a) > 1e-10) return undefined;
+	// Skia 3.9 drawAtlas rasterizes rotated edges differently from the
+	// individual image painter on both Metal and Vulkan.
+	if (matrix.b !== 0 || matrix.c !== 0 || matrix.a <= 0 || matrix.d !== matrix.a) {
+		return undefined;
+	}
+
 	return object;
+}
+
+function pixelAligned(bitmap: Bitmap, parent: number[]): boolean {
+	const matrix = bitmap.$getMatrix();
+	const left = parent[0] * (matrix.tx - matrix.a * bitmap.anchorOffsetX) + parent[2];
+	const top = parent[4] * (matrix.ty - matrix.d * bitmap.anchorOffsetY) + parent[5];
+	return parent[1] === 0 && parent[3] === 0 && parent[6] === 0 && parent[7] === 0 && parent[8] === 1 &&
+		Number.isInteger(left) && Number.isInteger(top) &&
+		Number.isInteger(left + parent[0] * matrix.a * bitmap.width) &&
+		Number.isInteger(top + parent[4] * matrix.d * bitmap.height);
 }
 
 function sameFrame(first: Bitmap, second: Bitmap): boolean {
@@ -95,6 +111,16 @@ export class NativeBitmapBatchRenderer {
 		const first = eligible(children[start]);
 		const second = eligible(children[start + 1]);
 		if (!first || !second || !sameFrame(first, second)) return undefined;
+		const transform = canvas.getTotalMatrix();
+		let parent: number[];
+		try {
+			parent = transform.get();
+		} finally {
+			transform.dispose();
+		}
+		if (!pixelAligned(first, parent) || !pixelAligned(second, parent)) {
+			return undefined;
+		}
 		const image = getSkiaImage(first.texture!.bitmapData!);
 		if (
 			!image ||
@@ -108,13 +134,16 @@ export class NativeBitmapBatchRenderer {
 			return undefined;
 		// drawAtlas lacks a strict source-rectangle constraint. An isolated frame
 		// preserves drawImageRect's edge clamping without bleeding nearby regions.
+		if (!hasPreparedPixels(image) && (first.bitmapWidth !== image.width() || first.bitmapHeight !== image.height())) {
+			return undefined;
+		}
 		const frame = this.frames.getFrame(first, image);
 		if (!this.isOpaque(frame)) return undefined;
 		this.transforms.length = this.sources.length = 0;
 		let end = start;
 		for (; end < children.length; end++) {
 			const bitmap = eligible(children[end]);
-			if (!bitmap || !sameFrame(first, bitmap)) break;
+			if (!bitmap || !sameFrame(first, bitmap) || !pixelAligned(bitmap, parent)) break;
 			const texture = bitmap.texture!;
 			const matrix = bitmap.$getMatrix();
 			let entry = this.entries.get(bitmap);
@@ -175,13 +204,11 @@ export class NativeBitmapBatchRenderer {
 		const height = image.height();
 		let opaque = width * height <= 256 * 256;
 		if (opaque && image.getImageInfo().alphaType !== AlphaType.Opaque) {
-			const pixels = image.readPixels(0, 0, {
-				width,
-				height,
-				colorType: ColorType.RGBA_8888,
-				alphaType: AlphaType.Unpremul,
-			});
-			opaque = pixels instanceof Uint8Array && pixels.every((value, index) => index % 4 !== 3 || value === 255);
+			const prepared = preparedOpacity(image);
+			if (prepared === undefined) {
+				return false;
+			}
+			opaque = prepared;
 		}
 		this.opaque.set(image, opaque);
 		return opaque;

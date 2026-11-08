@@ -1,9 +1,10 @@
+import { hitTestNative } from '@kurot/skia';
 import { Bitmap, BitmapFillMode, SpriteSheet, Stage } from '@kurot/core';
-import { createSkiaTexture, SkiaRenderer } from '@kurot/skia';
+import { prepareNativeAtlas, createSkiaTexture, SkiaRenderer } from '@kurot/skia';
 
 import { assert, imageFromPixels, near, readGPU, rgba } from './gpu';
 
-export function runBitmapChecks(): void {
+export async function runBitmapChecks(): Promise<void> {
     const renderer = new SkiaRenderer();
     const stage = new Stage();
     const colors = [[220, 80, 40, 255], [40, 160, 220, 255], [0, 0, 0, 0], [180, 220, 80, 128]];
@@ -21,6 +22,7 @@ export function runBitmapChecks(): void {
                     }
                 }
                 const image = imageFromPixels(32, 32, bytes);
+                await prepareNativeAtlas(image);
                 const sheet = new SpriteSheet(createSkiaTexture(image, density));
                 const texture = sheet.createTexture('trim', 2, 3, 4 * density, 2 * density,
                     density, 2 * density, 6 * density, 5 * density);
@@ -35,7 +37,7 @@ export function runBitmapChecks(): void {
                             bitmap.height = 10;
                             bitmap.tint = tint;
                             stage.addChild(bitmap);
-                            const pixels = readGPU(stage, renderer);
+                            const pixels = await readGPU(stage, renderer);
                             for (let y = 0; y < 12; y++) {
                                 for (let x = 0; x < 14; x++) {
                                     let px = x + 0.5;
@@ -54,8 +56,8 @@ export function runBitmapChecks(): void {
                             }
                             bitmap.pixelHitTest = true;
                             bitmap.touchEnabled = true;
-                            assert(bitmap.$hitTest(mode === 'scale' ? 3 : 1.5, mode === 'scale' ? 5 : 2.5) === bitmap, 'opaque native pixel hit');
-                            assert(bitmap.$hitTest(mode === 'scale' ? 7 : 3.5, mode === 'scale' ? 5 : 2.5) === undefined, 'transparent native pixel miss');
+                            assert(await hitTestNative(bitmap, mode === 'scale' ? 3 : 1.5, mode === 'scale' ? 5 : 2.5) === bitmap, 'opaque native pixel hit');
+                            assert(await hitTestNative(bitmap, mode === 'scale' ? 7 : 3.5, mode === 'scale' ? 5 : 2.5) === undefined, 'transparent native pixel miss');
                             stage.removeChildren();
                             cases++;
                         }
@@ -65,7 +67,7 @@ export function runBitmapChecks(): void {
                     bitmap.scale9Grid = undefined;
                     bitmap.alpha = 0.5;
                     stage.addChild(bitmap);
-                    near(rgba(readGPU(stage, renderer), 1, 2), [220, 80, 40, 128], 'source alpha is multiplied once');
+                    near(rgba(await readGPU(stage, renderer), 1, 2), [220, 80, 40, 128], 'source alpha is multiplied once');
                     stage.removeChildren();
                 } finally {
                     sheet.dispose();

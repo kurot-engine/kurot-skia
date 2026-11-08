@@ -105,8 +105,12 @@ test('Metro rejects unvalidated SDK versions before using their private module l
         const uiLink = path.join(root, 'node_modules/@kurot/ui');
         await rm(uiLink);
         await mkdir(uiLink);
-        await writeFile(path.join(uiLink, 'package.json'), '{"version":"3.4.0"}');
-        assert.throws(() => createKurotResolver(root), /requires @kurot\/ui 3\.5\.0; found 3\.4\.0/);
+        for (const version of ['5.1.1', '5.2.0', '5.1.3-beta.1']) {
+            await writeFile(path.join(uiLink, 'package.json'), JSON.stringify({ version }));
+            assert.throws(() => createKurotResolver(root), /requires @kurot\/ui ~5\.1\.2; found/);
+        }
+        await writeFile(path.join(uiLink, 'package.json'), '{"version":"5.1.3"}');
+        assert.doesNotThrow(() => createKurotResolver(root));
     } finally {
         await rm(root, { recursive: true, force: true });
     }

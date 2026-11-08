@@ -10,7 +10,7 @@ export function assert(condition: unknown, message: string): asserts condition {
 export function imageFromPixels(width: number, height: number, pixels: Uint8Array): SkImage {
     const data = Skia.Data.fromBytes(pixels);
     try {
-        const image = Skia.Image.MakeImage({ width, height, colorType: ColorType.RGBA_8888,
+        const image = Skia.Image.MakeRaster({ width, height, colorType: ColorType.RGBA_8888,
             alphaType: AlphaType.Unpremul }, data, width * 4);
         assert(image, 'RGBA fixture allocation');
         return image;
@@ -19,8 +19,8 @@ export function imageFromPixels(width: number, height: number, pixels: Uint8Arra
     }
 }
 
-export function readGPU(object: DisplayObject, renderer: SkiaRenderer, width = 128, height = 128,
-    wrapCanvas: (canvas: SkCanvas) => SkCanvas = canvas => canvas): Uint8Array {
+export async function readGPU(object: DisplayObject, renderer: SkiaRenderer, width = 128, height = 128,
+    wrapCanvas: (canvas: SkCanvas) => SkCanvas = canvas => canvas): Promise<Uint8Array> {
     const surface = Skia.Surface.MakeOffscreen(width, height, { colorSpace: 'srgb' });
     assert(surface, 'GPU allocation');
     try {
@@ -31,7 +31,7 @@ export function readGPU(object: DisplayObject, renderer: SkiaRenderer, width = 1
         const image = surface.makeImageSnapshot();
         try {
             assert((image as SkImage & { isTextureBacked(): boolean }).isTextureBacked(), 'GPU backing required');
-            const pixels = image.readPixels(0, 0, { width, height,
+            const pixels = await image.readPixels(0, 0, { width, height,
                 colorType: ColorType.RGBA_8888, alphaType: AlphaType.Unpremul });
             assert(pixels instanceof Uint8Array, 'GPU readback');
             return pixels;

@@ -1,6 +1,6 @@
 # Kurot Skia：适配与测试计划
 
-更新日期：2026-10-11。0.1.5 已准备发布，包含可选 Picture 缓存、运行时目录整理和导出分组，目前尚未发布。0.1.4 已发布，收入原生渲染组织调整和保留场景的回调更新；0.1.3 已发布原生特性补全和可选的共享 Spine 动画缓存。完整能力矩阵、原生测试和性能结果见 [native-feature-assessment.md](native-feature-assessment.md)，缓存测量见 [native-spine-shared-cache.md](native-spine-shared-cache.md)。发布和 Demo 的 npm 采用需要单独检查；历史测试数据保留实际测试版本和构建摘要。
+更新日期：2026-11-08。当前源码 0.2.0 升级到 Core 3.2、UI 5.1、CLI 5、Expo 58 和原生 Skia 3.9，尚未发布。npm 和独立 Demo 仍为 0.1.5。[原生迁移指南](native-runtime.md#migrating-native-pixel-apis-to-02)说明像素读取、图集准备和客户端重建。下文的 0.1.x 基线、[历史性能记录](native-feature-assessment.md)与[共享 Spine 缓存测量](native-spine-shared-cache.md)保留各自实际验证的版本。
 
 本文件记录当前能力、需要验证的假设和后续适配候选，不代表已经承诺支持全部功能。实际完成情况以测试结果和代码为准。
 
@@ -11,7 +11,7 @@
 - 由库提供 Metro 配置入口，统一选择原生 Core 模块及平台接口，避免应用复制内部路径规则。
 - 保留 Node 的 `@kurot/skia/generator` 生成器入口；原生应用的运行时入口不引入 Node、KUI 编译器或 watcher。
 - Demo 保留场景、生成资源、主题初始化和原生集成测试，使用 npm 0.1.2；源码修复在独立的本地包安装中验证。
-- 暂时绑定已经验证的 Core 2.5.3、UI 3.5.0 和 React Native Skia 3.3.0。Core 的内部模块边界还不是正式的跨平台 SDK 合约，升级必须重新验证。
+- 当时绑定的版本是 Core 2.5.3、UI 3.5.0 和 React Native Skia 3.3.0。Core 的内部模块边界还不是正式的跨平台 SDK 合约，升级必须重新验证。
 
 验收结果（2026-10-11）：库构建及 24 项 Node 测试通过；Demo 类型检查通过，lint 无错误（旧测试导入有 14 项重复导入警告）。Android API 36 的 Small_Phone 模拟器已完成 adapter、resource、TextField 和 UI/KUI 测试。iPhone SE 3（iOS 18.2）与 iPhone 17 Pro（iOS 26.5）完成既有原生测试及新增 48 项真实 GPU 九宫格测试。旧 npm 0.1.0 可复现接缝透明度损失；已发布 0.1.1 用 shader 修复，0.1.2 源码改用原生 drawImageNine 和源像素子图缓存，同一组 48 项用例不作修改即通过，覆盖分数变换、旋转/翻转、alpha、过滤、密度、trim、退化边框及原始 KUI 状态。新增缓存复用、状态切换、逐帧淘汰和销毁检查通过。首次复制源像素避免 GPU 中间图的 8 位预乘舍入误差；分割线需要整数物理像素，非整数显式报错。Android GPU 回归与 Release 真机性能仍待验证。Metro sourcemap 已确认运行时不包含生成器、编译器或 watcher；独立 tarball 安装的生成、类型检查、lint 和 Android export 已通过。迁移不增加下述未支持能力。
 

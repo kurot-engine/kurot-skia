@@ -1,11 +1,8 @@
 # Kurot-Skia
 
-Source version 0.1.5 is prepared for publication with opt-in NativePictureCache,
-runtime directory organization and grouped barrel exports. Publication remains
-pending; a source bump or local commit does not confirm registry availability.
-Version 0.1.4 is published, with registry integrity and compiled output verified
-on 2026-10-11. The separate Demo installs exact npm 0.1.4. Never republish an
-existing version or claim registry adoption from a source version alone.
+Source version 0.2.0 targets the SDK and native host ranges in package.json.
+The separate Demo uses published 0.1.5; change its dependency only after a new
+release is available. Check the registry before documenting publication.
 Version 0.1.5 adds opt-in NativePictureCache commands, separate
 from cacheAsTexture images. Read docs/native-runtime.md#picture-caching
 before changing dirty observers, per-child opacity, source dependencies or
@@ -31,8 +28,8 @@ docs/native-spine-shared-cache.md for phase, memory, disposal and API limits.
 Keep original live-pose workloads/data unchanged and compare separately named
 cache workloads at the explicit sampling rate; never weaken GPU pixel oracles.
 
-The native Skia adapter and Node resource/KUI toolkit retain the 0.1.0 entries,
-host versions and authored formats. Future publication remains a separate user action.
+The native Skia adapter and Node resource/KUI toolkit retain the 0.1.0 entries
+and authored formats. Future publication remains a separate user action.
 The Expo application in `../Kurot-Skia-Demo` consumes the installed package;
 scenes, generated inputs and project-owned UI initialization stay in the Demo.
 Native adapters live under `src/kurot`. The root export is RN-only,
@@ -52,13 +49,10 @@ do not relabel them as measurements of this source reorganization.
 Both runtime barrels group re-exports by responsibility. Preserve the exported
 names, types and target modules when arranging them.
 
-Release adoption is explicit: the Demo's exact 0.1.4 declaration must be updated
-after registry 0.1.5 is available if it adopts Picture caching. Compatible 0.1.x
-ranges can adopt through installations/locks; the private native host retains
-its file dependency. Restart Metro with --clear and rebuild embedded Release
-bundles. Core 2.5.3, UI 3.5.0, Skia 3.3.0 and authored formats are unchanged.
-Generator-only adoption is optional. Engine SDKs, templates/examples and other
-applications need no release or incidental dependency update.
+Release adoption is explicit: keep the native test app on its local file dependency.
+For a new native host series, regenerate entries, rebuild the iOS/Android
+development clients and restart Metro with --clear. Keep historical GPU and
+performance records attached to their original environment.
 
 Native rendering separates KurotView's RN/session lifecycle, NativeFrameLoop's
 headless timing, NativeFrameRenderer's Graphite viewport/ownership, and
@@ -68,7 +62,7 @@ changes preserve the scene; factory/viewport changes recreate it. Keep continuou
 Core ticker rendering and existing cache/batch contracts. See the internal
 responsibility table in docs/native-runtime.md before changing these boundaries.
 
-The Demo consumes npm `@kurot/skia@0.1.4` and calls its installed
+The Demo consumes npm `@kurot/skia@0.1.5` and calls its installed
 `kurot-project` binary. Keep compiled output in the package's `files` list.
 The npm release is public. `prepack` cleans and rebuilds shipped output, and
 `prepublishOnly` runs tests. Verify registry availability before changing the
@@ -87,14 +81,17 @@ Metro resolver and adapters. Do not add SDK platform entries as part of Skia wor
 The generator must not import React Native, Expo or Skia. The native root must
 not import the generator, Node APIs, compiler or watcher. Metro routes native
 Core imports to the host installation; private Core/UI mappings are bound to
-Core 2.5.3/UI 3.5.0 and must be tested before widening version support. Reuse the pinned
+the patch series in package.json; test private paths before widening them. Reuse the
 registry KUI compiler; do not fork its parser, resource defaults or style rules.
 The compiler's internal subpath is isolated in `compiler.ts` and must be
 revalidated before upgrading CLI.
 
+For Skia 3.9 pixel reads, see docs/native-runtime.md#migrating-native-pixel-apis-to-02.
+Keep manual atlas preparation, touch ordering and source-alpha pixel oracles intact.
+
 Use TypeScript, strict ESM, named exports and explicit exported return types.
 Avoid new `any`, application `null`, suppression directives and files over
-300 lines. Node >=20, pnpm. Run `pnpm build` and `pnpm test` after changes.
+300 lines. Use Node 22.22+ on the 22 LTS line and pnpm. Run `pnpm build` and `pnpm test` after changes.
 Do not bump or publish other Kurot SDKs for this package's changes.
 
 Generated output directories are owned by the generator. Do not place authored

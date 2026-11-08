@@ -4,6 +4,7 @@ import type { SkCanvas } from 'react-native-skia';
 
 import { compileGraphics, disposeGraphics, skColor } from './graphics.js';
 import type { GraphicsDraw } from './graphics.js';
+import { nativePixelHit } from '../input/native-hit.js';
 import { NativeImagePaint } from './NativeImagePaint.js';
 
 export class NativeGraphicsRenderer {
@@ -67,6 +68,10 @@ export class NativeGraphicsRenderer {
 
 	private dashHit(draw: GraphicsDraw, x: number, y: number): boolean {
 		if (!draw.hitPath.contains(x, y)) return false;
+		return nativePixelHit(draw, () => this.sampleDash(draw, x, y));
+	}
+
+	private async sampleDash(draw: GraphicsDraw, x: number, y: number): Promise<boolean> {
 		const surface = Skia.Surface.MakeOffscreen(1, 1);
 		if (!surface) return false;
 		const paint = draw.paint.copy();
@@ -77,7 +82,7 @@ export class NativeGraphicsRenderer {
 			canvas.translate(-Math.floor(x), -Math.floor(y));
 			canvas.drawPath(draw.path, paint);
 			surface.flush();
-			const pixels = canvas.readPixels(0, 0, {
+			const pixels = await canvas.readPixels(0, 0, {
 				width: 1,
 				height: 1,
 				colorType: ColorType.RGBA_8888,

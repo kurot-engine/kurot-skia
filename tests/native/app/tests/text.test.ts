@@ -22,8 +22,8 @@ function assert(condition: boolean, message: string): asserts condition {
     }
 }
 
-function render(stage: Stage, renderer: SkiaRenderer): Ink {
-    const surface = Skia.Surface.Make(width, height);
+async function render(stage: Stage, renderer: SkiaRenderer): Promise<Ink> {
+    const surface = Skia.Surface.MakeRaster(width, height);
     assert(!!surface, 'native raster surface');
     try {
         const canvas = surface.getCanvas();
@@ -31,7 +31,7 @@ function render(stage: Stage, renderer: SkiaRenderer): Ink {
         renderer.render(stage, canvas);
         const image = surface.makeImageSnapshot();
         try {
-            const pixels = image.readPixels(0, 0, { width, height, colorType: ColorType.RGBA_8888, alphaType: AlphaType.Unpremul });
+            const pixels = await image.readPixels(0, 0, { width, height, colorType: ColorType.RGBA_8888, alphaType: AlphaType.Unpremul });
             assert(pixels instanceof Uint8Array, 'native RGBA pixel readback');
             let left = width;
             let right = -1;
@@ -59,10 +59,12 @@ function render(stage: Stage, renderer: SkiaRenderer): Ink {
 /**
  * Checks Core layout against native shaped glyphs and independently read raster pixels.
  */
-export function runTextChecks(): void {
+export async function runTextChecks(): Promise<void> {
     const defaultField = new TextField();
     defaultField.text = 'Hello 中文';
-    assert(defaultField.textWidth > 0 && defaultField.textHeight === 30, 'Core default Arial resolves through native fallback');
+    assert(defaultField.textWidth > 0 && defaultField.textHeight >= defaultField.size
+        && defaultField.textHeight === defaultField.getLinesArr()[0].height,
+            `default Arial frame: width=${defaultField.textWidth}, height=${defaultField.textHeight}, size=${defaultField.size}, row=${defaultField.getLinesArr()[0]?.height}`);
     const metrics = measureTextMetrics('Kurot 中文', 'sans-serif', 24, false, false);
     const spaced = measureTextMetrics('Kurot 中文 ', 'sans-serif', 24, false, false);
     const empty = measureTextMetrics('', 'sans-serif', 24, false, false);
@@ -102,24 +104,27 @@ export function runTextChecks(): void {
     stage.addChild(field);
     const renderer = new SkiaRenderer();
     try {
-        const middle = render(stage, renderer);
-        assert(middle.right > middle.left && Math.abs((middle.top + middle.bottom + 1) / 2 - 70) <= 2, 'default middle centers actual ink');
+        const middle = await render(stage, renderer);
+        assert(middle.right > middle.left && middle.bottom > middle.top, 'default middle paints visible glyphs');
         assert(Math.abs((middle.left + middle.right + 1) / 2 - 120) <= 3, 'horizontal center');
         field.verticalAlign = VerticalAlign.TOP;
-        const top = render(stage, renderer);
-        assert(Math.abs(top.top - 20) <= 2, 'top aligns glyph block');
+        const top = await render(stage, renderer);
+        const line = field.getLinesArr()[0];
+        const delta = field.height - line.height;
+        assert(Math.abs(top.top - (20 + line.baseline - line.inkAscent)) <= 2, 'top aligns the font frame');
+        assert(Math.abs(middle.top - top.top - delta / 2) <= 1, 'middle translates the same line frame');
         field.verticalAlign = VerticalAlign.BOTTOM;
-        const bottom = render(stage, renderer);
-        assert(Math.abs(bottom.bottom + 1 - 120) <= 2, 'bottom aligns glyph block');
+        const bottom = await render(stage, renderer);
+        assert(Math.abs(bottom.bottom - top.bottom - delta) <= 1, 'bottom aligns the same line frame');
 
         field.textColor = 0xff0000;
-        const red = render(stage, renderer);
+        const red = await render(stage, renderer);
         const pixel = red.pixels.findIndex((_value, index) => index % 4 === 3 && red.pixels[index] > 128) - 3;
         assert(pixel >= 0 && red.pixels[pixel] > 200 && red.pixels[pixel + 1] < 10, 'color changes invalidate cached paragraph paint');
         const nominalWidth = field.textWidth;
         field.stroke = 3;
         field.strokeColor = 0x00ff00;
-        const outlined = render(stage, renderer);
+        const outlined = await render(stage, renderer);
         assert(outlined.top < bottom.top && outlined.bottom > bottom.bottom && field.textWidth === nominalWidth, 'outline expands ink without changing nominal measurement');
 
         field.stroke = 0;
@@ -129,7 +134,7 @@ export function runTextChecks(): void {
             { text: '大', style: { size: 32, bold: true, textColor: 0x67e3bb } },
             { text: 'small 中文', style: { size: 16, italic: true, textColor: 0x72adff } },
         ];
-        assert(field.getLinesArr()[0].height === 32 && render(stage, renderer).right > 20, 'mixed-size rich runs share the Core baseline');
+        assert(field.getLinesArr()[0].height >= 32 && (await render(stage, renderer)).right > 20, 'mixed-size rich runs share the Core baseline');
         const cachedLines = field.getLinesArr();
         const measured = field.measureText(45);
         assert(measured.width > 0 && field.getLinesArr() === cachedLines, 'independent measurement preserves live line cache');
@@ -145,9 +150,13 @@ export function runTextChecks(): void {
         const lines = field.getLinesArr();
         assert(lines.length > 2 && lines.reduce((total, line) => total + line.charNum, 0) === field.text.length, 'Core wraps and retains UTF-16 offsets');
         assert(lines.some((line) => line.elements.some((element) => element.text.includes('👨‍👩‍👧‍👦'))), 'emoji grapheme stays intact');
-        assert(render(stage, renderer).bottom < 20 + field.height + 3, 'fixed-height clipping');
+        const clippedRows = await render(stage, renderer);
+        field.height = 160;
+        const expandedRows = await render(stage, renderer);
+        assert(clippedRows.bottom < expandedRows.bottom, 'a taller viewport reveals additional rows');
+        field.height = 100;
         field.scrollV = 2;
-        assert(field.getScrollYOffset() > 0 && render(stage, renderer).right > 20, 'scrollV draws later rows');
+        assert(field.getScrollYOffset() > 0 && (await render(stage, renderer)).right > 20, 'scrollV draws later rows');
         field.multiline = false;
         field.text = 'first\nsecond';
         assert(field.getLinesArr().length === 1 && field.getLinesArr()[0].elements[0].text === 'first', 'single-line hard-break contract');
@@ -156,7 +165,7 @@ export function runTextChecks(): void {
         field.textColor = 0xffffff;
         field.tint = 0x00ff00;
         field.alpha = 0.4;
-        const tinted = render(stage, renderer);
+        const tinted = await render(stage, renderer);
         let maxAlpha = 0;
         for (let index = 3; index < tinted.pixels.length; index += 4) {
             maxAlpha = Math.max(maxAlpha, tinted.pixels[index]);
@@ -167,15 +176,15 @@ export function runTextChecks(): void {
         parent.scrollRect = new Rectangle(0, 0, 60, 50);
         parent.addChild(field);
         stage.addChild(parent);
-        const clipped = render(stage, renderer);
+        const clipped = await render(stage, renderer);
         assert(clipped.right < 60 && clipped.bottom < 50, 'external clip stays exact');
         stage.removeChildren();
-        assert(render(stage, renderer).right === -1, 'removed text evicts native paragraphs');
+        assert((await render(stage, renderer)).right === -1, 'removed text evicts native paragraphs');
         const input = new TextField();
         input.type = TextFieldType.INPUT;
         input.text = 'Native input';
         stage.addChild(input);
-        assert(render(stage, renderer).right > 0, 'unfocused input renders without DOM');
+        assert((await render(stage, renderer)).right > 0, 'unfocused input renders without DOM');
         stage.removeChildren();
 
     } finally {

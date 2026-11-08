@@ -1,6 +1,6 @@
 import type { Stage } from '@kurot/core';
 import { useEffect, useRef, useSyncExternalStore } from 'react';
-import type { ReactElement } from 'react';
+import type { ComponentRef, ReactElement } from 'react';
 import { TextInput } from 'react-native';
 
 import { activeNativeInput, nativeInputRevision, subscribeNativeInput } from './NativeInputController.js';
@@ -18,7 +18,7 @@ export interface NativeInputOverlayProps {
 export function NativeInputOverlay({ stage, width, height }: NativeInputOverlayProps): ReactElement | undefined {
 	useSyncExternalStore(subscribeNativeInput, nativeInputRevision);
 	const controller = activeNativeInput(stage);
-	const input = useRef<TextInput | undefined>(undefined);
+	const input = useRef<ComponentRef<typeof TextInput> | undefined>(undefined);
 	useEffect(() => {
 		const element = input.current;
 		if (controller) element?.focus();

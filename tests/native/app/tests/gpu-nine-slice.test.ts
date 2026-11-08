@@ -1,6 +1,6 @@
 import { Bitmap, Rectangle, Resource, SpriteSheet, Stage } from '@kurot/core';
 import type { Texture } from '@kurot/core';
-import { createSkiaTexture, SkiaRenderer } from '@kurot/skia';
+import { prepareNativeAtlas, createSkiaTexture, SkiaRenderer } from '@kurot/skia';
 import { AlphaType, ColorType, Skia } from 'react-native-skia';
 import type { SkImage } from 'react-native-skia';
 
@@ -10,8 +10,8 @@ function assert(condition: boolean, message: string): asserts condition {
     }
 }
 
-function readGPU(stage: Stage, renderer: SkiaRenderer, scale: number,
-    width = 320, height = 240): Uint8Array {
+async function readGPU(stage: Stage, renderer: SkiaRenderer, scale: number,
+    width = 320, height = 240): Promise<Uint8Array> {
     const surface = Skia.Surface.MakeOffscreen(width, height, { colorSpace: 'srgb' });
     assert(!!surface, 'GPU surface allocation');
     try {
@@ -26,7 +26,7 @@ function readGPU(stage: Stage, renderer: SkiaRenderer, scale: number,
             // Native Skia 3.3 exposes this JSI probe but omits it from the TS interface.
             const probe = image as SkImage & { isTextureBacked(): boolean };
             assert(probe.isTextureBacked(), 'snapshot must be GPU-backed; no raster fallback');
-            const pixels = image.readPixels(0, 0, {
+            const pixels = await image.readPixels(0, 0, {
                 width, height, colorType: ColorType.RGBA_8888, alphaType: AlphaType.Unpremul,
             });
             assert(pixels instanceof Uint8Array, 'GPU RGBA readback');
@@ -60,7 +60,7 @@ function uniformAtlas(resolution: number, alpha: number, patterned = false): SkI
     }
     const data = Skia.Data.fromBytes(bytes);
     try {
-        const image = Skia.Image.MakeImage({
+        const image = Skia.Image.MakeRaster({
             width, height: width, colorType: ColorType.RGBA_8888, alphaType: AlphaType.Unpremul,
         }, data, width * 4);
         assert(!!image, 'atlas fixture');
@@ -91,13 +91,14 @@ function compareInterior(bitmap: Bitmap, sliced: Uint8Array, reference: Uint8Arr
     assert(checked > 1000, `${description}: interior coverage includes both seam axes and intersections`);
 }
 
-function checkUniformAtlas(renderer: SkiaRenderer): number {
+async function checkUniformAtlas(renderer: SkiaRenderer): Promise<number> {
     const stage = new Stage();
     let cases = 0;
     try {
         for (const resolution of [1, 2]) {
             for (const sourceAlpha of [255, 128]) {
                 const image = uniformAtlas(resolution, sourceAlpha);
+                await prepareNativeAtlas(image);
                 const texture = createSkiaTexture(image, resolution);
                 const sheet = new SpriteSheet(texture);
                 try {
@@ -121,9 +122,9 @@ function checkUniformAtlas(renderer: SkiaRenderer): number {
                             bitmap.rotation = transform.rotation;
                             bitmap.flipX = transform.flipX;
                             bitmap.scale9Grid = grid;
-                            const sliced = readGPU(stage, renderer, transform.scale);
+                            const sliced = await readGPU(stage, renderer, transform.scale);
                             bitmap.scale9Grid = undefined;
-                            const reference = readGPU(stage, renderer, transform.scale);
+                            const reference = await readGPU(stage, renderer, transform.scale);
                             compareInterior(bitmap, sliced, reference, transform.scale,
                                 `density ${resolution}, alpha ${sourceAlpha}, smoothing ${smoothing}, `
                                 + `scale ${transform.scale}, rotation ${transform.rotation}, flip ${transform.flipX}`);
@@ -144,12 +145,13 @@ function checkUniformAtlas(renderer: SkiaRenderer): number {
     return cases;
 }
 
-function checkGeometry(renderer: SkiaRenderer): number {
+async function checkGeometry(renderer: SkiaRenderer): Promise<number> {
     const stage = new Stage();
     const scale = 1.37;
     let cases = 0;
     for (const resolution of [1, 2]) {
         const image = uniformAtlas(resolution, 255, true);
+        await prepareNativeAtlas(image);
         const texture = createSkiaTexture(image, resolution);
         const sheet = new SpriteSheet(texture);
         try {
@@ -168,7 +170,7 @@ function checkGeometry(renderer: SkiaRenderer): number {
                 for (const size of [104, 16, 12]) {
                     bitmap.width = size + 2 * ox;
                     bitmap.height = (size === 104 ? 56 : size) + 2 * oy;
-                    const pixels = readGPU(stage, renderer, scale);
+                    const pixels = await readGPU(stage, renderer, scale);
                     const sample = (x: number, y: number, expected: number[]): void => {
                         const px = Math.floor(1.25 + (bitmap.x + x) * scale);
                         const py = Math.floor(0.625 + (bitmap.y + y) * scale);
@@ -230,9 +232,9 @@ async function checkButtonAtlas(renderer: SkiaRenderer): Promise<number> {
                 bitmap.alpha = alpha;
                 for (const scale of [1.117, 3.35]) {
                     bitmap.scale9Grid = new Rectangle(16, 16, 16, 16);
-                    const sliced = readGPU(stage, renderer, scale, 1024, 256);
+                    const sliced = await readGPU(stage, renderer, scale, 1024, 256);
                     bitmap.scale9Grid = undefined;
-                    const reference = readGPU(stage, renderer, scale, 1024, 256);
+                    const reference = await readGPU(stage, renderer, scale, 1024, 256);
                     // This band is uniform in the authored PNG and crosses both horizontal joins.
                     for (let y = Math.ceil(0.625 + (bitmap.y + 8) * scale);
                         y < 0.625 + (bitmap.y + 48) * scale; y++) {
@@ -263,7 +265,7 @@ async function checkButtonAtlas(renderer: SkiaRenderer): Promise<number> {
 export async function runGPUNineSliceChecks(): Promise<void> {
     const renderer = new SkiaRenderer();
     try {
-        const cases = checkUniformAtlas(renderer) + checkGeometry(renderer) + await checkButtonAtlas(renderer);
+        const cases = await checkUniformAtlas(renderer) + await checkGeometry(renderer) + await checkButtonAtlas(renderer);
         console.info(`Kurot Skia: GPU nine-slice checks passed (${cases} cases: density, filtering, alpha, rotation, flip, trim, borders, KUI).`);
     } finally {
         renderer.dispose();

@@ -16,8 +16,8 @@ function assert(condition: boolean, message: string): asserts condition {
     }
 }
 
-function pixels(stage: Stage, renderer: SkiaRenderer): Uint8Array {
-    const surface = Skia.Surface.Make(width, height);
+async function pixels(stage: Stage, renderer: SkiaRenderer): Promise<Uint8Array> {
+    const surface = Skia.Surface.MakeRaster(width, height);
     assert(!!surface, 'native surface');
     try {
         const canvas = surface.getCanvas();
@@ -25,7 +25,7 @@ function pixels(stage: Stage, renderer: SkiaRenderer): Uint8Array {
         renderer.render(stage, canvas);
         const image = surface.makeImageSnapshot();
         try {
-            const result = image.readPixels(0, 0, {
+            const result = await image.readPixels(0, 0, {
                 width, height, colorType: ColorType.RGBA_8888, alphaType: AlphaType.Unpremul,
             });
             assert(result instanceof Uint8Array, 'RGBA pixels');
@@ -101,11 +101,11 @@ export async function runUIChecks(): Promise<void> {
         assert(!!automatic.skin && automatic.labelDisplay?.text === 'Automatic theme', 'production default theme resolves an ordinary Button without a host key override');
         const fitted = fit.$children.find((child) => child instanceof TextField);
         assert(fitted instanceof TextField && fitted.size < 24, 'native metrics drive Label shrink');
-        const small = pixels(stage, renderer);
+        const small = await pixels(stage, renderer);
         button.width = 280;
         button.label = '现在是一条更宽的按钮';
         ticker.update(true);
-        const wide = pixels(stage, renderer);
+        const wide = await pixels(stage, renderer);
         for (let y = 0; y < 16; y++) {
             for (let x = 0; x < 16; x++) {
                 const index = ((y + 100) * width + x + 20) * 4;
@@ -116,22 +116,22 @@ export async function runUIChecks(): Promise<void> {
         assert(wide[((140 * width) + 285) * 4 + 3] > 200, 'nine-slice fills the expanded destination');
         let changes = 0;
         button.addEventListener(Event.CHANGE, () => { changes++; });
-        input.begin(70, 125, 1);
+        await input.begin(70, 125, 1);
         ticker.update(true);
         assert(String(button.skin.currentState) === 'down' && String(background.source) === 'kui.button_down', 'native press selects down texture');
         assert(Number(button.labelDisplay.y) === 12, 'original pressed caption offset is applied');
-        const pressed = pixels(stage, renderer);
+        const pressed = await pixels(stage, renderer);
         assert(pressed[(140 * width + 280) * 4] !== wide[(140 * width + 280) * 4]
             || pressed[(140 * width + 280) * 4 + 1] !== wide[(140 * width + 280) * 4 + 1], 'pressed texture changes actual pixels');
-        input.end(70, 125, 1);
+        await input.end(70, 125, 1);
         ticker.update(true);
         assert(changes === 1 && button.skin.currentState === 'up', 'release restores up and dispatches one CHANGE');
         assert(button.labelDisplay.y === 10, 'caption offset restores');
-        input.begin(70, 125, 2);
-        input.end(340, 300, 2);
+        await input.begin(70, 125, 2);
+        await input.end(340, 300, 2);
         ticker.update(true);
         assert(changes === 1 && !button.touchCaptured, 'release outside cancels activation');
-        input.begin(70, 125, 3);
+        await input.begin(70, 125, 3);
         input.cancelAll();
         ticker.update(true);
         assert(changes === 1 && button.skin.currentState === 'up', 'cancel restores state');
@@ -139,14 +139,14 @@ export async function runUIChecks(): Promise<void> {
         ticker.update(true);
         assert(String(background.source) === 'kui.button_disabled' && !button.touchEnabled, 'disabled skin and input state');
         assert(button.labelDisplay.textColor === 0x7c8799, 'original disabled palette');
-        input.begin(70, 125, 4);
-        input.end(70, 125, 4);
+        await input.begin(70, 125, 4);
+        await input.end(70, 125, 4);
         ticker.update(true);
         assert(changes === 1, 'disabled button does not activate');
         button.enabled = true;
         ticker.update(true);
         assert(background.source === 'kui.button_up' && button.touchEnabled, 'enable restores original state');
-        input.begin(70, 125, 5);
+        await input.begin(70, 125, 5);
         stage.removeChild(root);
         ticker.update(true);
         assert(!button.touchCaptured, 'removal releases stage touch listeners');
@@ -166,7 +166,7 @@ export async function runUIChecks(): Promise<void> {
         tiny.scale9Grid = new Rectangle(16, 16, 16, 16);
         tiny.width = tiny.height = 20;
         stage.addChild(tiny);
-        assert(pixels(stage, renderer)[(10 * width + 10) * 4 + 3] > 200, 'small nine-slice uses Core scale fallback');
+        assert((await pixels(stage, renderer))[(10 * width + 10) * 4 + 3] > 200, 'small nine-slice uses Core scale fallback');
     } finally {
         input.cancelAll();
         stage.removeChildren();

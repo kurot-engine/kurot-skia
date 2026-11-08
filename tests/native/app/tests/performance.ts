@@ -1,6 +1,6 @@
 import { Bitmap, BitmapFont, BitmapText, Resource, Sprite, SpriteSheet, Stage, TextField, ticker } from '@kurot/core';
 import { MovieClip, MovieClipDataFactory, ParticleSystem } from '@kurot/game';
-import { createSkiaTexture, NativeSpineAnimationCache, SkiaRenderer } from '@kurot/skia';
+import { prepareNativeAtlas, createSkiaTexture, NativeSpineAnimationCache, SkiaRenderer } from '@kurot/skia';
 import * as spine42 from '@kurot/spine-4.2';
 import { Skia } from 'react-native-skia';
 import { Platform } from 'react-native';
@@ -47,6 +47,7 @@ export async function runBenchmarks(isActive: () => boolean = () => true): Promi
     console.info(`KUROT_BENCHMARK_ENV ${JSON.stringify({ platform: Platform.OS, version: Platform.Version, development: __DEV__,
         target: '60 FPS / 16.67 ms', surface: '720x1280 offscreen GPU, synchronous flush, 30 warmup + 120 samples', device: 'simulator/emulator; not a Release hardware gate' })}`);
     const image = imageFromPixels(16, 16, new Uint8Array(16 * 16 * 4).fill(255));
+    await prepareNativeAtlas(image);
     const texture = createSkiaTexture(image); const stage = new Stage(); stage.setContentSize(360, 640);
     const results: BenchmarkResult[] = [];
     const add = (object: Bitmap | BitmapText | TextField | MovieClip, index: number): void => {

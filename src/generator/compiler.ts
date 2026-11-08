@@ -1,4 +1,4 @@
-// CLI has no public compiler subpath yet. Keep this pinned integration isolated.
+// CLI has no public compiler subpath yet. Keep this version-bound integration isolated.
 import { generateCode, parseToIR } from '@kurot/cli/dist/core/kui/index.js';
 import type { UIResourceConfigEntry, UIStyleSheet } from '@kurot/ui-document';
 import * as ts from 'typescript';

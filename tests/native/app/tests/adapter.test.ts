@@ -12,7 +12,7 @@ function assert(condition: boolean, message: string): void {
 /**
  * Run against the real native SkPath hit-test hook in a development build.
  */
-export function runAdapterChecks(): void {
+export async function runAdapterChecks(): Promise<void> {
     const viewport = createViewport(320, 400, 360, 500);
     assert(viewport.scale === 0.8 && viewport.x === 16 && viewport.y === 0, 'aspect-preserving viewport');
     const stage = new Stage();
@@ -51,16 +51,16 @@ export function runAdapterChecks(): void {
     circle.addEventListener(TouchEvent.TOUCH_TAP, () => events.push('tap'));
     circle.addEventListener(TouchEvent.TOUCH_RELEASE_OUTSIDE, () => events.push('outside'));
     const input = new NativeTouch(stage);
-    input.begin(center.x, center.y, 1);
-    input.begin(center.x, center.y, 2);
+    await input.begin(center.x, center.y, 1);
+    await input.begin(center.x, center.y, 2);
     input.cancelAll();
-    input.end(center.x, center.y, 1);
+    await input.end(center.x, center.y, 1);
     assert(events.join(',') === 'begin,bubble,cancel', 'maxTouches and cancellation suppress taps');
-    input.begin(center.x, center.y, 3);
-    input.end(center.x, center.y, 3);
+    await input.begin(center.x, center.y, 3);
+    await input.end(center.x, center.y, 3);
     assert(events.at(-1) === 'tap', 'tap targeting');
-    input.begin(center.x, center.y, 4);
-    input.end(center.x + 1000, center.y, 4);
+    await input.begin(center.x, center.y, 4);
+    await input.end(center.x + 1000, center.y, 4);
     assert(events.at(-1) === 'outside', 'release-outside targeting');
 
     circle.graphics.clear();

@@ -1,5 +1,5 @@
 import { Bitmap, Rectangle, SpriteSheet, Stage } from '@kurot/core';
-import { createSkiaTexture, SkiaRenderer } from '@kurot/skia';
+import { prepareNativeAtlas, createSkiaTexture, SkiaRenderer } from '@kurot/skia';
 import { AlphaType, ColorType, Skia } from 'react-native-skia';
 import type { SkCanvas, SkImage } from 'react-native-skia';
 
@@ -37,9 +37,9 @@ function captureNineImages(canvas: SkCanvas, seen: SkImage[]): SkCanvas {
 /**
  * Verifies real native image reuse and disposal without exposing cache internals.
  */
-export function runNineSliceCacheChecks(): void {
+export async function runNineSliceCacheChecks(): Promise<void> {
     const data = Skia.Data.fromBytes(new Uint8Array(32 * 32 * 4).fill(255));
-    const image = Skia.Image.MakeImage({
+    const image = Skia.Image.MakeRaster({
         width: 32, height: 32, colorType: ColorType.RGBA_8888, alphaType: AlphaType.Unpremul,
     }, data, 32 * 4);
     data.dispose();
@@ -47,6 +47,7 @@ export function runNineSliceCacheChecks(): void {
     const surface = Skia.Surface.MakeOffscreen(80, 80);
     assert(!!surface, 'GPU surface allocation');
     const renderer = new SkiaRenderer();
+    await prepareNativeAtlas(image);
     const sheet = new SpriteSheet(createSkiaTexture(image));
     const stage = new Stage();
     const seen: SkImage[] = [];

@@ -60,12 +60,12 @@ async function check(version: string, load: () => Promise<{ animation: NativeSke
         assert(animation.hasEventListener(Event.ENTER_FRAME), `Spine ${version} staged frame listener`);
         const track = animation.play('walk', 1);
         animation.renderer.update(0);
-        const before = readGPU(stage, renderer);
+        const before = await readGPU(stage, renderer);
         animation.renderer.update(180);
-        const after = readGPU(stage, renderer);
+        const after = await readGPU(stage, renderer);
         const reference = new SkiaRenderer(1, false, false);
         try {
-            const expected = readGPU(stage, reference);
+            const expected = await readGPU(stage, reference);
             const mismatch = after.findIndex((value, index) => Math.abs(value - expected[index]) > 2);
             assert(mismatch < 0, `Spine ${version} batched weighted-mesh pixels match individual draws: byte ${mismatch}`);
         } finally { reference.dispose(); }
@@ -81,7 +81,7 @@ async function check(version: string, load: () => Promise<{ animation: NativeSke
         assert(!animation.hasEventListener(Event.ENTER_FRAME), `Spine ${version} remove frame listener`);
         stage.addChild(animation);
         stage.removeChild(animation);
-        readGPU(stage, renderer);
+        await readGPU(stage, renderer);
     } finally {
         stage.removeChildren();
         renderer.dispose();

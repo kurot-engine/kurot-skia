@@ -1,10 +1,10 @@
 import { SpriteSheet, Stage } from '@kurot/core';
 import { ParticleSystem } from '@kurot/game';
-import { createSkiaTexture, SkiaRenderer } from '@kurot/skia';
+import { prepareNativeAtlas, createSkiaTexture, SkiaRenderer } from '@kurot/skia';
 
 import { assert, imageFromPixels, readGPU } from './gpu';
 
-export function runParticleAtlasChecks(): void {
+export async function runParticleAtlasChecks(): Promise<void> {
     for (const density of [1, 2]) {
         for (const rotated of [false, true]) {
             const width = 4 * density; const height = 2 * density;
@@ -22,7 +22,9 @@ export function runParticleAtlasChecks(): void {
             }
             const image = imageFromPixels(32, 32, atlas);
             const referenceImage = imageFromPixels(width, height, upright);
+            await prepareNativeAtlas(image);
             const sheet = new SpriteSheet(createSkiaTexture(image, density));
+            await prepareNativeAtlas(referenceImage);
             const referenceSheet = new SpriteSheet(createSkiaTexture(referenceImage, density));
             const texture = sheet.createTexture('trim', 2, 3, width, height,
                 density, 2 * density, 6 * density, 5 * density);
@@ -45,11 +47,11 @@ export function runParticleAtlasChecks(): void {
                     });
                 }
                 actualStage.addChild(actual); expectedStage.addChild(expected);
-                const target = readGPU(actualStage, renderer);
-                const oracle = readGPU(expectedStage, renderer);
+                const target = await readGPU(actualStage, renderer);
+                const oracle = await readGPU(expectedStage, renderer);
                 const mismatch = target.findIndex((value, index) => Math.abs(value - oracle[index]) > 2);
                 assert(mismatch === -1, `particle atlas edges ${density}/${rotated}: channel ${mismatch}, ${target[mismatch]} != ${oracle[mismatch]}`);
-                actualStage.removeChildren(); readGPU(actualStage, renderer);
+                actualStage.removeChildren(); await readGPU(actualStage, renderer);
                 assert(image.width() === 32, 'particle cache eviction retains the borrowed atlas');
             } finally {
                 actual.stop(true); expected.stop(true);

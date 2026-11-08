@@ -1,8 +1,44 @@
 # Changelog
 
+## 0.2.0 — 2026-11-08
+
+Prepared in source; not published to npm.
+
+- Adopt Core 3.2.3, UI 5.1.2, CLI 5.0.0 and ui-document 0.14.0, and move the private native app to Expo SDK 58, RN 0.88.1 and react-native-skia 3.9.1. Game, DragonBones and all four Spine adapters use their current compatible registry releases. The separate registry Demo stays on 0.1.5.
+- Declare compatible dependency ranges and keep exact installations in both pnpm locks. Metro checks the installed Core/UI against those same peer ranges. The native application's React stays at 19.3.0 to match RN's embedded renderer. Use Node 22.22+ on the 22 LTS line and rebuild the native client.
+- Skia GPU reads are asynchronous. Use `NativeRenderTexture.readPixel32()` and `hitTestNative()`. NativeTouch preserves event order and cancellation while waiting for pixels. Bundled images prepare their source-alpha bytes during loading; call `prepareNativeAtlas()` for a manually created atlas before drawing subframes.
+- Preserve Skia 3.9 pixel coverage: rotated or fractional sprite edges use the individual painter; pixel-aligned opaque sprites can still batch. Keep GPU reference comparisons at their original tolerances. Historical performance results apply to their recorded builds.
+- Use TypeScript 7 for compilation and the TypeScript 6 compiler API for KUI generation and the development supervisor. See [native API migration](docs/native-runtime.md#migrating-native-pixel-apis-to-02).
+
+Validation: Node 22 built both targets and passed 47 tests. The private app generated 20 assets and 17 skins, typechecked, linted and exported for both platforms. Freshly built iOS 26.5 and Android API 36 simulator clients passed the functional GPU suite, 18 general and 18 Picture performance fixtures per platform, and the mounted-view/focus/teardown checks. These were Debug native clients with production JavaScript; they do not establish physical-device or Release performance.
+
+## 0.1.6 — 2026-10-28
+
+Unpublished preparation, superseded by 0.2.0.
+
+### Changed
+
+- Adopt published CLI 3.7.0 and ui-document 0.13.2 as exact generator
+  dependencies, with a matching pnpm lock. Button subclasses retain literal
+  label/group strings and named-state values during KUI compilation.
+- Revalidate the isolated CLI compiler subpath with the existing generator
+  and watcher tests. Native rendering, exports, Core/UI/Skia requirements and
+  authored resource/KUI formats remain unchanged.
+
+### Compatibility and adoption
+
+- This package's dependency metadata changes, so it needs a patch release.
+  No other engine SDK needs a version bump. Existing native development builds
+  can be reused; regenerate entries and rebuild embedded JavaScript bundles.
+- The independent native test host uses this local file package. The registry
+  Demo keeps Skia 0.1.5 until 0.1.6 is published; upgrading its separate root
+  CLI/document dependencies does not replace Skia 0.1.5's pinned compiler copy.
+- Build and all 45 Node tests pass with the new registry dependencies. This
+  dependency update does not rerun or relabel historical native GPU acceptance.
+
 ## 0.1.5 — 2026-10-11
 
-Prepared for publication; registry publication is pending.
+Published; registry availability rechecked on 2026-10-28.
 
 ### Added and changed
 

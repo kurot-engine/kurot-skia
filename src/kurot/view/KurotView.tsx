@@ -119,7 +119,9 @@ export function KurotView({ width, height, createScene, onStats, onError }: Kuro
 			if (action === 'begin' && (x < 0 || y < 0 || x > width || y > stageHeight)) {
 				continue;
 			}
-			input.current?.[action](x, y, Number(touch.identifier));
+			void input.current?.[action](x, y, Number(touch.identifier)).catch((error: unknown) => {
+				callbacks.current.onError(error instanceof Error ? error.message : String(error));
+			});
 		}
 	};
 
@@ -147,7 +149,7 @@ export function KurotView({ width, height, createScene, onStats, onError }: Kuro
 				}}
 				style={styles.canvas}
 				pointerEvents="none"
-				opaque
+				android={{ opaque: true }}
 			/>
 			<NativeInputOverlay stage={inputStage} width={size.width} height={size.height} />
 		</View>

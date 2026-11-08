@@ -1,9 +1,11 @@
-import { Texture, textureScaleFactor } from '@kurot/core/dist/kurot/display/texture/Texture.js';
-import type { DisplayObject, Graphics, Rectangle } from '@kurot/core';
+import { Texture as CoreTexture, textureScaleFactor } from '@kurot/core/dist/kurot/display/texture/Texture.js';
+import type { DisplayObject, Graphics, Rectangle, Texture as HostTexture } from '@kurot/core';
 import { AlphaType, ColorType, Skia } from 'react-native-skia';
 
 import { SkiaRenderer } from '../rendering/SkiaRenderer.js';
 import { createSkiaBitmapData, getSkiaImage } from '../resources/textures.js';
+
+const Texture: typeof HostTexture = CoreTexture;
 
 /**
  * Explicit captures preserve the Core texture's physical sizing contract.
@@ -30,9 +32,7 @@ export class RenderTexture extends Texture {
 			renderer.renderLocal(object, canvas);
 			surface.flush();
 			const data = createSkiaBitmapData(surface.makeImageSnapshot());
-			const previous = this.bitmapData;
 			this.setBitmapData(data);
-			previous?.dispose();
 			return true;
 		} finally {
 			try {
@@ -43,13 +43,17 @@ export class RenderTexture extends Texture {
 			}
 		}
 	}
-	public override getPixel32(x: number, y: number): number[] {
+	/**
+	 * Reads physical RGBA channels without blocking the React Native runtime.
+	 * A missing capture or an out-of-bounds coordinate returns an empty array.
+	 */
+	public async readPixel32(x: number, y: number): Promise<number[]> {
 		const image = this.bitmapData ? getSkiaImage(this.bitmapData) : undefined;
 		if (!image) return [];
 		const px = Math.round(x / textureScaleFactor);
 		const py = Math.round(y / textureScaleFactor);
 		if (px < 0 || py < 0 || px >= image.width() || py >= image.height()) return [];
-		const pixels = image.readPixels(px, py, {
+		const pixels = await image.readPixels(px, py, {
 			width: 1,
 			height: 1,
 			colorType: ColorType.RGBA_8888,

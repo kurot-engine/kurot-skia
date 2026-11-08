@@ -1,14 +1,15 @@
 import { existsSync, readFileSync, realpathSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import * as path from 'node:path';
+import { satisfies } from 'semver';
 import type { CustomResolver, Resolution } from 'metro-resolver';
 
-function hostPackage(root: string, name: string, version: string): string {
+function hostPackage(root: string, name: string, range: string): string {
 	const directory = realpathSync(path.join(root, 'node_modules', name));
 	const info = JSON.parse(readFileSync(path.join(directory, 'package.json'), 'utf8')) as { version: string };
-	if (info.version !== version) {
+	if (!satisfies(info.version, range)) {
 		throw new Error(
-			`@kurot/skia currently requires ${name} ${version}; found ${info.version}. Revalidate the native module mappings before upgrading.`,
+			`@kurot/skia currently requires ${name} ${range}; found ${info.version}. Revalidate the native module mappings before upgrading.`,
 		);
 	}
 	return directory;
@@ -20,12 +21,15 @@ function hostPackage(root: string, name: string, version: string): string {
  */
 export function createKurotResolver(projectRoot: string, previous?: CustomResolver): CustomResolver {
 	const root = path.resolve(projectRoot);
-	const core = hostPackage(root, '@kurot/core', '2.5.3');
-	const ui = existsSync(path.join(root, 'node_modules/@kurot/ui'))
-		? hostPackage(root, '@kurot/ui', '3.5.0')
-		: undefined;
 	const hostRequire = createRequire(path.join(root, 'package.json'));
 	const native = path.dirname(hostRequire.resolve('@kurot/skia'));
+	const { peerDependencies } = JSON.parse(readFileSync(path.resolve(native, '../../package.json'), 'utf8')) as {
+		peerDependencies: Record<'@kurot/core' | '@kurot/ui', string>;
+	};
+	const core = hostPackage(root, '@kurot/core', peerDependencies['@kurot/core']);
+	const ui = existsSync(path.join(root, 'node_modules/@kurot/ui'))
+		? hostPackage(root, '@kurot/ui', peerDependencies['@kurot/ui'])
+		: undefined;
 	const ports = new Map(
 		[
 			['net/HttpRequest.js', 'resources/NativeHttpRequest.js'],

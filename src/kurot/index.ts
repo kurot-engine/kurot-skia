@@ -12,6 +12,7 @@ export { SkiaRenderer } from './rendering/SkiaRenderer.js';
 
 // ── Caching ──
 
+export { RenderTexture as NativeRenderTexture } from './cache/NativeRenderTexture.js';
 export { NativePictureCache } from './cache/NativePictureCache.js';
 export type { NativePictureCacheLimits, NativePictureCacheStats } from './cache/NativePictureCacheRenderer.js';
 
@@ -24,6 +25,7 @@ export { clearNativeFonts } from './text/NativeFontManager.js';
 
 // ── Input ──
 
+export { hitTestNative } from './input/native-hit.js';
 export { NativeTouch } from './input/NativeTouch.js';
 export { NativeInputOverlay } from './input/NativeInputOverlay.js';
 export type { NativeInputOverlayProps } from './input/NativeInputOverlay.js';
@@ -31,6 +33,7 @@ export { activeNativeInput, blurNativeInput, updateNativeInput } from './input/N
 
 // ── Resources ──
 
+export { prepareNativeAtlas } from './resources/atlas-pixels.js';
 export { createSkiaTexture, createSkiaBitmapData, getSkiaImage } from './resources/textures.js';
 export { registerNativeAssets, getNativeAsset } from './resources/native-assets.js';
 export type { NativeAsset } from './resources/native-assets.js';

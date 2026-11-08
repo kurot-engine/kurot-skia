@@ -44,9 +44,9 @@ export async function runGalleryChecks(): Promise<void> {
     const player = { render: (): void => {} }; ticker.addPlayer(player);
     let restore: (() => void) | undefined;
     const validate = (): void => { ticker.update(true); };
-    const tap = (component: Component, id: number): void => {
+    const tap = async (component: Component, id: number): Promise<void> => {
         const p = component.localToGlobal(component.width / 2, Math.min(component.height / 2, 24));
-        input.begin(p.x, p.y, id); input.end(p.x, p.y, id); validate();
+        await input.begin(p.x, p.y, id); await input.end(p.x, p.y, id); validate();
     };
     try {
         await resources.loadConfig('resource/resource.json', 'resource/'); await resources.loadGroup('preload');
@@ -54,7 +54,7 @@ export async function runGalleryChecks(): Promise<void> {
         const gallery = makeGallery(); stage.addChild(gallery); await Promise.resolve(); validate();
         const controls = gallery.$children as Component[];
         for (const component of controls) assert(component.skin, `original skin missing: ${component.constructor.name}`);
-        const pixels = readGPU(stage, renderer, 512, 1024);
+        const pixels = await readGPU(stage, renderer, 512, 1024);
         for (const component of controls) {
             if (component instanceof Scroller) continue;
             let ink = 0;
@@ -67,20 +67,20 @@ export async function runGalleryChecks(): Promise<void> {
         }
         const check = controls.find((c): c is CheckBox => c instanceof CheckBox); assert(check, 'CheckBox exists');
         const checkboxPoint = check.localToGlobal(16, 16);
-        input.begin(checkboxPoint.x, checkboxPoint.y, 11); input.end(checkboxPoint.x, checkboxPoint.y, 11); validate();
+        await input.begin(checkboxPoint.x, checkboxPoint.y, 11); await input.end(checkboxPoint.x, checkboxPoint.y, 11); validate();
         assert(check.selected && !check.touchCaptured && check.skin?.currentState === 'downAndSelected', 'native toggle selects skin');
         const slider = controls.find((c): c is HSlider => c instanceof HSlider); assert(slider?.thumb, 'HSlider thumb');
         slider.minimum = 0; slider.maximum = 100; slider.value = 20; validate();
         const start = slider.thumb.localToGlobal(slider.thumb.width / 2, slider.thumb.height / 2);
-        input.begin(start.x, start.y, 12); input.move(start.x + 90, start.y, 12); input.end(start.x + 90, start.y, 12); validate();
+        await input.begin(start.x, start.y, 12); await input.move(start.x + 90, start.y, 12); await input.end(start.x + 90, start.y, 12); validate();
         assert(slider.value > 20, 'native slider drag');
         const combo = controls.find((c): c is ComboBox => c instanceof ComboBox); assert(combo, 'ComboBox exists');
         combo.open(); validate(); assert(combo.isOpen && combo.list?.numElements === 3, 'ComboBox populated popup');
         combo.selectedIndex = 2; combo.close(); validate(); assert(combo.text === 'three' && !combo.isOpen, 'ComboBox close');
         const panel = controls.find((c): c is Panel => c instanceof Panel); assert(panel?.closeButton, 'Panel close part');
         const cancel = (event: UIEvent): void => event.preventDefault(); panel.addEventListener(UIEvent.CLOSING, cancel);
-        tap(panel.closeButton, 13); assert(panel.parent === gallery, 'cancelled panel close');
-        panel.removeEventListener(UIEvent.CLOSING, cancel); tap(panel.closeButton, 14); assert(!panel.parent, 'Panel close');
+        await tap(panel.closeButton, 13); assert(panel.parent === gallery, 'cancelled panel close');
+        panel.removeEventListener(UIEvent.CLOSING, cancel); await tap(panel.closeButton, 14); assert(!panel.parent, 'Panel close');
         const model = new Model(); const label = new Label();
         const binding = Binding.bindProperty(model, ['value'], label, 'text'); assert(label.text === 'first', 'binding initial');
         model.change('second'); assert(String(label.text) === 'second', 'binding event');
@@ -93,11 +93,11 @@ export async function runGalleryChecks(): Promise<void> {
         Row.created = 0; stage.addChild(list); validate();
         assert(list.numElements === 5000 && Row.created < 30, 'virtual list creates visible rows only');
         for (const offset of [4800, 48000, 120000, 0]) {
-            list.scrollV = offset; validate(); readGPU(stage, renderer, 512, 1024);
+            list.scrollV = offset; validate(); await readGPU(stage, renderer, 512, 1024);
             assert(list.$children.length < 30 && Row.created < 40, 'virtual list recycling');
         }
         const selected = list.$children.find((child) => child instanceof Row); assert(selected instanceof Row, 'visible row');
-        tap(selected, 15); assert(list.selectedIndex >= 0, 'native virtual list selection'); stage.removeChildren();
+        await tap(selected, 15); assert(list.selectedIndex >= 0, 'native virtual list selection'); stage.removeChildren();
         const edit = new EditableText(); edit.prompt = 'placeholder'; edit.width = 200; edit.height = 48;
         stage.addChild(edit); validate(); let focused = 0; let blurred = 0;
         edit.addEventListener(FocusEvent.FOCUS_IN, () => { focused++; }); edit.addEventListener(FocusEvent.FOCUS_OUT, () => { blurred++; });

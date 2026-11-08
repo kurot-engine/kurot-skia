@@ -7,6 +7,7 @@ import type { SkCanvas } from 'react-native-skia';
 import { NativeBitmapRenderer } from './NativeBitmapRenderer.js';
 import { NativeBitmapBatchRenderer } from './NativeBitmapBatchRenderer.js';
 import { NativeCacheRenderer } from '../cache/NativeCacheRenderer.js';
+import { nativePixelHit } from '../input/native-hit.js';
 import { NativeEffects } from './NativeEffects.js';
 import { NativeGraphicsRenderer } from './NativeGraphicsRenderer.js';
 import { NativeMeshRenderer } from './NativeMeshRenderer.js';
@@ -45,7 +46,7 @@ export class SkiaRenderer {
 		this.maskPaint.setBlendMode(BlendMode.DstIn);
 		if (!ownsHitTests) return;
 		setGraphicsHitTest((graphics, x, y) => this.graphics.hitTest(graphics, x, y));
-		setBitmapPixelHitTest((bitmap, x, y) => this.pixelHit(bitmap, x, y));
+		setBitmapPixelHitTest((bitmap, x, y) => nativePixelHit(bitmap, () => this.pixelHit(bitmap, x, y)));
 	}
 
 	public get estimatedCacheBytes(): number {
@@ -230,6 +231,8 @@ export class SkiaRenderer {
 			case 7:
 				count += this.bitmap.drawGlyphs(object as BitmapText, canvas, alpha, tint);
 				break;
+			case 8:
+				throw new Error('BackdropBlur is not supported by the native renderer.');
 			case 0:
 				break;
 			default:
@@ -256,7 +259,7 @@ export class SkiaRenderer {
 		return count;
 	}
 
-	private pixelHit(bitmap: Bitmap, x: number, y: number): boolean {
+	private async pixelHit(bitmap: Bitmap, x: number, y: number): Promise<boolean> {
 		const surface = Skia.Surface.MakeOffscreen(1, 1);
 		if (!surface) return false;
 		try {
@@ -266,7 +269,7 @@ export class SkiaRenderer {
 			if (bitmap.$renderObjectType === 2) this.mesh.draw(bitmap as Mesh, canvas, 1, 0xffffff);
 			else this.bitmap.draw(bitmap, canvas, 1, 0xffffff);
 			surface.flush();
-			const pixels = canvas.readPixels(0, 0, {
+			const pixels = await canvas.readPixels(0, 0, {
 				width: 1,
 				height: 1,
 				colorType: ColorType.RGBA_8888,

@@ -1,3 +1,4 @@
+import { cropAtlasPixels, rememberCropOpacity } from '../resources/atlas-pixels.js';
 import type { Bitmap, Rectangle } from '@kurot/core';
 import { ColorType, FilterMode, MipmapMode, Skia } from 'react-native-skia';
 import type { SkCanvas, SkImage, SkPaint } from 'react-native-skia';
@@ -151,36 +152,17 @@ export class NativeNineSliceRenderer {
 		if (cached) {
 			return cached;
 		}
-		// Copy source pixels once without an intermediate premultiplied render target.
-		const info = {
-			width: physicalWidth,
-			height: physicalHeight,
-			colorType: ColorType.RGBA_8888,
-			alphaType: image.getImageInfo().alphaType,
-		};
-		const pixels = image.readPixels(bitmap.bitmapX, bitmap.bitmapY, info);
-		if (!(pixels instanceof Uint8Array)) {
-			throw new Error('Skia nine-slice source crop read failed.');
-		}
-		const upright = rotated ? new Uint8Array(pixels.length) : pixels;
-		if (rotated) {
-			for (let y = 0; y < bitmap.bitmapHeight; y++) {
-				for (let x = 0; x < bitmap.bitmapWidth; x++) {
-					const source = (x * physicalWidth + physicalWidth - 1 - y) * 4;
-					upright.set(pixels.subarray(source, source + 4), (y * bitmap.bitmapWidth + x) * 4);
-				}
-			}
-		}
-		const data = Skia.Data.fromBytes(upright);
+		const bytes = cropAtlasPixels(image, bitmap.bitmapX, bitmap.bitmapY, bitmap.bitmapWidth, bitmap.bitmapHeight, rotated);
+		const data = Skia.Data.fromBytes(bytes);
 		try {
-			const frame = Skia.Image.MakeImage(
-				{ ...info, width: bitmap.bitmapWidth, height: bitmap.bitmapHeight },
-				data,
-				bitmap.bitmapWidth * 4,
-			);
+			const frame = Skia.Image.MakeRaster({
+				width: bitmap.bitmapWidth, height: bitmap.bitmapHeight,
+				colorType: ColorType.RGBA_8888, alphaType: image.getImageInfo().alphaType,
+			}, data, bitmap.bitmapWidth * 4);
 			if (!frame) {
-				throw new Error('Skia nine-slice source crop allocation failed.');
+				throw new Error('Skia atlas crop allocation failed.');
 			}
+			rememberCropOpacity(frame, bytes);
 			if (!frames) {
 				frames = new Map();
 				this.frames.set(image, frames);

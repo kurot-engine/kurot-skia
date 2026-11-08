@@ -40,10 +40,10 @@ async function check(version: string, load: () => Promise<CacheFixture>): Promis
         assert(cache.frameCount > 10 && cache.geometryBytes > 0, `Spine ${version} populated sampled geometry`);
         for (const frame of [0, 1, 7, 20, cache.frameCount - 1]) {
             a.seek(frame * 1000 / 60); b.seek((frame * 1000 / 60 + 61) % cache.durationMs);
-            stage.addChild(a); stage.addChild(b); const actual = readGPU(stage, renderer);
+            stage.addChild(a); stage.addChild(b); const actual = await readGPU(stage, renderer);
             stage.removeChildren(); advance(live, Math.round(a.sampleTimeMs * 60 / 1000), 60);
             advance(other, Math.round(b.sampleTimeMs * 60 / 1000), 60);
-            stage.addChild(live); stage.addChild(other); const expected = readGPU(stage, reference); stage.removeChildren();
+            stage.addChild(live); stage.addChild(other); const expected = await readGPU(stage, reference); stage.removeChildren();
             compare(actual, expected, `Spine ${version} sampled weighted poses, phases and paint`);
             assert(actual.some((value, index) => index % 4 === 3 && value), `Spine ${version} cache visible pixels`);
         }
@@ -70,19 +70,19 @@ async function check(version: string, load: () => Promise<CacheFixture>): Promis
         const clean = new SkiaRenderer(); const make = Skia.MakeVertices; let allocations = 0;
         Skia.MakeVertices = (...args: Parameters<typeof make>): ReturnType<typeof make> => { allocations++; return make.apply(Skia, args); };
         try {
-            a.seek(0); b.seek(0); stage.addChild(a); stage.addChild(b); readGPU(stage, clean);
+            a.seek(0); b.seek(0); stage.addChild(a); stage.addChild(b); await readGPU(stage, clean);
             const initial = allocations; assert(initial > 0, 'cache builds native vertices');
-            a.seek(100); b.seek(100); readGPU(stage, clean); assert(allocations > initial, 'different cache pose has distinct native geometry');
+            a.seek(100); b.seek(100); await readGPU(stage, clean); assert(allocations > initial, 'different cache pose has distinct native geometry');
             const changed = allocations;
-            a.seek(0); b.seek(0); readGPU(stage, clean); assert(allocations === changed, 'cached native pose reused across frames and actors');
-            stage.removeChild(a); readGPU(stage, clean); assert(allocations === changed, 'one actor disposal preserves shared native owner');
+            a.seek(0); b.seek(0); await readGPU(stage, clean); assert(allocations === changed, 'cached native pose reused across frames and actors');
+            stage.removeChild(a); await readGPU(stage, clean); assert(allocations === changed, 'one actor disposal preserves shared native owner');
         } finally { Skia.MakeVertices = make; clean.dispose(); stage.removeChildren(); }
         cache.dispose(); cache.dispose(); assert(!a.renderer.numChildren && !b.renderer.numChildren, 'cache disposes live player geometry');
         throws(() => cache.createPlayer(), 'disposed cache rejects players');
         throws(() => a.seek(0), 'disposed cache player rejects seek');
-        readGPU(stage, renderer);
+        await readGPU(stage, renderer);
         const fresh = fixture.createSource(); position(fresh); stage.addChild(fresh); fresh.play('walk', -1);
-        assert(readGPU(stage, renderer).some((value, index) => index % 4 === 3 && value), 'cache disposal borrows original atlas textures');
+        assert((await readGPU(stage, renderer)).some((value, index) => index % 4 === 3 && value), 'cache disposal borrows original atlas textures');
         stage.removeChildren(); fresh.stopAll();
     } finally { stage.removeChildren(); cache.dispose(); live.stopAll(); other.stopAll(); renderer.dispose(); reference.dispose(); fixture.dispose(); }
     console.info(`Kurot Skia: Spine ${version} shared cache passed (sample-time GPU oracle, phases, native reuse, bounds and lifecycle).`);

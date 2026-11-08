@@ -1,4 +1,4 @@
-// Metro selects modules from the host Core 2.5.3 installation, preserving object identity.
+// Metro selects modules from the host Core installation, preserving object identity.
 
 // ── Display objects and Graphics ──
 
@@ -9,6 +9,7 @@ export { DisplayObjectContainer } from '@kurot/core/dist/kurot/display/DisplayOb
 export { Stage } from '@kurot/core/dist/kurot/display/Stage.js';
 export { Sprite } from '@kurot/core/dist/kurot/display/Sprite.js';
 export { Shape } from '@kurot/core/dist/kurot/display/Shape.js';
+export { BackdropBlur } from '@kurot/core/dist/kurot/display/BackdropBlur.js';
 export { Bitmap } from '@kurot/core/dist/kurot/display/Bitmap.js';
 export { Mesh } from '@kurot/core/dist/kurot/display/Mesh.js';
 export { Graphics, setGraphicsHitTest } from '@kurot/core/dist/kurot/display/Graphics.js';

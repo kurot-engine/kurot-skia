@@ -2,7 +2,7 @@
 
 This private Expo application installs the checkout through `file:../../..`.
 It never replaces the registry installation in `Kurot-Skia-Demo`. Published Core
-2.5.3/UI 3.5.0/Game 2.0.0 and Spine 4.0–4.3 are tested without SDK edits.
+3.2.3/UI 5.1.2/Game 3.0.1 and Spine 4.0–4.3 are tested without SDK edits.
 
 From the library:
 
@@ -15,9 +15,7 @@ pnpm --dir tests/native/app lint
 pnpm dev --project tests/native/app -- expo start --dev-client --clear
 ```
 
-Use a native development build containing Skia 3.3.0. The test host has the same
-native dependency set as the Demo, so its existing simulator client can load this
-Metro project. New native test builds use separate iOS/Android application IDs
+Use a fresh Expo 58 development build containing RN 0.88 and Skia 3.9. An old Demo client cannot load this host. New native test builds use separate iOS/Android application IDs
 and do not replace the Demo. A separate test device/client is preferable when
 preserving a running Demo. For a new client, run `expo run:ios` or `expo run:android`
 in this app after generation. Platform projects are ignored.
@@ -111,7 +109,7 @@ host/device acceptance. Fast Refresh runs are serialized and cancelled during
 benchmarks; acceptance records should come from a fresh launch.
 
 To retain production-JS diagnostics independently of console output, start the
-optional loopback collector from the library (the compilation works on Node 20):
+optional loopback collector from the library (use Node 22.22 or later on the 22 LTS line):
 
 ```sh
 pnpm exec tsc -p tests/native/tsconfig.collector.json

@@ -1,6 +1,6 @@
 # Kurot Skia
 
-`@kurot/skia` **0.1.5** — native Skia rendering adapters and resource/KUI entry generation for Kurot applications.
+`@kurot/skia` **0.2.0** — native Skia rendering adapters and resource/KUI entry generation for Kurot applications.
 
 [简体中文](docs/README.zh-CN.md) · [Native runtime guide](docs/native-runtime.md) · [Library development](docs/development.md) · [Adaptation plan](docs/PLAN.md) · [Changelog](CHANGELOG.md)
 
@@ -8,11 +8,11 @@ Turn an existing `resource.json`, local assets and KUI XML skins into a static T
 
 The package provides a React Native runtime, a Metro resolver helper, a Node CLI and a build-script API. The sibling `Kurot-Skia-Demo` uses the library renderer and keeps its scenes and project initialization. Applications can consume the npm release; use a local dependency when developing the library itself.
 
-Version 0.1.5 is prepared with opt-in Picture caching, runtime directory organization and grouped exports. Publication is pending; use the 0.1.5 installation commands after registry availability is confirmed. Published 0.1.4 was verified on 2026-10-11; the Demo still installs exact registry 0.1.4.
+Source version 0.2.0 targets Core 3.2, UI 5.1, CLI 5 and Expo SDK 58. It has not been published; the separate Demo still uses npm 0.1.5. Use the local test host to try this checkout. Registry installation commands below apply after 0.2.0 is published.
 
 Version 0.1.3 adds native Mesh, Game/Spine/DragonBones rendering, broader UI/text/input support and an opt-in shared Spine animation cache. It retains 0.1.2's native `drawImageNine` and cached atlas crops. The same 48 GPU cases pass on iOS 18.2/26.5 and Android API 36 simulations, covering fractional transforms, atlas density/trim, smoothing and opacity. Crops copy source pixels on first use and retain the source alpha representation; subsequent draws reuse them.
 
-**Migration:** upgrading from 0.1.2–0.1.4 preserves source geometry, package entries, resource/KUI formats and host requirements. From 0.1.1 or earlier, source frames and nine-slice boundaries must be integer physical pixels, with a positive center inside the frame. Logical half-pixel grids work at 2× density; align arbitrary fractional physical splits before upgrading. See [native validation and limits](docs/native-runtime.md#validation-and-limits) for cache lifetime, first-use copying and remaining device tests.
+**Migration:** upgrading from 0.1.2–0.1.5 preserves source geometry, package entries, resource/KUI formats; the native host must be upgraded. From 0.1.1 or earlier, source frames and nine-slice boundaries must be integer physical pixels, with a positive center inside the frame. Logical half-pixel grids work at 2× density; align arbitrary fractional physical splits before upgrading. See [native validation and limits](docs/native-runtime.md#validation-and-limits) for cache lifetime, first-use copying and remaining device tests.
 
 For native rendering, follow the [native runtime guide](docs/native-runtime.md): install the package as a runtime dependency, configure `createKurotResolver()` from `@kurot/skia/metro`, and import `KurotView` from `@kurot/skia`. The instructions below describe resource/KUI generation; generator-only projects can use a development dependency.
 
@@ -48,7 +48,7 @@ Ordered Mesh batches and exact-content native buffer sharing reduce Spine
 recording overhead while retaining independent animation updates. See the
 [Spine optimization report](docs/native-spine-optimization.md) for before/after
 Release measurements and the additional different-phase scene.
-Core/UI sources, Web workflows and SDK version requirements are unchanged.
+Existing benchmark reports describe their recorded SDK and native versions.
 An optional [shared Spine animation cache](docs/native-spine-shared-cache.md)
 bakes one looping action/skin and shares immutable poses/native geometry among
 independently phased actors. It samples at 60 Hz by default; live skeleton edits,
@@ -63,26 +63,28 @@ this backend is not implemented.
 
 ## Install the generator
 
-The generator requires Node.js >=20 and pnpm. Your application has its own platform requirements; the Demo's Expo SDK 57 requires Node.js >=22.13 ([Expo SDK reference](https://docs.expo.dev/versions/v57.0.0/)).
+Use Node.js 22.22 or newer on the 22 LTS line and pnpm. Other supported Node lines are listed in the package engines field. The native test app uses Expo SDK 58.
 
 Install the generator in an existing Kurot project:
 
 ```sh
 # In your application
-pnpm add --save-dev '@kurot/skia@0.1.5'
+pnpm add --save-dev '@kurot/skia@^0.2.0'
 ```
 
 For an Expo application, use [Expo's installer](https://docs.expo.dev/more/expo-cli/#install-dependencies) for that step:
 
 ```sh
-pnpm exec expo install '@kurot/skia@0.1.5' --dev --pnpm
+pnpm exec expo install '@kurot/skia@^0.2.0' --dev --pnpm
 ```
 
 For native rendering, omit `--dev` so the library is a runtime dependency, then follow the [native runtime guide](docs/native-runtime.md). Applications using the npm package need no library checkout; use the installed resource-watch commands below.
 
-The Demo consumes npm `@kurot/skia@0.1.4`. Its `pnpm dev --ios` or `pnpm dev --android` watches project resources and starts Expo. To test unpublished library changes, use an application installation explicitly declaring a local `file:` dependency and run the library's development supervisor. An existing native development build is required. See [library development](docs/development.md) for setup, synchronization and cleanup.
+The Demo consumes npm `@kurot/skia@0.1.5`. Its `pnpm dev --ios` or `pnpm dev --android` watches project resources and starts Expo. To test unpublished library changes, use an application installation explicitly declaring a local `file:` dependency and run the library's development supervisor. An existing native development build is required. See [library development](docs/development.md) for setup, synchronization and cleanup.
 
-After publication, adopt 0.1.5 with `pnpm exec expo install '@kurot/skia@0.1.5' --pnpm`, then restart Metro with `--clear`. An existing development build containing Skia 3.3.0 can be reused because this release changes JavaScript adapters only; rebuild an embedded Release bundle. Core 2.5.3, UI 3.5.0 and Skia 3.3.0 requirements stay the same. Resource/KUI formats and generated entries do not change. Exact older dependencies need an explicit update, while compatible 0.1.x ranges can adopt through installation/lockfile updates. Generator-only projects can adopt separately without a native migration.
+After publication, install the 0.2 series, regenerate entries, rebuild the native client and restart Metro with `--clear`. The [native guide](docs/native-runtime.md#install-in-an-application) lists the supported host ranges and the React renderer exception. A client built for 0.1.x cannot load the new Skia native module.
+
+Native pixel reads are asynchronous: use `NativeRenderTexture.readPixel32()`, `hitTestNative()`, and [prepare manually created atlases](docs/native-runtime.md#migrating-native-pixel-apis-to-02) before drawing subframes.
 
 ## Generate your project entry
 
@@ -199,7 +201,7 @@ Connect these values to your host adapters:
 
 The Demo implements these connections in `src/resources/bundled.ts` and `src/ui/native-ui.ts`, using runtime adapters from `@kurot/skia`. Creating a new native application requires the Metro configuration and canvas setup in the native guide. Generated modules alone do not start the engine.
 
-Skin modules import `@kurot/core` and `@kurot/ui`; the host supplies those packages. The Demo's tested baseline is Core 2.5.3 and UI 3.5.0. Core/UI are optional host peers for the package runtime; the Node generator does not load them.
+Skin modules import `@kurot/core` and `@kurot/ui`; the host supplies those packages. The private test host locks Core 3.2.3 and UI 5.1.2. Core/UI are optional host peers for the package runtime; the Node generator does not load them.
 
 ### Theme mapping
 
@@ -300,7 +302,7 @@ Remote URLs are retained for runtime loading. They are not downloaded or watched
 
 Resource generation does not provide every platform capability. Version 0.1.3 includes bitmap-font rendering, explicit bundled-font registration, broader UI regression and an optional audio contract; actual media playback still needs a project-owned backend. `style.json` compilation does not initialize project fonts automatically. Consult the [current assessment](docs/native-feature-assessment.md) before relying on a particular control or resource type.
 
-Compiler behavior comes from pinned `@kurot/cli` 3.6.0 and `@kurot/ui-document` 0.13.1. The compiler's internal import is isolated in `src/generator/compiler.ts`; validate it when updating CLI.
+Compiler behavior comes from `@kurot/cli` ~5.0.0 and `@kurot/ui-document` ^0.14.0. The compiler's internal import is isolated in `src/generator/compiler.ts`; validate it when updating CLI.
 
 ## Develop the library
 

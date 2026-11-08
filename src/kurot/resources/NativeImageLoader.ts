@@ -8,6 +8,7 @@ import type { BitmapData } from '@kurot/core';
 import type { ImageLoaderEvents } from '@kurot/core';
 
 import { getNativeAsset, isNativeURI } from './native-assets.js';
+import { prepareNativeAtlas } from './atlas-pixels.js';
 import { createSkiaBitmapData } from './textures.js';
 
 const EventDispatcher: typeof CoreEventDispatcher = Dispatcher;
@@ -44,6 +45,12 @@ export class ImageLoader extends EventDispatcher<ImageLoaderEvents> {
 			const image = await loadImage(asset?.source ?? url);
 			if (!image) {
 				throw new Error(`Unable to decode image: ${url}`);
+			}
+			try {
+				await prepareNativeAtlas(image);
+			} catch (error) {
+				image.dispose();
+				throw error;
 			}
 			if (generation !== this.generation) {
 				image.dispose();
